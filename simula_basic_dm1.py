@@ -9,7 +9,7 @@ mean_delay = {}
 
 for i, arr_time in enumerate(ARRIVAL_TIMES):
     print(arr_time)
-    def arr(t): return t+ np.random.exponential(arr_time)
+    def arr(t): return t+ arr_time
     def ser(t): return t + np.random.exponential(1)
     q = qt.QueueServer(1, arrival_f=arr, service_f=ser)
     q.clear()
@@ -18,6 +18,6 @@ for i, arr_time in enumerate(ARRIVAL_TIMES):
     q.simulate(n=10000, nD=10000)
     num_events = q.num_arrivals[0] + q.num_departures
     data = q.data
-    arq_nome = "experimentos/mm1_ro_" + str(RO[i]) + ".txt"
+    arq_nome = "experimentos/dm1/dm1_ro_" + str(RO[i]) + ".txt"
     with open(arq_nome, 'w') as f:
         f.write(str(data))
