@@ -1,4 +1,9 @@
-from mean_aoi import mean_aoi
+from heapq import heappush, heappop, nlargest
 
-aoi = mean_aoi("experimentos/mm1_ro_0.05.txt")
-print(aoi)
+a = []
+for i in range(10):
+    heappush(a, i+5)
+heappush(a, 2)
+print(heappop(a))
+print(heappop(a))
+print(nlargest(1, a)[0])
