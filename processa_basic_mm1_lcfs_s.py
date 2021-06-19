@@ -12,13 +12,13 @@ analit_aoi = {}
 
 for ro in RO:
     print("Processando mm1_ro_%s" %(str(ro)))
-    path = "experimentos/lcfs_preemp_sv/mm1_ro_" + str(ro) + ".txt"
+    path = "experimentos/dm1_lcfs_s/mm1_ro_" + str(ro) + ".txt"
     sim_aoi[ro] = mean_aoi_lcfs(path)
     analit_aoi[ro] = calc_analitic_aoi(ro, 1)
 
-with open("resultados/sim_mm1_lcfs_aoi.txt", 'w') as f:
+with open("resultados/sim_mm1_lcfs_s_aoi.txt", 'w') as f:
     f.write(str(sim_aoi))
 
-with open("resultados/analit_mm1_lcfs_aoi.txt", 'w') as f:
+with open("resultados/analit_mm1_lcfs_s_aoi.txt", 'w') as f:
     f.write(str(analit_aoi))
 
