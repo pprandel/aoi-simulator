@@ -17,7 +17,7 @@ with the information at the source node
 
 import ast
 
-def mean_aoi(data_file):
+def mean_aoi_lcfs(data_file):
     
     def Qi(Ti, Yi):
         return 0.5*(Ti + Yi)**2 - 0.5*Ti**2
@@ -33,9 +33,7 @@ def mean_aoi(data_file):
 
     for value in data.values():
         if value[0][2] == 0: 
-            t_fim = ti
-            m_aoi = Qi_total / (t_fim - t_inicio)
-            return m_aoi
+            continue
         Yi = value[0][0] - ti
         ti = value[0][0]
         Ti = value[0][2] - ti
