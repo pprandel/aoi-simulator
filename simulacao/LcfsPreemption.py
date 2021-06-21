@@ -31,44 +31,53 @@ class LcfsPreemption(qt.QueueServer):
 
     def next_event(self):
         
-        # Preemption in service
-        if self.preemption == 0:
+        if self._departures[0]._time < self._arrivals[0]._time:
+            new_depart = heappop(self._departures)
+            self._current_t = new_depart._time
+            self._num_total -= 1
+            self.num_system -= 1
+            self.num_departures += 1
 
-            if self._departures[0]._time < self._arrivals[0]._time:
-                new_depart = heappop(self._departures)
-                self._current_t = new_depart._time
-                self._num_total -= 1
-                self.num_system -= 1
-                self.num_departures += 1
+            if self.collect_data and new_depart.agent_id in self.data:
+                self.data[new_depart.agent_id][-1][2] = self._current_t
 
-                if self.collect_data and new_depart.agent_id in self.data:
-                    self.data[new_depart.agent_id][-1][2] = self._current_t
+            # Preemption in waiting 
+            if self.preemption == 1 and len(self.queue) > 0:
+                agent = self.queue.popleft()
+                if self.collect_data and agent.agent_id in self.data:
+                    self.data[agent.agent_id][-1][1] = self._current_t
 
-                new_depart.queue_action(self, 2)
-                self._update_time()
-                return new_depart
+                agent._time = self.service_f(self._current_t)
+                agent.queue_action(self, 1)
+                heappush(self._departures, agent)
 
-            elif self._arrivals[0]._time < infty:
-                arrival = heappop(self._arrivals)
-                self._current_t = arrival._time
+            new_depart.queue_action(self, 2)
+            self._update_time()
+            return new_depart
 
-                if self._active:
-                    self._add_arrival()
+        elif self._arrivals[0]._time < infty:
+            arrival = heappop(self._arrivals)
+            self._current_t = arrival._time
 
-                self.num_system += 1
-                self._num_arrivals += 1
+            if self._active:
+                self._add_arrival()
 
-                if self.collect_data:
-                    b = 0 if self.num_system <= self.num_servers else 1
-                    if arrival.agent_id not in self.data:
-                        self.data[arrival.agent_id] = \
-                            [[arrival._time, 0, 0, 0, self.num_system]]
-                    else:
-                        self.data[arrival.agent_id]\
-                            .append([arrival._time, 0, 0, 0, self.num_system])
+            self.num_system += 1
+            self._num_arrivals += 1
 
-                arrival.queue_action(self, 0)
+            if self.collect_data:
+                b = 0 if self.num_system <= self.num_servers else 1
+                if arrival.agent_id not in self.data:
+                    self.data[arrival.agent_id] = \
+                        [[arrival._time, 0, 0, 0, self.num_system]]
+                else:
+                    self.data[arrival.agent_id]\
+                        .append([arrival._time, 0, 0, 0, self.num_system])
 
+            arrival.queue_action(self, 0)
+
+            # Preemption in service
+            if self.preemption == 0:
                 # No agent in service
                 if self.num_system == 1:
                     if self.collect_data:
@@ -76,9 +85,38 @@ class LcfsPreemption(qt.QueueServer):
                     heappush(self._departures, arrival)
                 # Agent already in service is replaced
                 else:
+                    # Remove agent in service
                     agent_replaced = heappop(self._departures)
                     self.num_system -= 1
+                    # Include new agent in service
                     heappush(self._departures, arrival)
+                    if self.collect_data:
+                        self.data[arrival.agent_id][-1][1] = arrival._time
+                        self.data[agent_replaced.agent_id][-1][1] = 0
+
+                arrival.queue_action(self, 1)
+                arrival._time = self.service_f(arrival._time)
+                self._update_time()
+            
+            # Preemption in waiting
+            elif self.preemption == 1:
+                # No agent in service / waiting
+                if self.num_system == 1:
+                    if self.collect_data:
+                        self.data[arrival.agent_id][-1][1] = arrival._time
+                    heappush(self._departures, arrival)
+
+                # One agent in service
+                elif self.num_system == 2:
+                    self.queue.append(arrival)
+
+                # One agent in service and one agent in waiting
+                else:
+                    # Remove agent in waiting
+                    agent_replaced = self.queue.popleft()
+                    self.num_system -= 1
+                    # Include new arrival in waiting
+                    self.queue.append(arrival)
                     if self.collect_data:
                         self.data[arrival.agent_id][-1][1] = arrival._time
                         self.data[agent_replaced.agent_id][-1][1] = 0
