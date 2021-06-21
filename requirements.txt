@@ -9,4 +9,5 @@ pkg-resources==0.0.0
 pyparsing==2.4.7
 python-dateutil==2.8.1
 queueing-tool==1.2.4
+scipy==1.5.4
 six==1.16.0
