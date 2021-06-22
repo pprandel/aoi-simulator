@@ -37,6 +37,7 @@ class LcfsPreemption(qt.QueueServer):
             self._num_total -= 1
             self.num_system -= 1
             self.num_departures += 1
+            new_depart.queue_action(self, 2)
 
             if self.collect_data and new_depart.agent_id in self.data:
                 self.data[new_depart.agent_id][-1][2] = self._current_t
@@ -51,7 +52,6 @@ class LcfsPreemption(qt.QueueServer):
                 agent.queue_action(self, 1)
                 heappush(self._departures, agent)
 
-            new_depart.queue_action(self, 2)
             self._update_time()
             return new_depart
 
@@ -82,6 +82,7 @@ class LcfsPreemption(qt.QueueServer):
                 if self.num_system == 1:
                     if self.collect_data:
                         self.data[arrival.agent_id][-1][1] = arrival._time
+                    # Go directly to service
                     heappush(self._departures, arrival)
                 # Agent already in service is replaced
                 else:
@@ -104,11 +105,14 @@ class LcfsPreemption(qt.QueueServer):
                 if self.num_system == 1:
                     if self.collect_data:
                         self.data[arrival.agent_id][-1][1] = arrival._time
+                    # Go directly to service
                     heappush(self._departures, arrival)
 
                 # One agent in service
                 elif self.num_system == 2:
                     self.queue.append(arrival)
+                    if len(self.queue) > 1:
+                        print("Error: queue can't be bigger than 1 !")
 
                 # One agent in service and one agent in waiting
                 else:

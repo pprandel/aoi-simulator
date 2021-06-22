@@ -25,7 +25,8 @@ def calc_mm1_1_NP(ro, mu):
 def calc_mm1_2_NP(ro, mu):
     return (1/mu) * (1 + 1/ro + (2*ro**2)/(1+ro+ro**2))
 
-RO = list(np.arange(0.1, 3, 0.01))
+RO_MAX = 3
+RO = list(np.arange(0.1, RO_MAX, 0.01))
 mu = 1
 
 mm1_PS = {}
@@ -65,6 +66,6 @@ ax.tick_params(axis='x', labelsize=12)
 ax.tick_params(axis='y', labelsize=12)
 ax.legend(fontsize=16, loc='upper center')
 ax.set_xlim(0, 3)
-ax.set_xticks(list(np.arange(0.2, 3, 0.4)))
+ax.set_xticks(list(np.arange(0.2, RO_MAX, 0.4)))
 ax.grid(True)
 plt.show()

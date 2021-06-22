@@ -1,5 +1,6 @@
 from LcfsPreemption import LcfsPreemption
 import numpy as np
+import os 
 
 RO = list(np.arange(0.1, 2, 0.1))
 ARRIVAL_TIMES = [1/r for r in RO]
@@ -18,5 +19,7 @@ for i, arr_time in enumerate(ARRIVAL_TIMES):
     num_events = q.num_arrivals[0] + q.num_departures
     data = q.data
     arq_nome = "experimentos/md1_lcfs_w/mm1_ro_" + str(RO[i]) + ".txt"
+    if not os.path.exists('experimentos/md1_lcfs_w'):
+        os.makedirs('experimentos/md1_lcfs_w')
     with open(arq_nome, 'w') as f:
         f.write(str(data))

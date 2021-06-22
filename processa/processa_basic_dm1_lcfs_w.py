@@ -5,7 +5,7 @@ RO = list(np.arange(0.1, 2, 0.1))
 ARRIVAL_TIMES = [1/r for r in RO]
 
 def calc_analitic_aoi(ro, mu):
-    return (1/mu) * ( 1/(2*ro) + ( 1 / ( 1- ( (1/ro)*np.exp(-(1/ro)) ) ) ) )
+    return ( 1/(2*mu*ro) + ( (1/mu) / ( 1 - ( (1/ro)*(np.exp(-(1/ro))) ) ) ) )
 
 sim_aoi = {}
 analit_aoi = {}
