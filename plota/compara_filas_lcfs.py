@@ -1,5 +1,4 @@
 import numpy as np
-from scipy.special import lambertw
 import matplotlib.pyplot as plt
 
 def calc_mm1_PS(ro, mu):

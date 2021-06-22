@@ -1,5 +1,6 @@
 # Git ignore
 
+.vscode/
 experimentos/
 resultados/
 __pycache__/
