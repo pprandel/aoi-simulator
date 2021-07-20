@@ -17,21 +17,17 @@ with the information at the source node
 
 import ast
 
-def mean_aoi(data_file):
+def calc_aoi(data):
     
     def Qi(Ti, Yi):
         return 0.5*(Ti + Yi)**2 - 0.5*Ti**2
-
-    with open (data_file, 'r') as d:
-        data = d.read()
-        data = ast.literal_eval(data)
-
-    ti = data[(0,0)][0][0] # Chegada t0
+    
+    ti = data[0][0][0] # Chegada t0
     t_inicio = ti
     Qi_total = 0
-    data.pop((0,0)) # Remove a primeira entrada
+    data.pop(0) # Remove a primeira entrada
 
-    for value in data.values():
+    for value in data:
         if value[0][2] == 0: 
             t_fim = ti
             m_aoi = Qi_total / (t_fim - t_inicio)
@@ -43,3 +39,36 @@ def mean_aoi(data_file):
     t_fim = ti
     m_aoi = Qi_total / (t_fim - t_inicio)
     return m_aoi
+
+def mean_aoi(data_file):    
+
+    with open (data_file, 'r') as d:
+        data = d.read()
+        data = ast.literal_eval(data)
+
+    data_parsed = []
+    for value in data.values():
+        data_parsed.append(value)
+    return calc_aoi(data_parsed)
+    
+
+def mean_aoi_n_fontes(data_file, n):
+    
+    aoi = {}
+
+    with open (data_file, 'r') as d:
+        data = d.read()
+        data = ast.literal_eval(data)
+    
+    data_por_fonte = [[] for i in range(n)]
+
+    # Separa as fontes
+    for id, value in data.items():
+        fonte = id[0]
+        data_por_fonte[fonte].append(value)
+
+    # Calcula AoI por fonte
+    for i in range(len(data_por_fonte)):
+        aoi[i] = calc_aoi(data_por_fonte[i])
+
+    return aoi
