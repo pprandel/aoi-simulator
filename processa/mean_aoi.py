@@ -16,6 +16,7 @@ with the information at the source node
 """
 
 import ast
+import numpy as np 
 
 def calc_aoi(data):
     
@@ -55,20 +56,25 @@ def mean_aoi(data_file):
 def mean_aoi_n_fontes(data_file, n):
     
     aoi = {}
+    for i in range(n):
+        aoi[i] = np.inf
 
     with open (data_file, 'r') as d:
         data = d.read()
         data = ast.literal_eval(data)
     
-    data_por_fonte = [[] for i in range(n)]
+    data_por_fonte = {}
 
     # Separa as fontes
     for id, value in data.items():
         fonte = id[0]
-        data_por_fonte[fonte].append(value)
+        if fonte in data_por_fonte:
+            data_por_fonte[fonte].append(value)
+        else:
+            data_por_fonte[fonte] = []
 
     # Calcula AoI por fonte
-    for i in range(len(data_por_fonte)):
+    for i in data_por_fonte.keys():
         aoi[i] = calc_aoi(data_por_fonte[i])
 
     return aoi
