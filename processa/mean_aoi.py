@@ -41,6 +41,27 @@ def calc_aoi(data):
     m_aoi = Qi_total / (t_fim - t_inicio)
     return m_aoi
 
+def calc_aoi_lcfs(data):
+    
+    def Qi(Ti, Yi):
+        return 0.5*(Ti + Yi)**2 - 0.5*Ti**2
+
+    ti = data[0][0][0] # Chegada t0
+    t_inicio = ti
+    Qi_total = 0
+    data.pop(0) # Remove a primeira entrada
+
+    for value in data:
+        if value[0][2] == 0: 
+            continue
+        Yi = value[0][0] - ti
+        ti = value[0][0]
+        Ti = value[0][2] - ti
+        Qi_total = Qi_total + Qi(Ti, Yi)
+    t_fim = ti
+    m_aoi = Qi_total / (t_fim - t_inicio)
+    return m_aoi
+
 def mean_aoi(data_file):    
 
     with open (data_file, 'r') as d:
@@ -76,5 +97,31 @@ def mean_aoi_n_fontes(data_file, n):
     # Calcula AoI por fonte
     for i in data_por_fonte.keys():
         aoi[i] = calc_aoi(data_por_fonte[i])
+
+    return aoi
+
+def mean_aoi_n_fontes_lcfs(data_file, n):
+    
+    aoi = {}
+    for i in range(n):
+        aoi[i] = np.inf
+
+    with open (data_file, 'r') as d:
+        data = d.read()
+        data = ast.literal_eval(data)
+    
+    data_por_fonte = {}
+
+    # Separa as fontes
+    for id, value in data.items():
+        fonte = id[0]
+        if fonte in data_por_fonte:
+            data_por_fonte[fonte].append(value)
+        else:
+            data_por_fonte[fonte] = []
+
+    # Calcula AoI por fonte
+    for i in data_por_fonte.keys():
+        aoi[i] = calc_aoi_lcfs(data_por_fonte[i])
 
     return aoi
