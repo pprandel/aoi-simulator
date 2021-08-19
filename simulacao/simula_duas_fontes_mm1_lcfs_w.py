@@ -1,4 +1,5 @@
 import queueing_tool as qt
+from QueueNetworkNoBlocking import QueueNetworkNoBlocking
 from LcfsPreemption import LcfsPreemption
 import numpy as np
 import sys
@@ -51,7 +52,7 @@ for ro in RO:
                 'preemption': 1
             }
         }
-        net = qt.QueueNetwork(g=G, q_classes=q_cl, q_args=q_ar)
+        net = QueueNetworkNoBlocking(g=G, q_classes=q_cl, q_args=q_ar, max_agents=np.infty)
         net.start_collecting_data()
         if arr_1 == 0:
             net.initialize(queues=[1])

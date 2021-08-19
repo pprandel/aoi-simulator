@@ -1,10 +1,11 @@
 import queueing_tool as qt
+from QueueNetworkNoBlocking import QueueNetworkNoBlocking
 from LcfsPreemption import LcfsPreemption
 import numpy as np
 import sys
 
 # RO total no servidor
-RO = list(np.arange(0.2, 3, 0.4))
+RO = list(np.arange(0.2, 3.4, 0.4))
 RO = [round(ro,2) for ro in RO]
 for ro in RO:
     # ro das fontes
@@ -51,7 +52,7 @@ for ro in RO:
                 'preemption': 0
             }
         }
-        net = qt.QueueNetwork(g=G, q_classes=q_cl, q_args=q_ar)
+        net = QueueNetworkNoBlocking(g=G, q_classes=q_cl, q_args=q_ar, max_agents=np.infty)
         net.start_collecting_data()
         if arr_1 == 0:
             net.initialize(queues=[1])
