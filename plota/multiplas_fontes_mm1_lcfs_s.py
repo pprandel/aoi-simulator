@@ -2,8 +2,8 @@ import json
 import matplotlib.pyplot as plt
 from numpy.core.numeric import Inf
 
-file_analit = "resultados/analit_duas_fontes_mm1_aoi.txt"
-file_sim = "resultados/sim_duas_fontes_mm1_aoi.txt"
+file_analit = "resultados/analit_duas_fontes_mm1_lcfs_s_aoi.txt"
+file_sim = "resultados/sim_duas_fontes_mm1_lcfs_s_aoi.txt"
 
 with open (file_analit, 'r') as d:
     data_analit = json.load(d)
@@ -56,8 +56,8 @@ ax.set_xlabel('Age da fonte 1', fontsize=16)
 ax.set_ylabel('Age da fonte 2', fontsize=16)
 ax.tick_params(axis='x', labelsize=12)
 ax.tick_params(axis='y', labelsize=12)
-ax.legend(fontsize=14, loc='lower left')
-ax.set_xlim(0, 30)
-ax.set_ylim(0, 30)
+ax.legend(fontsize=14, loc='lower left', ncol=4)
+ax.set_xlim(2, 6)
+ax.set_ylim(2, 6)
 ax.grid(True)
 plt.show()

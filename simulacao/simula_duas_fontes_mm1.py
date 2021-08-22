@@ -1,4 +1,5 @@
 import queueing_tool as qt
+from QueueNetworkNoBlocking import QueueNetworkNoBlocking
 import numpy as np
 import sys
 
@@ -49,7 +50,7 @@ for ro in RO:
                 'num_servers': 1
             }
         }
-        net = qt.QueueNetwork(g=G, q_classes=q_cl, q_args=q_ar)
+        net = QueueNetworkNoBlocking(g=G, q_classes=q_cl, q_args=q_ar, max_agents=np.infty)
         net.start_collecting_data()
         if arr_1 == 0:
             net.initialize(queues=[1])
@@ -57,7 +58,7 @@ for ro in RO:
             net.initialize(queues=[0])
         else:
             net.initialize(queues=[0,1])
-        net.simulate(n=100000)
+        net.simulate(n=50000)
         fila_2 = net.edge2queue[2]
         data = fila_2.data
         arq_nome = "experimentos/duas_fontes/mm1/ro_" + str(ro) + "_" + str(ro_1) + "_" + str(ro_2) + ".txt"
