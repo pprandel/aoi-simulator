@@ -11,6 +11,7 @@ sim_aoi = {}
 analit_aoi = {}
 
 for ro in RO:
+    print("Processando para ro = %s" %(ro))
     path = "experimentos/mm1/mm1_ro_" + str(ro) + ".txt"
     sim_aoi[ro] = mean_aoi(path)
     analit_aoi[ro] = calc_analitic_aoi(ro, 1)

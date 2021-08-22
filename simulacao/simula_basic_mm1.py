@@ -18,6 +18,6 @@ for i, arr_time in enumerate(ARRIVAL_TIMES):
     q.simulate(n=10000, nD=10000)
     num_events = q.num_arrivals[0] + q.num_departures
     data = q.data
-    arq_nome = "experimentos//mm1/mm1_ro_" + str(RO[i]) + ".txt"
+    arq_nome = "experimentos/mm1/mm1_ro_" + str(RO[i]) + ".txt"
     with open(arq_nome, 'w') as f:
         f.write(str(data))

@@ -19,32 +19,37 @@ import ast
 import numpy as np 
 
 def calc_aoi(data):
-    
+
     def Qi(Ti, Yi):
-        return 0.5*(Ti + Yi)**2 - 0.5*Ti**2
+        Q = Ti*Yi + 0.5*(Yi**2)
+        return Q
     
     ti = data[0][0][0] # Chegada t0
     t_inicio = ti
     Qi_total = 0
     data.pop(0) # Remove a primeira entrada
 
-    for value in data:
+    for i, value in enumerate(data):
         if value[0][2] == 0: 
-            t_fim = ti
+            print("Terminated on agent #%d" %(i))
+            t_fim = ti_linha
+            Qi_total = Qi_total + 0.5*(Ti**2)
             m_aoi = Qi_total / (t_fim - t_inicio)
             return m_aoi
         Yi = value[0][0] - ti
         ti = value[0][0]
-        Ti = value[0][2] - ti
+        ti_linha = value[0][2]
+        Ti = ti_linha - ti
         Qi_total = Qi_total + Qi(Ti, Yi)
-    t_fim = ti
+    t_fim = ti_linha
+    Qi_total = Qi_total + 0.5*(Ti**2)
     m_aoi = Qi_total / (t_fim - t_inicio)
     return m_aoi
 
 def calc_aoi_lcfs(data):
     
     def Qi(Ti, Yi):
-        return 0.5*(Ti + Yi)**2 - 0.5*Ti**2
+        return Ti*Yi + 0.5*(Yi**2)
 
     ti = data[0][0][0] # Chegada t0
     t_inicio = ti
@@ -56,9 +61,11 @@ def calc_aoi_lcfs(data):
             continue
         Yi = value[0][0] - ti
         ti = value[0][0]
-        Ti = value[0][2] - ti
+        ti_linha = value[0][2]
+        Ti = ti_linha - ti
         Qi_total = Qi_total + Qi(Ti, Yi)
-    t_fim = ti
+    t_fim = ti_linha
+    Qi_total = Qi_total + 0.5*(Ti**2)
     m_aoi = Qi_total / (t_fim - t_inicio)
     return m_aoi
 
