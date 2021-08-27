@@ -17,6 +17,7 @@ with open (data_file, 'r') as d:
 x_sim = data.keys()
 y_sim = data.values()
 
+fig, ax = plt.subplots()
 ax.plot(x_analit, y_analit, 'ro', label='Analytical')
 ax.plot(x_sim, y_sim, 'b^', label="Simulated")
 ax.set_xlabel(r'Server load $(\rho)$')

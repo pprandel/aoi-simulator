@@ -28,7 +28,6 @@ def calc_aoi(data):
     t_inicio = ti
     Qi_total = 0
     data.pop(0) # Remove a primeira entrada
-
     for i, value in enumerate(data):
         if value[0][2] == 0: 
             print("Terminated on agent #%d" %(i))

@@ -15,7 +15,7 @@ def calc_analitic_aoi(ro_0, ro_1, mu):
 sim_aoi = {}
 analit_aoi = {}
 
-RO = list(np.arange(0.1, 1, 0.1))
+RO = list(np.arange(0.2, 0.85, 0.1))
 RO = [round(ro,2) for ro in RO]
 for ro in RO:
     ro_str = str(ro)
