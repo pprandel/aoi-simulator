@@ -55,7 +55,7 @@ def calc_aoi_lcfs(data):
     Qi_total = 0
     data.pop(0) # Remove a primeira entrada
 
-    for value in data:
+    for i, value in enumerate(data):
         if value[0][2] == 0: 
             continue
         Yi = value[0][0] - ti
@@ -66,6 +66,7 @@ def calc_aoi_lcfs(data):
     t_fim = ti_linha
     Qi_total = Qi_total + 0.5*(Ti**2)
     m_aoi = Qi_total / (t_fim - t_inicio)
+    print("Terminated on agent #%d" %(i))
     return m_aoi
 
 def mean_aoi(data_file):    
@@ -79,6 +80,16 @@ def mean_aoi(data_file):
         data_parsed.append(value)
     return calc_aoi(data_parsed)
     
+def mean_aoi_lcfs(data_file):    
+
+    with open (data_file, 'r') as d:
+        data = d.read()
+        data = ast.literal_eval(data)
+
+    data_parsed = []
+    for value in data.values():
+        data_parsed.append(value)
+    return calc_aoi_lcfs(data_parsed)
 
 def mean_aoi_n_fontes(data_file, n):
     

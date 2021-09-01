@@ -6,21 +6,21 @@ from queueing_tool.queues.agents import InftyAgent
 
 """
 Extends QueueServer Class from queueing_tool package
-Last Generated First Served Queue with multiple servers
-When all servers are busy, a new arrival replaces the oldest agent already in service
+Last Come First Served Queue with multiple servers 
+Reassignment behaviour, like modeled in "Yates, Roy D.: Status updates through networks of parallel servers. Em 2018 IEEE
+International Symposium on Information Theory (ISIT)"
 Parameters
     ----------
     **kwargs
         Any :class:`~QueueServer` parameters.
 """
 
-class LcfsMultiServer(qt.QueueServer):
+class LcfsMultiServerReassign(qt.QueueServer):
 
     def __init__(self, preemption=0, **kwargs):
-        super(LcfsMultiServer, self).__init__(**kwargs)
-
+        super(LcfsMultiServerReassign, self).__init__(**kwargs)
     def __repr__(self):
-        tmp = ("LcfsMultiServer:{0}. Servers: {1}, queued: {2}, arrivals: {3}, "
+        tmp = ("LcfsMultiServerReassign:{0}. Servers: {1}, queued: {2}, arrivals: {3}, "
                "departures: {4}, next time: {5}")
         arg = (self.edge[2], self.num_servers, len(self.queue), self.num_arrivals,
                self.num_departures, round(self._time, 3))
@@ -85,33 +85,47 @@ class LcfsMultiServer(qt.QueueServer):
 
             arrival.queue_action(self, 0)
 
-            if self.num_system <= self.num_servers:
+            # All servers empty
+            if self.num_system < 2:
                 if self.collect_data:
                     self.data[arrival.agent_id][-1][1] = arrival._time
 
                 arrival._time = self.service_f(arrival._time)
                 arrival.queue_action(self, 1)
                 heappush(self._departures, arrival)
-            # Agent already in service is replaced
+            # One or more servers busy
             else:
-                agent_replaced = None
-                oldest_arr_time = infty
-                for agent in self._departures:
-                    if repr(agent) == 'InftyAgent':
-                        continue
-                    arr_time = self.data[agent.agent_id][-1][0]
-                    if arr_time < oldest_arr_time:
-                        oldest_arr_time = arr_time
-                        agent_replaced = agent
-                # Remove oldest agent in service
-                self._departures.remove(agent_replaced)
-                self.num_system -= 1
+                # All servers busy
+                if self.num_system > self.num_servers:
+                    agent_replaced = None
+                    oldest_arr_time = infty
+                    for agent in self._departures:
+                        if repr(agent) == 'InftyAgent':
+                            continue
+                        arr_time = self.data[agent.agent_id][-1][0]
+                        if arr_time < oldest_arr_time:
+                            oldest_arr_time = arr_time
+                            agent_replaced = agent
+                    # Remove oldest agent in service
+                    self._departures.remove(agent_replaced)
+                    if self.collect_data:
+                        self.data[agent_replaced.agent_id][-1][1] = 0
+                    self.num_system -= 1
                 # Include new agent in service
                 arrival._time = self.service_f(arrival._time)
+                arrival.queue_action(self, 1)
                 heappush(self._departures, arrival)
                 if self.collect_data:
                     self.data[arrival.agent_id][-1][1] = arrival._time
-                    self.data[agent_replaced.agent_id][-1][1] = 0
+                # Reset all departures times
+                # departure_aux = self._departures
+                # inftyAgent = InftyAgent()
+                # self._departures = [inftyAgent]
+                # for agent in departure_aux:
+                #     if repr(agent) == 'InftyAgent':
+                #         continue
+                #     agent._time = self.service_f(self._current_t)
+                #     heappush(self._departures, agent)
             self._update_time()
         
        
