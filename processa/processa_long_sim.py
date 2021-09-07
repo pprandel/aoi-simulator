@@ -1,16 +1,17 @@
 import numpy as np
-import ast
+import ast, json
 
 #RO = [0.05, 0.15, 0.25, 0.35, 0.45, 0.55, 0.65, 0.75, 0.85, 0.95]
 ro = 0.5
+mu = 1
 # ARRIVAL_TIMES = [1/r for r in RO]
-arr_time = 1/ro
+arr_time = 1/(mu*ro)
 
 Q_vector = []
 V_vector = []
 
 def calc_aoi(data):
-
+    data = list(data.values())
     def Qi(Ti, Yi):
         Q = Ti*Yi + 0.5*(Yi**2)
         return Q
@@ -36,8 +37,8 @@ def calc_aoi(data):
         Qi_total = Qi_total + Qi_atual
         age_media = Qi_total/(ti_linha-t_inicio)
         Q_vector.append(age_media)
-        V_total = V_total + (Qi_atual/Yi - age_media)**2
-        erro = V_total/(i+1)**2
+        V_total = V_total + (Qi_atual - Qi_total/(i+1))**2
+        erro = V_total/((ti_linha-t_inicio)**(2))
         V_vector.append(erro)
 
     t_fim = ti_linha
@@ -48,13 +49,13 @@ def calc_aoi(data):
 def mean_aoi(data_file):    
 
     with open (data_file, 'r') as d:
-        data = d.read()
-        data = ast.literal_eval(data)
-
-    data_parsed = []
-    for value in data.values():
-        data_parsed.append(value)
-    return calc_aoi(data_parsed)
+        data = json.load(d)
+        print("Read")
+        #data = ast.literal_eval(data)
+    # data_parsed = []
+    # for value in data.values():
+    #     data_parsed.append(value)
+    return calc_aoi(data)
 
 def calc_analitic_aoi(ro, mu):
     return (1/mu) * (1 + 1/ro + (ro**2/(1-ro)) )
@@ -64,7 +65,7 @@ print("Processando...")
 path = "experimentos/long_sim.txt"
 print("Simulated: %f" %mean_aoi(path))
 
-analit_aoi = calc_analitic_aoi(ro, 1)
+analit_aoi = calc_analitic_aoi(ro, mu)
 print("Analytical: %f" %analit_aoi)
 
 arq_nome = "resultados/Q_vec.txt"

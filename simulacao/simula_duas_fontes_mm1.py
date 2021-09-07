@@ -58,7 +58,7 @@ for ro in RO:
             net.initialize(queues=[0])
         else:
             net.initialize(queues=[0,1])
-        net.simulate(n=1000000)
+        net.simulate(n=200000)
         fila_2 = net.edge2queue[2]
         data = fila_2.data
         arq_nome = "experimentos/duas_fontes/mm1/ro_" + str(ro) + "_" + str(ro_1) + "_" + str(ro_2) + ".txt"
