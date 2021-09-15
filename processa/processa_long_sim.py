@@ -2,11 +2,12 @@ import numpy as np
 import ast, json
 
 #RO = [0.05, 0.15, 0.25, 0.35, 0.45, 0.55, 0.65, 0.75, 0.85, 0.95]
-ro = 0.95
+ro = 0.8
 mu = 1
 # ARRIVAL_TIMES = [1/r for r in RO]
 arr_time = 1/(mu*ro)
 
+A_vector = []
 Q_vector = []
 V_vector = []
 
@@ -36,6 +37,7 @@ def calc_aoi(data):
         Qi_atual = Qi(Ti, Yi)
         Qi_total = Qi_total + Qi_atual
         age_media = Qi_total/(ti_linha-t_inicio)
+        A_vector.append(age_media)
         Q_vector.append(Qi_atual)
         V_total = V_total + (Qi_atual - Qi_total/(i+1))**2
         erro = V_total/((ti_linha-t_inicio)**(2))
@@ -67,6 +69,10 @@ print("Simulated: %f" %mean_aoi(path))
 
 analit_aoi = calc_analitic_aoi(ro, mu)
 print("Analytical: %f" %analit_aoi)
+
+arq_nome = "resultados/A_vec.txt"
+with open(arq_nome, 'w') as f:
+    f.write(str(A_vector))
 
 arq_nome = "resultados/Q_vec.txt"
 with open(arq_nome, 'w') as f:

@@ -1,7 +1,8 @@
 from LcfsMultiServer import LcfsMultiServer
 import numpy as np
+import json
 
-C = 16
+C = 4
 RO = list(np.arange(0.1, 2, 0.1))
 ARRIVAL_TIMES = [1/(r*C) for r in RO]
 
@@ -20,4 +21,4 @@ for i, arr_time in enumerate(ARRIVAL_TIMES):
     data = q.data
     arq_nome = "experimentos/2_servers_lcfs_mm1/mm1_ro_" + str(RO[i]) + ".txt"
     with open(arq_nome, 'w') as f:
-        f.write(str(data))
+       json.dump({str(k):v for k, v in data.items()}, f)

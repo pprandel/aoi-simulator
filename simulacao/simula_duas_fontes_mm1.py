@@ -1,7 +1,7 @@
 import queueing_tool as qt
 from QueueNetworkNoBlocking import QueueNetworkNoBlocking
 import numpy as np
-import sys
+import json
 
 # RO total no servidor
 RO = list(np.arange(0.4, 0.8, 0.1))
@@ -63,5 +63,5 @@ for ro in RO:
         data = fila_2.data
         arq_nome = "experimentos/duas_fontes/mm1/ro_" + str(ro) + "_" + str(ro_1) + "_" + str(ro_2) + ".txt"
         with open(arq_nome, 'w') as f:
-            f.write(str(data))
+            json.dump({str(k):v for k, v in data.items()}, f)
 

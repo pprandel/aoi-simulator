@@ -1,7 +1,6 @@
 import numpy as np
 from numpy.core.fromnumeric import mean
-from mean_aoi import mean_aoi_n_fontes
-import json
+from mean_aoi_new import mean_aoi_n_fontes
 
 def calc_analitic_aoi(ro_0, ro_1, mu):
     def calc_age(ro_i, ro_menos_i, mu):
@@ -16,8 +15,8 @@ sim_aoi = {}
 analit_aoi = {}
 
 ro = 0.7
-ro_0 = 0.21
-ro_1 = 0.49
+ro_0 = 0.28
+ro_1 = 0.42
 print("ro_0: %f ro_1: %f " %(ro_0, ro_1))
 arq_nome = "experimentos/duas_fontes/mm1/ro_" + str(ro) + "_" + str(ro_0) + "_" + str(ro_1) + ".txt"
 sim_aoi = mean_aoi_n_fontes(arq_nome, 2)

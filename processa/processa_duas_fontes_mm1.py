@@ -1,6 +1,6 @@
 import numpy as np
 from numpy.core.fromnumeric import mean
-from mean_aoi import mean_aoi_n_fontes
+from mean_aoi_new import mean_aoi_n_fontes
 import json
 
 def calc_analitic_aoi(ro_0, ro_1, mu):

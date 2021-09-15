@@ -1,5 +1,5 @@
 import numpy as np
-from mean_aoi import mean_aoi
+from mean_aoi_new import mean_aoi
 
 C = 1
 RO = [0.05, 0.15, 0.25, 0.35, 0.45, 0.55, 0.65, 0.75, 0.85, 0.95]
@@ -14,10 +14,10 @@ sim_aoi = {}
 for ro in RO:
     print("Processando para ro = %s" %(ro))
     path = "experimentos/2_servers_mm1/mm1_ro_" + str(ro) + ".txt"
-    sim_aoi[ro] = mean_aoi(path)
+    sim_aoi[ro] = mean_aoi("2_server_mm1", path, 1)
     # analit_aoi[ro] = calc_analitic_aoi(ro, 1)
 
-with open("resultados/sim_mm1_aoi.txt", 'w') as f:
+with open("resultados/sim_2_servers_mm1_aoi.txt", 'w') as f:
     f.write(str(sim_aoi))
 
 # with open("resultados/analit_2_servers_mm1_aoi.txt", 'w') as f:
