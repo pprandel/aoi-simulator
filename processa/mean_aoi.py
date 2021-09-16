@@ -4,53 +4,65 @@ Returns the mean Age of Information (AoI)
 
 Parameters
 ----------
-data_file : path to txt file - python dict like
-    Dict with class:Agent "agent_id" keys and values as a list with: arrival, service
-        start, departure times, agents waiting to be served and the total agents in the
-        system
+sim_id: str
+    identification of simulation
+data_file : json file
+    json with class:Agent "agent_id" as keys and list [arrival, service
+    start, departure times, agents waiting to be served and the total agents in the
+    system] as values
+num_sources: int
+    number of sources of Agents. Mean AoI will be calculated for each source - Integer
+save_AoI_seq: str (optional, defalut: "None")
+    path to folder where to save the sequence of calculated AoI
+    example: "/tmp/my_sim"
+save_Q_seq: str (optional, defalut: "None")
+    path to folder where to save the sequence of calculated AoI areas Q
+    example: "/tmp/my_sim"
 
 Returns
 ----------
-mean_aoi: float with the mean AoI of the Agent's information at departure node in relation
-with the information at the source node
+mean_aoi: dict
+    dict with sources as keys and mean AoI as values
 """
 
-import ast
-import numpy as np 
+import json
+import numpy as np
+from scipy.signal import correlate
 
-# def calc_aoi(data):
-
-#     def Qi(Ti, Yi):
-#         Q = Ti*Yi + 0.5*(Yi**2)
-#         return Q
-    
-#     ti = data[0][0][0] # Chegada t0
-#     t_inicio = ti
-#     Qi_total = 0
-#     data.pop(0) # Remove a primeira entrada
-#     for i, value in enumerate(data):
-#         if value[0][2] == 0: 
-#             print("Terminated on agent #%d" %(i))
-#             t_fim = ti_linha
-#             Qi_total = Qi_total + 0.5*(Ti**2)
-#             m_aoi = Qi_total / (t_fim - t_inicio)
-#             return m_aoi
-#         Yi = value[0][0] - ti
-#         ti = value[0][0]
-#         ti_linha = value[0][2]
-#         Ti = ti_linha - ti
-#         Qi_total = Qi_total + Qi(Ti, Yi)
-#     t_fim = ti_linha
-#     Qi_total = Qi_total + 0.5*(Ti**2)
-#     m_aoi = Qi_total / (t_fim - t_inicio)
-#     return m_aoi
-
+aoi_vector = []
 Q_vector = []
-V_vector = []
+
+def calc_RMSE(Q, N, tau):
+    # Q mean and variance
+    n = len(Q)
+    mean_q = np.mean(Q)
+    var_q = np.var(Q)
+    # Normalized Q
+    norm_Q = (Q - mean_q)
+    # Autocorrelation
+    result = correlate(norm_Q, norm_Q, mode='same')
+    acorr = result [n//2 + 1:]  / (np.var(Q) * np.arange(n-1, n//2, -1))
+    M = len(acorr)
+    iat = 0
+    # IAT
+    for i in range(M):
+            iat = iat + (1 - (i+1)/M)*acorr[i]
+    iat = 1 + 2*iat
+    print("Integrated autocorrelation times: %f" %iat)
+    var_Q_mean = var_q/len(Q)
+    print("Variance of Q_mean: %f" %var_Q_mean)
+    true_var_Q_mean = var_Q_mean * iat
+    print("Variance corrected: %f" %true_var_Q_mean)
+    var_aoi_mean = (N/tau)**2 * true_var_Q_mean
+    RMSE = var_aoi_mean**0.5
+    print("RMSE: %f" %RMSE)
+    return RMSE
+    
 
 def calc_aoi(data):
+    aoi_vector.clear()
     Q_vector.clear()
-    V_vector.clear()
+    
     def Qi(Ti, Yi):
         Q = Ti*Yi + 0.5*(Yi**2)
         return Q
@@ -58,43 +70,7 @@ def calc_aoi(data):
     ti = data[0][0][0] # Chegada t0
     t_inicio = ti
     Qi_total = 0
-    V_total = 0
     data.pop(0) # Remove a primeira entrada
-    for i, value in enumerate(data):
-        if value[0][2] == 0: 
-            print("Terminated on agent #%d" %(i))
-            t_fim = ti_linha
-            Qi_total = Qi_total + 0.5*(Ti**2)
-            Q_vector.append(Qi_total/(ti_linha-t_inicio))
-            m_aoi = Qi_total / (ti_linha-t_inicio)
-            return m_aoi
-        Yi = value[0][0] - ti
-        ti = value[0][0]
-        ti_linha = value[0][2]
-        Ti = ti_linha - ti
-        Qi_atual = Qi(Ti, Yi)
-        Qi_total = Qi_total + Qi_atual
-        age_media = Qi_total/(ti_linha-t_inicio)
-        Q_vector.append(age_media)
-        V_total = V_total + (Qi_atual - Qi_total/(i+1))**2
-        erro = V_total/((ti_linha-t_inicio)**2)
-        V_vector.append(erro)
-
-    t_fim = ti_linha
-    Qi_total = Qi_total + 0.5*(Ti**2)
-    m_aoi = Qi_total / (t_fim - t_inicio)
-    return m_aoi
-
-def calc_aoi_lcfs(data):
-    
-    def Qi(Ti, Yi):
-        return Ti*Yi + 0.5*(Yi**2)
-
-    ti = data[0][0][0] # Chegada t0
-    t_inicio = ti
-    Qi_total = 0
-    data.pop(0) # Remove a primeira entrada
-
     for i, value in enumerate(data):
         if value[0][2] == 0: 
             continue
@@ -102,91 +78,67 @@ def calc_aoi_lcfs(data):
         ti = value[0][0]
         ti_linha = value[0][2]
         Ti = ti_linha - ti
-        Qi_total = Qi_total + Qi(Ti, Yi)
+        Qi_now = Qi(Ti, Yi)
+        Qi_total = Qi_total + Qi_now
+        mean_aoi = Qi_total/(ti_linha-t_inicio)
+        aoi_vector.append(mean_aoi)
+        Q_vector.append(Qi_now)
+        last_packet = (i, ti_linha)
     t_fim = ti_linha
     Qi_total = Qi_total + 0.5*(Ti**2)
     m_aoi = Qi_total / (t_fim - t_inicio)
-    print("Terminated on agent #%d" %(i))
-    return m_aoi
+    print("Mean AoI: %f" %mean_aoi)
+    N = last_packet[0]
+    tau = last_packet[1]
+    RMSE = calc_RMSE(Q_vector, N, tau)
+    print("Last packet index: #%d" %N)
+    return (m_aoi, RMSE)
 
-def mean_aoi(data_file):    
-
-    with open (data_file, 'r') as d:
-        data = d.read()
-        data = ast.literal_eval(data)
-
-    data_parsed = []
-    for value in data.values():
-        data_parsed.append(value)
-    return calc_aoi(data_parsed)
-    
-def mean_aoi_lcfs(data_file):    
-
-    with open (data_file, 'r') as d:
-        data = d.read()
-        data = ast.literal_eval(data)
-
-    data_parsed = []
-    for value in data.values():
-        data_parsed.append(value)
-    return calc_aoi_lcfs(data_parsed)
-
-def mean_aoi_n_fontes(data_file, n):
-    
+def mean_aoi(sim_id, data_file, num_sources, save_AoI_seq="None", save_Q_seq="None"):
+    print("Calculating mean AoI values for simulation #%s" %sim_id)
+    # Initialize return dict
     aoi = {}
-    for i in range(n):
-        aoi[i] = np.inf
-
+    for i in range(num_sources):
+        aoi[i] = {}
+        aoi[i]["MeanAoI"] = np.inf
+        aoi[i]["RMSE"] = 0
+    # Load data
     with open (data_file, 'r') as d:
-        data = d.read()
-        data = ast.literal_eval(data)
-    
-    data_por_fonte = {}
-
-    # Separa as fontes
+        data = json.load(d)
+    # Split sources
+    splitted_data = {}
     for id, value in data.items():
-        fonte = id[0]
-        if fonte in data_por_fonte:
-            data_por_fonte[fonte].append(value)
+        source = int(id[1])
+        if source in splitted_data:
+            splitted_data[source].append(value)
         else:
-            data_por_fonte[fonte] = []
+            splitted_data[source] = []
+            splitted_data[source].append(value)
 
-    # Calcula AoI por fonte
-    for i in data_por_fonte.keys():
-        aoi[i] = calc_aoi(data_por_fonte[i])
+    # Calculate AoI per source
+    for i in splitted_data.keys():
+        print("Source %d:" %i)
+        try:
+            result = calc_aoi(splitted_data[i])
+        except Exception as e:
+            print("Error calculating AoI for source %d" %i)
+        aoi[i]["MeanAoI"] = result[0]
+        aoi[i]["RMSE"] = result[1]
 
-        arq_nome = "resultados/Q_vec_" + str(i) + ".txt"
-        with open(arq_nome, 'w') as f:
-            f.write(str(Q_vector))
+        if save_AoI_seq != "None":
+            try:
+                arq_name = save_AoI_seq + "/" + sim_id + "_source_" + str(i) + ".txt"
+                with open(arq_name, 'w') as f:
+                    f.write(str(Q_vector))
+            except Exception as e:
+                print("Error saving AoI sequence: %s" %e)
 
-        arq_nome = "resultados/V_vec_" + str(i) + ".txt"
-        with open(arq_nome, 'w') as f:
-            f.write(str(V_vector))
-
-    return aoi
-
-def mean_aoi_n_fontes_lcfs(data_file, n):
-    
-    aoi = {}
-    for i in range(n):
-        aoi[i] = np.inf
-
-    with open (data_file, 'r') as d:
-        data = d.read()
-        data = ast.literal_eval(data)
-    
-    data_por_fonte = {}
-
-    # Separa as fontes
-    for id, value in data.items():
-        fonte = id[0]
-        if fonte in data_por_fonte:
-            data_por_fonte[fonte].append(value)
-        else:
-            data_por_fonte[fonte] = []
-
-    # Calcula AoI por fonte
-    for i in data_por_fonte.keys():
-        aoi[i] = calc_aoi_lcfs(data_por_fonte[i])
+        if save_Q_seq != "None":
+            try:
+                arq_name = save_Q_seq + "/" + sim_id + "_source_" + str(i) + ".txt"
+                with open(arq_name, 'w') as f:
+                    f.write(str(Q_vector))
+            except Exception as e:
+                print("Error saving Q sequence: %s" %e)
 
     return aoi

@@ -27,13 +27,12 @@ mean_aoi: dict
 
 import json
 import numpy as np
-from numpy.core.fromnumeric import var 
 from scipy.signal import correlate
 
 aoi_vector = []
 Q_vector = []
 
-def calculate_RMSE(Q, N, tau):
+def calc_RMSE(Q, N, tau):
     # Q mean and variance
     n = len(Q)
     mean_q = np.mean(Q)
@@ -91,7 +90,7 @@ def calc_aoi(data):
     print("Mean AoI: %f" %mean_aoi)
     N = last_packet[0]
     tau = last_packet[1]
-    RMSE = calculate_RMSE(Q_vector, N, tau)
+    RMSE = calc_RMSE(Q_vector, N, tau)
     print("Last packet index: #%d" %N)
     return (m_aoi, RMSE)
 
@@ -109,7 +108,7 @@ def mean_aoi(sim_id, data_file, num_sources, save_AoI_seq="None", save_Q_seq="No
     # Split sources
     splitted_data = {}
     for id, value in data.items():
-        source = int(id[1])
+        source = int(id.split(",")[0][1:])
         if source in splitted_data:
             splitted_data[source].append(value)
         else:
