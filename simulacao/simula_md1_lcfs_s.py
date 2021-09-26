@@ -1,12 +1,12 @@
 import queueing_tool as qt
-from LcfsMultiServer import LcfsMultiServer
+from LcfsPreemption import LcfsPreemption
 from mean_aoi import mean_aoi
 import numpy as np
 import json
 
-sim_name = "dm1_basic"
+sim_name = "md1_lcfs_s"
 aoi_dic = {}
-RO = np.arange(0.1, 1, 0.1)
+RO = np.arange(0.2, 3, 0.2)
 RO = np.around(RO, decimals=1)
 for ro in RO:
 
@@ -23,7 +23,7 @@ for ro in RO:
     G = qt.QueueNetworkDiGraph(adjacency)
 
     # Define queue classes for each edge type
-    q_cl = {1: qt.QueueServer, 2: qt.QueueServer}
+    q_cl = {1: qt.QueueServer, 2: LcfsPreemption}
 
     # Define packet generation and service functions
     # Queue service rate
@@ -31,11 +31,11 @@ for ro in RO:
     # Packet generation rates
     lamb = mu * ro
     # Poisson generation queues (exponential interarrival times)
-    def f_gen_1(t): return t + 1/lamb
+    def f_gen_1(t): return t+ np.random.exponential(1/lamb)
     # Instant service queue
     def f_ser_1(t): return t
     # Exponential service queue
-    def f_ser_2(t): return t + np.random.exponential(1/mu)
+    def f_ser_2(t): return t + 1/mu
 
     # Config queues parameters for each edge type
     q_ar = {
@@ -46,7 +46,8 @@ for ro in RO:
         },
         2: {
             'service_f': f_ser_2,
-            'num_servers': 1
+            'num_servers': 1,
+            'preemption': 0
         }
     }
 
@@ -60,7 +61,7 @@ for ro in RO:
     net.initialize(queues=range(N))
 
     # Start simulation with n events
-    net.simulate(n=1000000)
+    net.simulate(n=300000)
 
     # Collect data
     data = net.get_agent_data(queues=N)

@@ -4,11 +4,8 @@ from mean_aoi import mean_aoi
 import numpy as np
 import json
 
-sim_name = "dm1_basic"
-aoi_dic = {}
-RO = np.arange(0.1, 1, 0.1)
-RO = np.around(RO, decimals=1)
-for ro in RO:
+aoi_vector = []
+for i in range(50):
 
     ### Network definition ###
     # Create adjacency matrix
@@ -26,12 +23,12 @@ for ro in RO:
     q_cl = {1: qt.QueueServer, 2: qt.QueueServer}
 
     # Define packet generation and service functions
+    # Packet generation rates
+    lamb = 0.6
     # Queue service rate
     mu = 1
-    # Packet generation rates
-    lamb = mu * ro
     # Poisson generation queues (exponential interarrival times)
-    def f_gen_1(t): return t + 1/lamb
+    def f_gen_1(t): return t+ np.random.exponential(1/lamb)
     # Instant service queue
     def f_ser_1(t): return t
     # Exponential service queue
@@ -60,20 +57,19 @@ for ro in RO:
     net.initialize(queues=range(N))
 
     # Start simulation with n events
-    net.simulate(n=1000000)
+    net.simulate(n=50000)
 
     # Collect data
     data = net.get_agent_data(queues=N)
 
     # File where to save simulation data
-    arq_nome = "experimentos/" + sim_name + "_ro_" + str(ro) + ".json"
+    arq_nome = "experimentos/new_sim.json"
     with open(arq_nome, 'w') as f:
         json.dump({str(k):v.tolist() for k, v in data.items()}, f, indent=3)
 
     # Calculate mean AoI and related RMSE
-    aoi = mean_aoi(sim_name, arq_nome, N)
-    print(aoi)
-    aoi_dic[str(ro)] = aoi[0]
-arq_nome = "resultados/" + sim_name + ".json"
+    aoi = mean_aoi("new_sim", arq_nome, N)
+    aoi_vector.append(aoi[0])
+arq_nome = "resultados/TCL_prova.json"
 with open(arq_nome, 'w') as f:
-    json.dump(aoi_dic, f, indent=3)
+    json.dump(aoi_vector, f, indent=3)

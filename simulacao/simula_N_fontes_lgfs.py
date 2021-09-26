@@ -62,7 +62,7 @@ data = net.get_agent_data(queues=N)
 # File where to save simulation data
 arq_nome = "experimentos/new_sim.json"
 with open(arq_nome, 'w') as f:
-     json.dump({str(k):v for k, v in data.items()}, f, indent=3)
+    json.dump({str(k):v.tolist() for k, v in data.items()}, f, indent=3)
 
 # Calculate mean AoI and related RMSE
 aoi = mean_aoi("new_sim", arq_nome, N)

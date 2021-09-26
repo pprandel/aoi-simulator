@@ -1,23 +1,79 @@
 import queueing_tool as qt
+from LcfsMultiServer import LcfsMultiServer
+from mean_aoi import mean_aoi
 import numpy as np
+import json
 
+sim_name = "md1_basic"
+aoi_dic = {}
+RO = np.arange(0.1, 1, 0.1)
+RO = np.around(RO, decimals=1)
+for ro in RO:
 
-RO = [0.05, 0.15, 0.25, 0.35, 0.45, 0.55, 0.65, 0.75, 0.85, 0.95]
-ARRIVAL_TIMES = [1/r for r in RO]
+    ### Network definition ###
+    # Create adjacency matrix
+    # Each edge represents a queue and must have a type
+    adjacency = {}
+    N = 1
+    for i in range(N):
+        adjacency[i] = {N: {'edge_type': 1}}
+    adjacency[N] = {N+1: {'edge_type': 2}}
+            
+            
+    G = qt.QueueNetworkDiGraph(adjacency)
 
-mean_delay = {}
+    # Define queue classes for each edge type
+    q_cl = {1: qt.QueueServer, 2: qt.QueueServer}
 
-for i, arr_time in enumerate(ARRIVAL_TIMES):
-    print(arr_time)
-    def arr(t): return t+ np.random.exponential(arr_time)
-    def ser(t): return t + 1
-    q = qt.QueueServer(1, arrival_f=arr, service_f=ser)
-    q.clear()
-    q.set_active()
-    q.collect_data = True
-    q.simulate(n=10000, nD=10000)
-    num_events = q.num_arrivals[0] + q.num_departures
-    data = q.data
-    arq_nome = "experimentos/md1/md1_ro_" + str(RO[i]) + ".txt"
+    # Define packet generation and service functions
+    # Queue service rate
+    mu = 1
+    # Packet generation rates
+    lamb = mu * ro
+    # Poisson generation queues (exponential interarrival times)
+    def f_gen_1(t): return t+ np.random.exponential(1/lamb)
+    # Instant service queue
+    def f_ser_1(t): return t
+    # Exponential service queue
+    def f_ser_2(t): return t + 1/mu
+
+    # Config queues parameters for each edge type
+    q_ar = {
+        1: {
+            'arrival_f': f_gen_1,
+            'service_f': f_ser_1,
+            'num_servers': 1
+        },
+        2: {
+            'service_f': f_ser_2,
+            'num_servers': 1
+        }
+    }
+
+    # Instantiate the network
+    net = qt.QueueNetwork(g=G, q_classes=q_cl, q_args=q_ar, max_agents=np.infty)
+
+    # Set queues that collects data
+    net.start_collecting_data(queues=N)
+
+    # Initialize queues that generate packets
+    net.initialize(queues=range(N))
+
+    # Start simulation with n events
+    net.simulate(n=1000000)
+
+    # Collect data
+    data = net.get_agent_data(queues=N)
+
+    # File where to save simulation data
+    arq_nome = "experimentos/" + sim_name + "_ro_" + str(ro) + ".json"
     with open(arq_nome, 'w') as f:
-        f.write(str(data))
+        json.dump({str(k):v.tolist() for k, v in data.items()}, f, indent=3)
+
+    # Calculate mean AoI and related RMSE
+    aoi = mean_aoi(sim_name, arq_nome, N)
+    print(aoi)
+    aoi_dic[str(ro)] = aoi[0]
+arq_nome = "resultados/" + sim_name + ".json"
+with open(arq_nome, 'w') as f:
+    json.dump(aoi_dic, f, indent=3)
