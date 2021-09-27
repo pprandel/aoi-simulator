@@ -70,10 +70,12 @@ def calc_aoi(data):
     ti = data[0][0][0] # Chegada t0
     t_inicio = ti
     Qi_total = 0
+    N = 0 # total delivered packets
     data.pop(0) # Remove a primeira entrada
     for i, value in enumerate(data):
         if value[0][2] == 0: 
             continue
+        N = N + 1 # delivered packet
         Yi = value[0][0] - ti
         ti = value[0][0]
         ti_linha = value[0][2]
@@ -83,14 +85,11 @@ def calc_aoi(data):
         mean_aoi = Qi_total/(ti_linha-t_inicio)
         aoi_vector.append(mean_aoi)
         Q_vector.append(Qi_now)
-        last_packet = (i, ti_linha)
     t_fim = ti_linha
     Qi_total = Qi_total + 0.5*(Ti**2)
     m_aoi = Qi_total / (t_fim - t_inicio)
     print("Mean AoI: %f" %mean_aoi)
-    N = last_packet[0]
-    tau = last_packet[1]
-    RMSE = calc_RMSE(Q_vector, N, tau)
+    RMSE = calc_RMSE(Q_vector, N, t_fim)
     print("Last packet index: #%d" %N)
     return (m_aoi, RMSE)
 
