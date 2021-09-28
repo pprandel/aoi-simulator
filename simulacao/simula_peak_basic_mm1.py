@@ -1,10 +1,10 @@
 import queueing_tool as qt
 from LcfsMultiServer import LcfsMultiServer
-from mean_peak_aoi import  mean_peak_aoi
+from mean_aoi import mean_aoi
 import numpy as np
 import json
 
-sim_name = "mm1_basic_peak"
+sim_name = "mm1_basic"
 aoi_dic = {}
 RO = np.arange(0.1, 1, 0.1)
 RO = np.around(RO, decimals=1)
@@ -60,7 +60,7 @@ for ro in RO:
     net.initialize(queues=range(N))
 
     # Start simulation with n events
-    net.simulate(n=500000)
+    net.simulate(n=1000000)
 
     # Collect data
     data = net.get_agent_data(queues=N)
@@ -68,10 +68,10 @@ for ro in RO:
     # File where to save simulation data
     arq_nome = "experimentos/" + sim_name + "_ro_" + str(ro) + ".json"
     with open(arq_nome, 'w') as f:
-        json.dump({str(k):v for k, v in data.items()}, f, indent=3)
+        json.dump({str(k):v.tolist() for k, v in data.items()}, f, indent=3)
 
     # Calculate mean AoI and related RMSE
-    aoi = mean_peak_aoi(sim_name, arq_nome, N)
+    aoi = mean_aoi(sim_name, arq_nome, N)
     print(aoi)
     aoi_dic[str(ro)] = aoi[0]
 arq_nome = "resultados/" + sim_name + ".json"
