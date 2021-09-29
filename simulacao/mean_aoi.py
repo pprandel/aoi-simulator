@@ -33,20 +33,18 @@ aoi_vector = []
 Q_vector = []
 
 def calc_RMSE(Q, N, tau):
-    # Q mean and variance
-    n = len(Q)
     mean_q = np.mean(Q)
     var_q = np.var(Q)
     # Normalized Q
     norm_Q = (Q - mean_q)
     # Autocorrelation
     result = correlate(norm_Q, norm_Q, mode='same')
-    acorr = result [n//2 + 1:]  / (np.var(Q) * np.arange(n-1, n//2, -1))
+    acorr = result [N//2 + 1:]  / (var_q * np.arange(N-1, N//2, -1))
     M = len(acorr)
     iat = 0
     # IAT
     for i in range(M):
-            iat = iat + (1 - (i+1)/M)*acorr[i]
+        iat = iat + (1 - (i+1)/M)*acorr[i]
     iat = 1 + 2*iat
     print("Integrated autocorrelation times: %f" %iat)
     var_Q_mean = var_q/len(Q)
@@ -70,10 +68,12 @@ def calc_aoi(data):
     ti = data[0][0][0] # Chegada t0
     t_inicio = ti
     Qi_total = 0
+    N = 0 # total delivered packets
     data.pop(0) # Remove a primeira entrada
-    for i, value in enumerate(data):
+    for value in data:
         if value[0][2] == 0: 
             continue
+        N = N + 1 # delivered packet
         Yi = value[0][0] - ti
         ti = value[0][0]
         ti_linha = value[0][2]
@@ -83,14 +83,11 @@ def calc_aoi(data):
         mean_aoi = Qi_total/(ti_linha-t_inicio)
         aoi_vector.append(mean_aoi)
         Q_vector.append(Qi_now)
-        last_packet = (i, ti_linha)
     t_fim = ti_linha
     Qi_total = Qi_total + 0.5*(Ti**2)
     m_aoi = Qi_total / (t_fim - t_inicio)
     print("Mean AoI: %f" %mean_aoi)
-    N = last_packet[0]
-    tau = last_packet[1]
-    RMSE = calc_RMSE(Q_vector, N, tau)
+    RMSE = calc_RMSE(Q_vector, N, t_fim)
     print("Last packet index: #%d" %N)
     return (m_aoi, RMSE)
 
