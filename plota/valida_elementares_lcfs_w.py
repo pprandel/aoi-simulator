@@ -6,7 +6,7 @@ def calc_analitic_mm1(ro, mu):
     return (1/mu) * (1 + 1/ro + ( (ro**2)*(1+3*ro+ro**2) ) / ( (1+ro+ro**2)*(1+ro)**2 ) )
 
 def calc_analitic_dm1(ro, mu):
-    return ( 1/(2*mu*ro) + ( (1/mu) / ( 1 - ( (1/ro)*(np.exp(-(1/ro))) ) ) ) )
+    return (1/mu) * ( 1/(2*ro) + ( 1 / ( 1 - ( (1/ro)*(np.exp(-(1/ro))) ) ) ) )
 
 def calc_analitic_md1(ro, mu):
     return (1/mu) * ( ( ( 1/(1+ro*np.exp(ro)) ) * (1/2 + 1/ro) ) + ( (np.exp(ro) - (1+ro) ) / (ro*np.exp(ro)) ) + 3/2 )

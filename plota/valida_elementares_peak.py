@@ -6,17 +6,9 @@ from scipy.special import lambertw
 def calc_analitic_mm1(ro, mu):
     return (1/mu) * (1 + 1/ro + (ro/(1-ro)) )
 
-def beta(ro):
-    return -ro * lambertw( -1/ro * np.exp(-1/ro) )
-
-def calc_analitic_dm1(ro, mu):
-    return (1/mu) * (1/(2*ro) + 1/(1-beta(ro)) )
-
-def calc_analitic_md1(ro, mu):
-    return (1/mu) * ( 1/(2*(1-ro)) + 0.5 + ( (1-ro)*np.exp(ro) ) / ro ) 
 
 ### Plot parameters ###
-fig, ax = plt.subplots(3, 1)
+fig, ax = plt.subplots()
 marker_size = 10
 ax_label_size = 12
 label_size = 12
@@ -40,15 +32,15 @@ for ro, value in data.items():
         if RMSE > mm1_max_RMSE:
                 mm1_max_RMSE = RMSE
 
-ax[0].plot(ros, mm1_analitic, 'rv', label='Analítico', markersize=marker_size)
-ax[0].plot(ros, mm1_sim, 'b^', label="Simulado", markersize=marker_size)
-ax[0].set_xlabel(r'Carga no servidor $(\rho)$', fontsize=label_size)
-ax[0].set_ylabel('AoI médio', fontsize=label_size)
-ax[0].set_title('AoI médio para a fila M/M/1', fontsize=title_size)
+ax.plot(ros, mm1_analitic, 'rv', label='Analítico', markersize=marker_size)
+ax.plot(ros, mm1_sim, 'b^', label="Simulado", markersize=marker_size)
+ax.set_xlabel(r'Carga no servidor $(\rho)$', fontsize=label_size)
+ax.set_ylabel('AoI médio', fontsize=label_size)
+ax.set_title('AoI de pico médio para a fila M/M/1', fontsize=title_size)
 text = "REQM < " + str(np.round(mm1_max_RMSE, decimals=2))
-ax[0].text(0.5, 10, text, ha='center', va='top',fontsize=14, color='indigo', weight='bold')
-ax[0].legend(fontsize=legend_size, loc='lower right')
-ax[0].grid(True)
+ax.text(0.5, 10, text, ha='center', va='top',fontsize=14, color='indigo', weight='bold')
+ax.legend(fontsize=legend_size, loc='lower right')
+ax.grid(True)
 
 ### MD1 ###
 
@@ -106,14 +98,9 @@ ax[0].grid(True)
 # ax[2].grid(True)
 
 xlim = (0.05, 0.95)
-ylim = (0, 12)
+ylim = (3, 12)
 marker_size = 15
 plt.setp(ax, xlim=xlim, ylim=ylim)
-for a in ax:
-        a.tick_params(axis='x', labelsize=12)
-        a.tick_params(axis='y', labelsize=12)
-        a.set_yticks(list(np.arange(1, 12, 3)))
-        a.label_outer()
 
 fig.tight_layout()
 plt.show()

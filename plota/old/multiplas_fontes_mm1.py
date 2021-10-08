@@ -2,8 +2,8 @@ import json
 import matplotlib.pyplot as plt
 from numpy.core.numeric import Inf
 
-file_analit = "resultados/analit_duas_fontes_mm1_aoi.txt"
-file_sim = "resultados/sim_duas_fontes_mm1_aoi.txt"
+file_analit = "resultados/old/analit_duas_fontes_mm1_aoi.txt"
+file_sim = "resultados/old/sim_duas_fontes_mm1_aoi.txt"
 
 with open (file_analit, 'r') as d:
     data_analit = json.load(d)
