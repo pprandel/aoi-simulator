@@ -67,6 +67,8 @@ def calc_aoi(data):
     
     ti = data[0][0][0] # Chegada t0
     t_inicio = ti
+    ti_linha = 0
+    Ti = 0
     Qi_total = 0
     N = 0 # total delivered packets
     data.pop(0) # Remove a primeira entrada
@@ -83,13 +85,12 @@ def calc_aoi(data):
         mean_aoi = Qi_total/(ti_linha-t_inicio)
         aoi_vector.append(mean_aoi)
         Q_vector.append(Qi_now)
-    t_fim = ti_linha
     Qi_total = Qi_total + 0.5*(Ti**2)
-    m_aoi = Qi_total / (t_fim - t_inicio)
+    mean_aoi = Qi_total / (ti_linha - t_inicio)
     print("Mean AoI: %f" %mean_aoi)
-    RMSE = calc_RMSE(Q_vector, N, t_fim)
+    RMSE = calc_RMSE(Q_vector, N, ti_linha)
     print("Last packet index: #%d" %N)
-    return (m_aoi, RMSE)
+    return (mean_aoi, RMSE)
 
 def mean_aoi(sim_id, data_file, num_sources, save_AoI_seq="None", save_Q_seq="None"):
     print("Calculating mean AoI values for simulation #%s" %sim_id)
@@ -118,7 +119,7 @@ def mean_aoi(sim_id, data_file, num_sources, save_AoI_seq="None", save_Q_seq="No
         try:
             result = calc_aoi(splitted_data[i])
         except Exception as e:
-            print("Error calculating AoI for source %d" %i)
+            print("Error calculating AoI for source %d: %s" %(i, e))
         aoi[i]["MeanAoI"] = result[0]
         aoi[i]["RMSE"] = result[1]
 

@@ -25,7 +25,7 @@ class AoiQueueServer(qt.QueueServer):
                self.num_departures, round(self._time, 3))
         return tmp.format(*arg)
 
-    # Overrides to include generated agent time ()
+    # Overrides method to include agent generated time
     def _add_arrival(self, agent=None):
         if agent is not None:
             self._num_total += 1
@@ -41,7 +41,7 @@ class AoiQueueServer(qt.QueueServer):
                 self._num_total += 1
                 new_agent = self.AgentFactory((self.edge[2], self._oArrivals))
                 new_agent._time = self._next_ct
-                new_agent.gen_time = self._next_ct
+                new_agent.gen_time = self._next_ct # agent generated time
                 heappush(self._arrivals, new_agent)
 
                 self._oArrivals += 1

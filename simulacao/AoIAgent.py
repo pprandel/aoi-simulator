@@ -12,8 +12,8 @@ Parameters
 
 class AoiAgent(Agent):
 
-    def __init__(self, agent_id=(0, 0), **kwargs):
-        super(AoiAgent, self).__init__(**kwargs)
+    def __init__(self, agent_id, **kwargs):
+        super(AoiAgent, self).__init__(agent_id, **kwargs)
         self.gen_time = 0
 
     def __repr__(self):

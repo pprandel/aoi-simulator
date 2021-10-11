@@ -1,5 +1,4 @@
 import queueing_tool as qt
-from LcfsMultiServer import LcfsMultiServer
 from mean_aoi import mean_aoi
 import numpy as np
 import json
@@ -60,7 +59,7 @@ for ro in RO:
     net.initialize(queues=range(N))
 
     # Start simulation with n events
-    net.simulate(n=1000000)
+    net.simulate(n=10000)
 
     # Collect data
     data = net.get_agent_data(queues=N)
