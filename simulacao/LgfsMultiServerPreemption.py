@@ -34,7 +34,7 @@ class LgfsMultiServerPreemption(AoiQueueServer):
         # Dic with source index as keys and last departure generation time as values
         self._last_departures_gen_time = {"oldest": 0}
         # Dic with source index as keys and last in service agent generation time as values
-        self._in_service_gen_time = {"oldest": 0}
+        self._in_service_gen_time = {}
 
     def __repr__(self):
         tmp = ("LgfsMultiServerPreemption:{0}. Servers: {1}, queued: {2}, arrivals: {3}, "
@@ -43,6 +43,7 @@ class LgfsMultiServerPreemption(AoiQueueServer):
                self.num_departures, round(self._time, 3))
         return tmp.format(*arg)
 
+    # Getters and setters
     def get_last_departures_gen_time(self, source):
         if source in self._last_departures_gen_time:
             return self._last_departures_gen_time[source]
@@ -50,8 +51,13 @@ class LgfsMultiServerPreemption(AoiQueueServer):
             return 0
 
     def get_in_service_gen_time(self, source):
+        if source == 'oldest':
+            return 0
         if source in self._in_service_gen_time:
-            return self._in_service_gen_time[source]
+            try:
+                return self._in_service_gen_time[source][-1]
+            except IndexError:
+                return 0
         else:
             return 0
 
@@ -59,8 +65,17 @@ class LgfsMultiServerPreemption(AoiQueueServer):
         self._last_departures_gen_time[source] = time
 
     def set_in_service_gen_time(self, source, time):
-        self._in_service_gen_time[source] = time
+        if source in self._in_service_gen_time:
+            self._in_service_gen_time[source].append(time)
+        else:
+            self._in_service_gen_time[source] = []
+            self._in_service_gen_time[source].append(time)
 
+    def remove_in_service_gen_time(self, source, sv_time):
+        self._in_service_gen_time[source].remove(sv_time)
+
+    # # #
+    
     def next_event(self):
         """Simulates the queue forward one event.
 
@@ -127,12 +142,12 @@ class LgfsMultiServerPreemption(AoiQueueServer):
             if self.num_system <= self.num_servers:
                 if self.collect_data:
                     self.data[arrival.agent_id][-1][1] = arrival._time
-
+                # Update in service time
+                self.set_in_service_gen_time(arrival_source, arrival._time)
                 arrival._time = self.service_f(arrival._time)
                 arrival.queue_action(self, 1)
                 heappush(self._departures, arrival)
-                # Update in service last gen time
-                self.set_in_service_gen_time(arrival_source, arrival.gen_time)
+                
             # Agent already in service is replaced
             else:
                 agent_replaced = None
@@ -208,16 +223,19 @@ class LgfsMultiServerPreemption(AoiQueueServer):
                 if agent_replaced is not None:
                     # Remove the selected agent in service
                     self._departures.remove(agent_replaced)
+                    # Update in_service_gen_time_list
+                    self.remove_in_service_gen_time(agent_replaced.agent_id[0], self.data[agent_replaced.agent_id][-1][1])
+                    # Update num_system
                     self.num_system -= 1
 
                     # Include new agent in service
                     if self.collect_data:
                         self.data[arrival.agent_id][-1][1] = arrival._time
                         self.data[agent_replaced.agent_id][-1][1] = 0
+                    # Update in service last gen time
+                    self.set_in_service_gen_time(arrival_source, arrival._time)
                     arrival._time = self.service_f(arrival._time)
                     heappush(self._departures, arrival)
-                    # Update in service last gen time
-                    self.set_in_service_gen_time(arrival_source, arrival.gen_time)
                 else:
                     self.num_system -= 1
             self._update_time()
