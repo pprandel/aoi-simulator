@@ -18,7 +18,8 @@ for preemption, sim in sim_name.items():
     print("Starting %s" %sim)
     aoi_dic = {}
     # Total load in server
-    RO = list(np.arange(0.2, 2.3, 0.2))
+    #RO = list(np.arange(0.2, 2.3, 0.2))
+    RO = [1]
     RO = [round(ro,2) for ro in RO]
     for ro in RO:
         print("RO = %f" %ro)
@@ -70,7 +71,7 @@ for preemption, sim in sim_name.items():
         net.initialize(queues=range(N))
 
         # Start simulation with n events
-        net.simulate(n=1000000)
+        net.simulate(n=100000)
 
         # Collect data
         data = net.get_agent_data(queues=N)
@@ -90,5 +91,5 @@ for preemption, sim in sim_name.items():
             rmse_vector.append(source["RMSE"])
         aoi_dic[str(ro)] = {"MeanAoI": np.mean(age_vector), "MaxRMSE": np.max(rmse_vector)}
     arq_nome = "resultados/" + sim + ".json"
-    with open(arq_nome, 'w') as f:
-        json.dump(aoi_dic, f, indent=3)
+    # with open(arq_nome, 'w') as f:
+    #     json.dump(aoi_dic, f, indent=3)

@@ -46,14 +46,14 @@ def calc_RMSE(Q, N, tau):
     for i in range(M):
         iat = iat + (1 - (i+1)/M)*acorr[i]
     iat = 1 + 2*iat
-    print("Integrated autocorrelation times: %f" %iat)
+    #print("Integrated autocorrelation times: %f" %iat)
     var_Q_mean = var_q/len(Q)
-    print("Variance of Q_mean: %f" %var_Q_mean)
+    #print("Variance of Q_mean: %f" %var_Q_mean)
     true_var_Q_mean = var_Q_mean * iat
-    print("Variance corrected: %f" %true_var_Q_mean)
+    #print("Variance corrected: %f" %true_var_Q_mean)
     var_aoi_mean = (N/tau)**2 * true_var_Q_mean
     RMSE = var_aoi_mean**0.5
-    print("RMSE: %f" %RMSE)
+    #print("RMSE: %f" %RMSE)
     return RMSE
     
 
@@ -87,13 +87,13 @@ def calc_aoi(data):
         Q_vector.append(Qi_now)
     Qi_total = Qi_total + 0.5*(Ti**2)
     mean_aoi = Qi_total / (ti_linha - t_inicio)
-    print("Mean AoI: %f" %mean_aoi)
+    #print("Mean AoI: %f" %mean_aoi)
     RMSE = calc_RMSE(Q_vector, N, ti_linha)
-    print("Last packet index: #%d" %N)
+    #print("Last packet index: #%d" %N)
     return (mean_aoi, RMSE)
 
 def mean_aoi(sim_id, data_file, num_sources, save_AoI_seq="None", save_Q_seq="None"):
-    print("Calculating mean AoI values for simulation #%s" %sim_id)
+    #print("Calculating mean AoI values for simulation #%s" %sim_id)
     # Initialize return dict
     aoi = {}
     for i in range(num_sources):
@@ -115,7 +115,7 @@ def mean_aoi(sim_id, data_file, num_sources, save_AoI_seq="None", save_Q_seq="No
 
     # Calculate AoI per source
     for i in splitted_data.keys():
-        print("Source %d:" %i)
+        #print("Source %d:" %i)
         try:
             result = calc_aoi(splitted_data[i])
         except Exception as e:
