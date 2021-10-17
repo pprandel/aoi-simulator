@@ -1,6 +1,7 @@
 import queueing_tool as qt
 from AoIAgent import AoiAgent
 from heapq import heappush
+import numpy as np
 
 """
 Extends QueueServer Class from queueing_tool package

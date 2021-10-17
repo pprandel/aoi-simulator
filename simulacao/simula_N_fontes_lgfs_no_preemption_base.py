@@ -1,20 +1,20 @@
 import queueing_tool as qt
-from LgfsMultiServerPreemption import LgfsMultiServerPreemption
+from LgfsMultiServerNoPreemption import LgfsMultiServerNoPreemption
 from AoIQueueServer import AoiQueueServer
 from mean_aoi import mean_aoi
 import numpy as np
 import json
 
 # Sim name 
-sim_name = "mm1_N_sources_lgfs_preemption"
+sim_name = "mm1_N_sources_lgfs_no_preemption"
 
 ### Network definition ###
 # Create adjacency matrix
 # Each edge represents a queue and must have a type
 adjacency = {}
-# ro = 10
-N = 11
-num_servers = 15
+ro = 0.99
+N = 50
+num_servers = 3
 for i in range(N):
     adjacency[i] = {N: {'edge_type': 1}}
 adjacency[N] = {N+1: {'edge_type': 2}}
@@ -23,13 +23,13 @@ adjacency[N] = {N+1: {'edge_type': 2}}
 G = qt.QueueNetworkDiGraph(adjacency)
 
 # Define queue classes for each edge type
-q_cl = {1: AoiQueueServer, 2: LgfsMultiServerPreemption}
+q_cl = {1: AoiQueueServer, 2: LgfsMultiServerNoPreemption}
 
 # Define packet generation and service functions
 # Queue service rate
-mu = 2
+mu = 1
 # Packet generation rates
-lamb = 2 #(ro * mu * num_servers) / N
+lamb = (ro * mu * num_servers) / N
 
 # Poisson generation queues (exponential interarrival times)
 def f_gen_1(t): return t+ np.random.exponential(1/lamb)
@@ -62,7 +62,7 @@ net.start_collecting_data(queues=N)
 net.initialize(queues=range(N))
 
 # Start simulation with n events
-net.simulate(n=100000)
+net.simulate(n=50000)
 
 # Collect data
 data = net.get_agent_data(queues=N)

@@ -1,8 +1,5 @@
 from numpy import infty
-import numpy
 from heapq import heappush, heappop
-import queueing_tool as qt
-from queueing_tool.queues.agents import InftyAgent
 from AoIQueueServer import AoiQueueServer
 
 """
@@ -55,8 +52,9 @@ class LgfsMultiServerPreemption(AoiQueueServer):
             return 0
         if source in self._in_service_gen_time:
             try:
-                return self._in_service_gen_time[source][-1]
-            except IndexError:
+                # Return min service time in list
+                return max(self._in_service_gen_time[source])
+            except (IndexError, ValueError):
                 return 0
         else:
             return 0
@@ -77,20 +75,7 @@ class LgfsMultiServerPreemption(AoiQueueServer):
     # # #
     
     def next_event(self):
-        """Simulates the queue forward one event.
-
-        Use :meth:`.simulate` instead.
-
-        Returns
-        -------
-        out : :class:`.Agent` (sometimes)
-            If the next event is a departure then the departing agent
-            is returned, otherwise nothing is returned.
-
-        See Also
-        --------
-        :meth:`.simulate` : Simulates the queue forward.
-        """
+    
         if self._departures[0]._time < self._arrivals[0]._time:
             new_depart = heappop(self._departures)
             self._current_t = new_depart._time
@@ -98,10 +83,11 @@ class LgfsMultiServerPreemption(AoiQueueServer):
             self.num_system -= 1
             self.num_departures += 1
             new_depart_source = new_depart.agent_id[0]
+            # Update last departure time
             self.set_last_departures_gen_time(new_depart_source, new_depart.gen_time)
-
             if self.collect_data and new_depart.agent_id in self.data:
                 self.data[new_depart.agent_id][-1][2] = self._current_t
+
 
             # if len(self.queue) > 0:
             #     agent = self.queue.popleft()
@@ -143,7 +129,7 @@ class LgfsMultiServerPreemption(AoiQueueServer):
                 if self.collect_data:
                     self.data[arrival.agent_id][-1][1] = arrival._time
                 # Update in service time
-                self.set_in_service_gen_time(arrival_source, arrival._time)
+                self.set_in_service_gen_time(arrival_source, arrival.gen_time)
                 arrival._time = self.service_f(arrival._time)
                 arrival.queue_action(self, 1)
                 heappush(self._departures, arrival)
@@ -224,7 +210,7 @@ class LgfsMultiServerPreemption(AoiQueueServer):
                     # Remove the selected agent in service
                     self._departures.remove(agent_replaced)
                     # Update in_service_gen_time_list
-                    self.remove_in_service_gen_time(agent_replaced.agent_id[0], self.data[agent_replaced.agent_id][-1][1])
+                    self.remove_in_service_gen_time(agent_replaced.agent_id[0], agent_replaced.gen_time)
                     # Update num_system
                     self.num_system -= 1
 
@@ -233,7 +219,7 @@ class LgfsMultiServerPreemption(AoiQueueServer):
                         self.data[arrival.agent_id][-1][1] = arrival._time
                         self.data[agent_replaced.agent_id][-1][1] = 0
                     # Update in service last gen time
-                    self.set_in_service_gen_time(arrival_source, arrival._time)
+                    self.set_in_service_gen_time(arrival_source, arrival.gen_time)
                     arrival._time = self.service_f(arrival._time)
                     heappush(self._departures, arrival)
                 else:
