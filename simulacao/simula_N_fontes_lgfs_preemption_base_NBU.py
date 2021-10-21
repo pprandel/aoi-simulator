@@ -27,7 +27,7 @@ q_cl = {1: AoiQueueServer, 2: LgfsMultiServerPreemption}
 
 # Define packet generation and service functions
 # Queue service rate
-mu = 0.886
+mu = 1/0.886
 # Packet generation rates
 lamb = (ro * mu * num_servers) / N
 
@@ -49,7 +49,7 @@ q_ar = {
     2: {
         'service_f': f_ser_2,
         'num_servers': num_servers,
-        'policy': 1
+        'policy': 0
     }
 }
 

@@ -12,8 +12,8 @@ sim_name = "mm1_N_sources_lgfs_no_preemption"
 # Create adjacency matrix
 # Each edge represents a queue and must have a type
 adjacency = {}
-ro = 0.99
-N = 50
+ro = 0.95
+N = 30
 num_servers = 3
 for i in range(N):
     adjacency[i] = {N: {'edge_type': 1}}

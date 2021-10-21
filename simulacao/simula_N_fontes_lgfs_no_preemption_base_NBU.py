@@ -12,7 +12,7 @@ sim_name = "mm1_N_sources_lgfs_no_preemption_NBU"
 # Create adjacency matrix
 # Each edge represents a queue and must have a type
 adjacency = {}
-ro = 0.99
+ro = 0.9
 N = 50
 num_servers = 3
 for i in range(N):
@@ -27,7 +27,7 @@ q_cl = {1: AoiQueueServer, 2: LgfsMultiServerNoPreemption}
 
 # Define packet generation and service functions
 # Queue service rate
-mu = 0.886
+mu = 1/0.886
 # Packet generation rates
 lamb = (ro * mu * num_servers) / N
 
@@ -49,7 +49,7 @@ q_ar = {
     2: {
         'service_f': f_ser_2,
         'num_servers': num_servers,
-        'policy': 1
+        'policy': 2
     }
 }
 

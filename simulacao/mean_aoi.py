@@ -26,6 +26,7 @@ mean_aoi: dict
 """
 
 import json
+from os import remove
 import numpy as np
 from scipy.signal import correlate
 
@@ -105,14 +106,25 @@ def mean_aoi(sim_id, data_file, num_sources, save_AoI_seq="None", save_Q_seq="No
         data = json.load(d)
     # Split sources
     splitted_data = {}
+    preempted = 0
+    pop = 0
     for id, value in data.items():
         source = int(id.split(",")[0][1:])
         if source in splitted_data:
+            # Remove preempted
+            if value[0][2] == 0:
+                preempted = preempted + 1
+                continue
+            # Remove obsolete
+            elif value[0][2] < splitted_data[source][-1][0][2]:
+                splitted_data[source].pop()
+                pop = pop +1
             splitted_data[source].append(value)
         else:
             splitted_data[source] = []
             splitted_data[source].append(value)
-
+    print(preempted)
+    print(pop)
     # Calculate AoI per source
     for i in splitted_data.keys():
         #print("Source %d:" %i)
