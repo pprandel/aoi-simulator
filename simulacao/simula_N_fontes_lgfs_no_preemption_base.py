@@ -12,8 +12,8 @@ sim_name = "mm1_N_sources_lgfs_no_preemption"
 # Create adjacency matrix
 # Each edge represents a queue and must have a type
 adjacency = {}
-ro = 0.95
-N = 30
+ro = 0.9
+N = 50
 num_servers = 3
 for i in range(N):
     adjacency[i] = {N: {'edge_type': 1}}
@@ -32,7 +32,7 @@ mu = 1
 lamb = (ro * mu * num_servers) / N
 
 # Poisson generation queues (exponential interarrival times)
-def f_gen_1(t): return t+ np.random.exponential(1/lamb)
+def f_gen_1(t): return t + np.random.exponential(1/lamb)
 # Instant service queue
 def f_ser_1(t): return t
 # Exponential service queue
@@ -62,7 +62,7 @@ net.start_collecting_data(queues=N)
 net.initialize(queues=range(N))
 
 # Start simulation with n events
-net.simulate(n=50000)
+net.simulate(n=1000000)
 
 # Collect data
 data = net.get_agent_data(queues=N)

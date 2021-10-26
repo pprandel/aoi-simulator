@@ -63,7 +63,7 @@ net.start_collecting_data(queues=N)
 net.initialize(queues=range(N))
 
 # Start simulation with n events
-net.simulate(n=100000)
+net.simulate(n=1000000)
 
 # Collect data
 data = net.get_agent_data(queues=N)

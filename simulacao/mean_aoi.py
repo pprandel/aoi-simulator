@@ -123,8 +123,8 @@ def mean_aoi(sim_id, data_file, num_sources, save_AoI_seq="None", save_Q_seq="No
         else:
             splitted_data[source] = []
             splitted_data[source].append(value)
-    print(preempted)
-    print(pop)
+    print("Total preempted packets: %d" %preempted)
+    print("Total obsolete packets: %d" %pop)
     # Calculate AoI per source
     for i in splitted_data.keys():
         #print("Source %d:" %i)

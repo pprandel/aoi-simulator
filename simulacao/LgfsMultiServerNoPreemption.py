@@ -122,6 +122,9 @@ class LgfsMultiServerNoPreemption(AoiQueueServer):
 
         # # #
 
+        def remove_obsolete():
+            pass
+
         if self._departures[0]._time < self._arrivals[0]._time:
             new_depart = heappop(self._departures)
             self._current_t = new_depart._time
@@ -134,6 +137,8 @@ class LgfsMultiServerNoPreemption(AoiQueueServer):
 
             if self.collect_data and new_depart.agent_id in self.data:
                 self.data[new_depart.agent_id][-1][2] = self._current_t
+
+            remove_obsolete()
 
             # Fetch next agent according to the policy
             if len(self.queue) > 0:
