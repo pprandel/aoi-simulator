@@ -33,15 +33,15 @@ ro = 0.9
 mu = 1
 aoi_analyt  = calc_analitic_aoi(ro,mu)
 
-data_file = "resultados/A_vec.txt"
+data_file = "resultados/old/A_vec.txt"
 with open (data_file, 'r') as d:
         A = json.load(d)
 
-data_file = "resultados/Q_vec.txt"
+data_file = "resultados/old/Q_vec.txt"
 with open (data_file, 'r') as d:
         Q = json.load(d)
 
-data_file = "resultados/V_vec.txt"
+data_file = "resultados/old/V_vec.txt"
 with open (data_file, 'r') as d:
         V = json.load(d)
 
