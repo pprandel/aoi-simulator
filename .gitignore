@@ -1,6 +1,8 @@
 # Git ignore
 
-.vscode/
+.vscode/*
+.vscode/settings.json
 experimentos/
 resultados/
+test.py
 __pycache__/
