@@ -12,7 +12,7 @@ sim_name = "mm1_N_sources_lgfs_preemption_NBU"
 # Create adjacency matrix
 # Each edge represents a queue and must have a type
 adjacency = {}
-ro = 4
+ro = 2
 N = 50
 num_servers = 3
 for i in range(N):
@@ -27,17 +27,21 @@ q_cl = {1: AoiQueueServer, 2: LgfsMultiServerPreemption}
 
 # Define packet generation and service functions
 # Queue service rate
-mu = 1/0.886
+mu = 1/0.918
 # Packet generation rates
 lamb = (ro * mu * num_servers) / N
 
 # Poisson generation queues (exponential interarrival times)
 def f_gen_1(t): return t+ np.random.exponential(1/lamb)
 # Instant service queue
-def f_ser_1(t): return t
+def f_ser_1(t): 
+    if np.random.random() < 0.5:
+        return t
+    else:
+        return t + 4 / lamb
 # Exponential service queue
 #def f_ser_2(t): return t + np.random.exponential(1/mu)
-def f_ser_2(t): return t + np.random.weibull(2)
+def f_ser_2(t): return t + np.random.weibull(5)
 
 # Config queues parameters for each edge type
 q_ar = {
@@ -49,7 +53,7 @@ q_ar = {
     2: {
         'service_f': f_ser_2,
         'num_servers': num_servers,
-        'policy': 0
+        'policy': 1
     }
 }
 
@@ -63,7 +67,7 @@ net.start_collecting_data(queues=N)
 net.initialize(queues=range(N))
 
 # Start simulation with n events
-net.simulate(n=1000000)
+net.simulate(n=100000)
 
 # Collect data
 data = net.get_agent_data(queues=N)

@@ -1,6 +1,6 @@
 from numpy import infty
 from heapq import heappush, heappop
-from AoIQueueServer import AoiQueueServer
+from AoIQueueServer import AoIQueueServer
 
 """
 Extends QueueServer Class from queueing_tool package
@@ -23,7 +23,7 @@ Parameters
         Any :class:`~QueueServer` parameters.
 """
 
-class LgfsMultiServerNoPreemption(AoiQueueServer):
+class LgfsMultiServerNoPreemption(AoIQueueServer):
 
     def __init__(self, policy=0, **kwargs):
         super(LgfsMultiServerNoPreemption, self).__init__(**kwargs)

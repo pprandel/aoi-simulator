@@ -66,7 +66,7 @@ def calc_aoi(data):
         Q = Ti*Yi + 0.5*(Yi**2)
         return Q
     
-    ti = data[0][0][0] # Chegada t0
+    ti = data[0][0] # Chegada t0
     t_inicio = ti
     ti_linha = 0
     Ti = 0
@@ -74,12 +74,12 @@ def calc_aoi(data):
     N = 0 # total delivered packets
     data.pop(0) # Remove a primeira entrada
     for value in data:
-        if value[0][2] == 0: 
+        if value[1] == 0: 
             continue
         N = N + 1 # delivered packet
-        Yi = value[0][0] - ti
-        ti = value[0][0]
-        ti_linha = value[0][2]
+        Yi = value[0] - ti
+        ti = value[0]
+        ti_linha = value[1]
         Ti = ti_linha - ti
         Qi_now = Qi(Ti, Yi)
         Qi_total = Qi_total + Qi_now
@@ -109,20 +109,24 @@ def mean_aoi(sim_id, data_file, num_sources, save_AoI_seq="None", save_Q_seq="No
     preempted = 0
     pop = 0
     for id, value in data.items():
-        source = int(id.split(",")[0][1:])
+        id_splitted = id.split(",")
+        source = int(id_splitted[0][1:])
+        gen_time = float(id_splitted[2][0:-1])
+        deliv_time = value[0][2]
+        times = (gen_time, deliv_time)
         if source in splitted_data:
             # Remove preempted
-            if value[0][2] == 0:
+            if deliv_time == 0:
                 preempted = preempted + 1
                 continue
             # Remove obsolete
-            elif value[0][2] < splitted_data[source][-1][0][2]:
+            elif deliv_time < splitted_data[source][-1][1]:
                 splitted_data[source].pop()
                 pop = pop +1
-            splitted_data[source].append(value)
+            splitted_data[source].append(times)
         else:
             splitted_data[source] = []
-            splitted_data[source].append(value)
+            splitted_data[source].append(times)
     print("Total preempted packets: %d" %preempted)
     print("Total obsolete packets: %d" %pop)
     # Calculate AoI per source

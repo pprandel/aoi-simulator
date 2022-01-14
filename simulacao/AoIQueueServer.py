@@ -13,10 +13,10 @@ Parameters
         Any :class:`~QueueServer` parameters.
 """
 
-class AoiQueueServer(qt.QueueServer):
+class AoIQueueServer(qt.QueueServer):
 
     def __init__(self, **kwargs):
-        super(AoiQueueServer, self).__init__(**kwargs)
+        super(AoIQueueServer, self).__init__(**kwargs)
         self.AgentFactory = AoiAgent
 
     def __repr__(self):
@@ -40,7 +40,7 @@ class AoiQueueServer(qt.QueueServer):
                     return
 
                 self._num_total += 1
-                new_agent = self.AgentFactory((self.edge[2], self._oArrivals))
+                new_agent = self.AgentFactory((self.edge[2], self._oArrivals), self._next_ct)
                 new_agent._time = self._next_ct
                 new_agent.gen_time = self._next_ct # agent generated time
                 heappush(self._arrivals, new_agent)
