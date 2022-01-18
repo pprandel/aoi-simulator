@@ -1,6 +1,6 @@
 import queueing_tool as qt
 from LgfsMultiServerPreemption import LgfsMultiServerPreemption
-from AoIQueueServer import AoiQueueServer
+from AoIQueueServer import AoIQueueServer
 from mean_aoi import mean_aoi
 import numpy as np
 import json
@@ -12,7 +12,7 @@ sim_name = "mm1_N_sources_lgfs_preemption_NBU"
 # Create adjacency matrix
 # Each edge represents a queue and must have a type
 adjacency = {}
-ro = 2
+ro = 3
 N = 50
 num_servers = 3
 for i in range(N):
@@ -23,32 +23,30 @@ adjacency[N] = {N+1: {'edge_type': 2}}
 G = qt.QueueNetworkDiGraph(adjacency)
 
 # Define queue classes for each edge type
-q_cl = {1: AoiQueueServer, 2: LgfsMultiServerPreemption}
+q_cl = {1: AoIQueueServer, 2: LgfsMultiServerPreemption}
 
 # Define packet generation and service functions
 # Queue service rate
-mu = 1/0.918
+mu = 0.893
 # Packet generation rates
 lamb = (ro * mu * num_servers) / N
 
 # Poisson generation queues (exponential interarrival times)
-def f_gen_1(t): return t+ np.random.exponential(1/lamb)
+def f_gen_1(t): return t + np.random.exponential(1/lamb)
 # Instant service queue
 def f_ser_1(t): 
-    if np.random.random() < 0.5:
-        return t
-    else:
-        return t + 4 / lamb
+    return t + np.random.exponential(2)
+
 # Exponential service queue
-#def f_ser_2(t): return t + np.random.exponential(1/mu)
-def f_ser_2(t): return t + np.random.weibull(5)
+def f_ser_2(t): return t + np.random.weibull(3) #np.random.exponential(1/mu)
+
 
 # Config queues parameters for each edge type
 q_ar = {
     1: {
         'arrival_f': f_gen_1,
         'service_f': f_ser_1,
-        'num_servers': 1
+        'num_servers': np.infty
     },
     2: {
         'service_f': f_ser_2,

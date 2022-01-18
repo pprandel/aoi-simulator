@@ -46,7 +46,7 @@ for ro in RO:
         },
         2: {
             'service_f': f_ser_2,
-            'num_servers': 1
+            'num_servers': 3
         }
     }
 

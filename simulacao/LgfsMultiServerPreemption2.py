@@ -1,6 +1,8 @@
 from numpy import infty
 from heapq import heappush, heappop
 from AoIQueueServer import AoIQueueServer
+from reliability.Distributions import Weibull_Distribution as WB
+
 
 """
 Extends QueueServer Class from queueing_tool package
@@ -23,15 +25,16 @@ Parameters
         Any :class:`~QueueServer` parameters.
 """
 
-class LgfsMultiServerPreemption(AoIQueueServer):
+class LgfsMultiServerPreemption2(AoIQueueServer):
 
     def __init__(self, policy=0, **kwargs):
-        super(LgfsMultiServerPreemption, self).__init__(**kwargs)
+        super(LgfsMultiServerPreemption2, self).__init__(**kwargs)
         self.policy = policy
         # Dic with source index as keys and last departure generation time as values
         self._last_departures_gen_time = {"oldest": 0}
         # Dic with source index as keys and last in service agent generation time as values
         self._in_service_gen_time = {}
+        self.w = WB(1,2)
 
     def __repr__(self):
         tmp = ("LgfsMultiServerPreemption:{0}. Servers: {1}, queued: {2}, arrivals: {3}, "
@@ -71,6 +74,9 @@ class LgfsMultiServerPreemption(AoIQueueServer):
 
     def remove_in_service_gen_time(self, source, sv_time):
         self._in_service_gen_time[source].remove(sv_time)
+
+    def expected_sv(self, t):
+        return self.w.mean_residual_life(t)
 
     # # #
     
@@ -180,7 +186,7 @@ class LgfsMultiServerPreemption(AoIQueueServer):
                         agent_replaced = None
 
                 # MASIF-LGFS
-                else:
+                elif self.policy == 2: 
                     # Max age source
                     oldest_source = "oldest"
                     # Oldest gen time from max age source
@@ -194,7 +200,7 @@ class LgfsMultiServerPreemption(AoIQueueServer):
                             if agent.gen_time < oldest_gen_time:
                                 agent_replaced = agent
                                 oldest_gen_time = agent.gen_time
-                        elif self.get_in_service_gen_time(agent_source) > self.get_in_service_gen_time(oldest_source):
+                        elif self.get_last_departures_gen_time(agent_source) > self.get_last_departures_gen_time(oldest_source):
                             oldest_source = agent_source
                             oldest_gen_time = agent.gen_time
                             agent_replaced = agent
@@ -203,8 +209,40 @@ class LgfsMultiServerPreemption(AoIQueueServer):
                     if arrival_source == oldest_source:
                         if arrival.gen_time < oldest_gen_time:
                                 agent_replaced = None
-                    elif self.get_in_service_gen_time(arrival_source) > self.get_in_service_gen_time(oldest_source):
+                    elif self.get_last_departures_gen_time(arrival_source) > self.get_last_departures_gen_time(oldest_source):
                         agent_replaced = None
+
+                else: 
+                    # Max predicted age source
+                    oldest_source = "oldest"
+                    # Oldest gen time from max age source
+                    oldest_gen_time = infty
+                    alfa = 0
+                    for agent in self._departures:
+                        if repr(agent) == 'InftyAgent':
+                            continue
+                        agent_source = agent.agent_id[0]
+                        AES = self.expected_sv(self._current_t - self.data[agent.agent_id][-1][1])
+                        # If agents have same source, we choose the oldest generated time
+                        if agent_source == oldest_source:
+                            if agent.gen_time < oldest_gen_time:
+                                agent_replaced = agent
+                                oldest_gen_time = agent.gen_time
+                        elif (self.get_last_departures_gen_time(agent_source) - AES) > alfa:
+                            oldest_source = agent_source
+                            oldest_gen_time = agent.gen_time
+                            alfa = self.get_last_departures_gen_time(agent_source) - AES
+                            agent_replaced = agent
+                        
+                    # Check if the last arrival is older
+                    AES = 0.886
+                    if arrival_source == oldest_source:
+                        if arrival.gen_time < oldest_gen_time:
+                                agent_replaced = None
+                    elif (self.get_last_departures_gen_time(arrival_source) - AES) > self.get_in_service_gen_time(oldest_source):
+                        agent_replaced = None
+
+                        
 
                 if agent_replaced is not None:
                     # Remove the selected agent in service
