@@ -38,7 +38,7 @@ def f_ser_1(t):
     return t + np.random.exponential(2)
 
 # Exponential service queue
-def f_ser_2(t): return t + np.random.exponential(1/mu) #np.random.weibull(2) 
+def f_ser_2(t): return t + np.random.weibull(2) #np.random.exponential(1/mu) 
 
 
 # Config queues parameters for each edge type
@@ -52,7 +52,7 @@ q_ar = {
         'service_f': f_ser_2,
         'num_servers': num_servers,
         'policy': 3
-    }
+     }
 }
 
 # Instantiate the network
@@ -65,7 +65,7 @@ net.start_collecting_data(queues=N)
 net.initialize(queues=range(N))
 
 # Start simulation with n events
-net.simulate(n=10000)
+net.simulate(n=100000)
 
 # Collect data
 data = net.get_agent_data(queues=N)
