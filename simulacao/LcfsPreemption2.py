@@ -24,7 +24,7 @@ class LcfsPreemption2(AoIQueueServer):
     def __init__(self, preemption=0, **kwargs):
         super(LcfsPreemption2, self).__init__(**kwargs)
         self.preemption = preemption
-        with open("data_aux/MRL.json", 'r') as f:
+        with open("data_aux/MRL_weib_2.json", 'r') as f:
             self.MRL = json.load(f)
         self.last_departure_gen_time = 0
 
@@ -94,19 +94,23 @@ class LcfsPreemption2(AoIQueueServer):
                         self.data[arrival.agent_id][-1][1] = arrival._time
                     # Go directly to service
                     heappush(self._departures, arrival)
+                    arrival.queue_action(self, 1)
+                    arrival._time = self.service_f(arrival._time)
+
                 # Agent already in service is replaced
                 else:
-                    # Remove agent in service
-                    agent_replaced = heappop(self._departures)
+                    agent_in_sv = self._departures[0]
+                    if arrival.gen_time > agent_in_sv.gen_time:
+                        # Remove agent in service
+                        agent_replaced = heappop(self._departures)
+                        # Include new agent in service
+                        heappush(self._departures, arrival)
+                        if self.collect_data:
+                            self.data[arrival.agent_id][-1][1] = arrival._time
+                            self.data[agent_replaced.agent_id][-1][1] = 0
+                        arrival.queue_action(self, 1)
+                        arrival._time = self.service_f(arrival._time)
                     self.num_system -= 1
-                    # Include new agent in service
-                    heappush(self._departures, arrival)
-                    if self.collect_data:
-                        self.data[arrival.agent_id][-1][1] = arrival._time
-                        self.data[agent_replaced.agent_id][-1][1] = 0
-
-                arrival.queue_action(self, 1)
-                arrival._time = self.service_f(arrival._time)
                 self._update_time()
             
             # Preemption in waiting
@@ -117,6 +121,8 @@ class LcfsPreemption2(AoIQueueServer):
                         self.data[arrival.agent_id][-1][1] = arrival._time
                     # Go directly to service
                     heappush(self._departures, arrival)
+                    arrival.queue_action(self, 1)
+                    arrival._time = self.service_f(arrival._time)
 
                 # One agent in service
                 elif self.num_system == 2:
@@ -126,17 +132,13 @@ class LcfsPreemption2(AoIQueueServer):
 
                 # One agent in service and one agent in waiting
                 else:
-                    # Remove agent in waiting
-                    agent_replaced = self.queue.popleft()
+                    agent_in_queue = self.queue[0]
+                    if arrival.gen_time > agent_in_queue.gen_time:
+                        # Remove agent in waiting
+                        agent_replaced = self.queue.popleft()
+                        # Include new arrival in waiting
+                        self.queue.append(arrival)             
                     self.num_system -= 1
-                    # Include new arrival in waiting
-                    self.queue.append(arrival)
-                    if self.collect_data:
-                        self.data[arrival.agent_id][-1][1] = arrival._time
-                        self.data[agent_replaced.agent_id][-1][1] = 0
-
-                arrival.queue_action(self, 1)
-                arrival._time = self.service_f(arrival._time)
                 self._update_time()
 
             # Preemption conditional
@@ -152,22 +154,21 @@ class LcfsPreemption2(AoIQueueServer):
                 # Agent already in service is replaced ?
                 else:
                     agent_in_sv = self._departures[0]
-                    s0 = self.last_departure_gen_time
-                    s1 = agent_in_sv.gen_time
-                    s2 = arrival.gen_time
-                    MRL = self.expected_sv(self._current_t - self.data[agent_in_sv.agent_id][-1][1])
-                    #if (MRL - s1) < (0.886 - s2):
-                    if ((s1 - s0)*0.886) < ((s2 - s0)*MRL):
-                    # Remove agent in service  
-                        agent_replaced = heappop(self._departures)
-                        self.num_system -= 1
-                        # Include new agent in service
-                        heappush(self._departures, arrival)
-                        if self.collect_data:
-                            self.data[arrival.agent_id][-1][1] = arrival._time
-                            self.data[agent_replaced.agent_id][-1][1] = 0
-                        arrival.queue_action(self, 1)
-                        arrival._time = self.service_f(arrival._time)
-                    else:
-                        self.num_system -= 1
+                    if arrival.gen_time > agent_in_sv.gen_time:
+                        s0 = self.last_departure_gen_time
+                        s1 = agent_in_sv.gen_time
+                        s2 = arrival.gen_time
+                        MRL = self.expected_sv(self._current_t - self.data[agent_in_sv.agent_id][-1][1])
+                        #if (MRL - s1) < (0.886 - s2):
+                        if ((s1 - s0)*0.886) < ((s2 - s0)*MRL):
+                        # Remove agent in service  
+                            agent_replaced = heappop(self._departures)
+                            # Include new agent in service
+                            heappush(self._departures, arrival)
+                            if self.collect_data:
+                                self.data[arrival.agent_id][-1][1] = arrival._time
+                                self.data[agent_replaced.agent_id][-1][1] = 0
+                            arrival.queue_action(self, 1)
+                            arrival._time = self.service_f(arrival._time)
+                    self.num_system -= 1        
                 self._update_time()

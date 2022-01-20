@@ -5,9 +5,9 @@ from mean_aoi import mean_aoi
 import numpy as np
 import json
 
-sim_name = "mm1_lcfs__weib_c2"
+sim_name = "mm1_lcfs__weib_c"
 aoi_dic = {}
-RO = np.arange(1, 4, 0.2)
+RO = np.arange(0.2, 4, 0.2)
 RO = np.around(RO, decimals=1)
 for ro in RO:
 
@@ -34,7 +34,7 @@ for ro in RO:
     # Poisson generation queues (exponential interarrival times)
     def f_gen_1(t): return t+ np.random.exponential(1/lamb)
     # Instant service queue
-    def f_ser_1(t): return t
+    def f_ser_1(t): return t # + np.random.exponential(2)
     # Exponential service queue
     def f_ser_2(t): return t + np.random.weibull(2) # np.random.exponential(1/mu) # 
 

@@ -107,7 +107,8 @@ class LcfsPreemption(qt.QueueServer):
                         self.data[arrival.agent_id][-1][1] = arrival._time
                     # Go directly to service
                     heappush(self._departures, arrival)
-
+                    arrival.queue_action(self, 1)
+                    arrival._time = self.service_f(arrival._time)
                 # One agent in service
                 elif self.num_system == 2:
                     self.queue.append(arrival)
@@ -121,10 +122,4 @@ class LcfsPreemption(qt.QueueServer):
                     self.num_system -= 1
                     # Include new arrival in waiting
                     self.queue.append(arrival)
-                    if self.collect_data:
-                        self.data[arrival.agent_id][-1][1] = arrival._time
-                        self.data[agent_replaced.agent_id][-1][1] = 0
-
-                arrival.queue_action(self, 1)
-                arrival._time = self.service_f(arrival._time)
                 self._update_time()

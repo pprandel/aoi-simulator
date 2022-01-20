@@ -1,5 +1,6 @@
 import queueing_tool as qt
 from LcfsPreemption import LcfsPreemption
+from AoIQueueServer import AoIQueueServer
 from mean_aoi import mean_aoi
 import numpy as np
 import json
@@ -23,7 +24,7 @@ for ro in RO:
     G = qt.QueueNetworkDiGraph(adjacency)
 
     # Define queue classes for each edge type
-    q_cl = {1: qt.QueueServer, 2: LcfsPreemption}
+    q_cl = {1: AoIQueueServer, 2: LcfsPreemption}
 
     # Define packet generation and service functions
     # Queue service rate
