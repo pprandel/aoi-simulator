@@ -4,6 +4,8 @@ from AoIQueueServer import AoIQueueServer
 from mean_aoi import mean_aoi
 import numpy as np
 import json
+from scipy.stats import expon
+
 
 # Sim name 
 sim_name = "mm1_N_sources_lgfs_preemption_NBU"
@@ -27,7 +29,7 @@ q_cl = {1: AoIQueueServer, 2: LgfsMultiServerPreemption2}
 
 # Define packet generation and service functions
 # Queue service rate
-mu = 0.886
+mu = 1
 # Packet generation rates
 lamb = (ro * mu * num_servers) / N
 
@@ -38,7 +40,7 @@ def f_ser_1(t):
     return t + np.random.exponential(2)
 
 # Exponential service queue
-def f_ser_2(t): return t + np.random.weibull(2) #np.random.exponential(1/mu) 
+def f_ser_2(t): return t + expon.rvs(loc=1/3, scale=2/3) #np.random.weibull(2) #np.random.exponential(1/mu) 
 
 
 # Config queues parameters for each edge type
@@ -51,7 +53,7 @@ q_ar = {
     2: {
         'service_f': f_ser_2,
         'num_servers': num_servers,
-        'policy': 3
+        'policy': 2
      }
 }
 

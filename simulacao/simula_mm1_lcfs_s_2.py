@@ -5,9 +5,9 @@ from mean_aoi import mean_aoi
 import numpy as np
 import json
 
-sim_name = "mm1_lcfs_c"
+sim_name = "mm1_lcfs__weib_c2"
 aoi_dic = {}
-RO = np.arange(0.2, 3, 0.2)
+RO = np.arange(1, 4, 0.2)
 RO = np.around(RO, decimals=1)
 for ro in RO:
 
@@ -36,14 +36,14 @@ for ro in RO:
     # Instant service queue
     def f_ser_1(t): return t
     # Exponential service queue
-    def f_ser_2(t): return t + np.random.weibull(2) #np.random.exponential(1/mu)
+    def f_ser_2(t): return t + np.random.weibull(2) # np.random.exponential(1/mu) # 
 
     # Config queues parameters for each edge type
     q_ar = {
         1: {
             'arrival_f': f_gen_1,
             'service_f': f_ser_1,
-            'num_servers': 1
+            'num_servers': np.infty
         },
         2: {
             'service_f': f_ser_2,
@@ -62,7 +62,7 @@ for ro in RO:
     net.initialize(queues=range(N))
 
     # Start simulation with n events
-    net.simulate(n=10000)
+    net.simulate(n=100000)
 
     # Collect data
     data = net.get_agent_data(queues=N)

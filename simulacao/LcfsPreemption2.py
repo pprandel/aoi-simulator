@@ -26,6 +26,7 @@ class LcfsPreemption2(AoIQueueServer):
         self.preemption = preemption
         with open("data_aux/MRL.json", 'r') as f:
             self.MRL = json.load(f)
+        self.last_departure_gen_time = 0
 
     def __repr__(self):
         tmp = ("LcfsPreemption:{0}. Servers: {1}, queued: {2}, arrivals: {3}, "
@@ -34,13 +35,14 @@ class LcfsPreemption2(AoIQueueServer):
                self.num_departures, round(self._time, 3))
         return tmp.format(*arg)
 
-    def next_event(self):
-        
-        def expected_sv(self, t):
+    def expected_sv(self, t):
             return self.MRL.get(t, self.MRL[min(self.MRL.keys(), key=lambda k: abs(float(k)-t))])
 
+    def next_event(self):
+        
         if self._departures[0]._time < self._arrivals[0]._time:
             new_depart = heappop(self._departures)
+            self.last_departure_gen_time = new_depart.gen_time
             self._current_t = new_depart._time
             self._num_total -= 1
             self.num_system -= 1
@@ -137,7 +139,7 @@ class LcfsPreemption2(AoIQueueServer):
                 arrival._time = self.service_f(arrival._time)
                 self._update_time()
 
-            # Preemption in service
+            # Preemption conditional
             elif self.preemption == 2:
                 # No agent in service
                 if self.num_system == 1:
@@ -150,10 +152,12 @@ class LcfsPreemption2(AoIQueueServer):
                 # Agent already in service is replaced ?
                 else:
                     agent_in_sv = self._departures[0]
+                    s0 = self.last_departure_gen_time
                     s1 = agent_in_sv.gen_time
                     s2 = arrival.gen_time
-                    MRL = expected_sv(self, self.data[agent_in_sv.agent_id][-1][1])
-                    if (MRL - s1) > (0.886 - s2):
+                    MRL = self.expected_sv(self._current_t - self.data[agent_in_sv.agent_id][-1][1])
+                    #if (MRL - s1) < (0.886 - s2):
+                    if ((s1 - s0)*0.886) < ((s2 - s0)*MRL):
                     # Remove agent in service  
                         agent_replaced = heappop(self._departures)
                         self.num_system -= 1
