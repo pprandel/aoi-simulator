@@ -21,16 +21,21 @@ for i, file in enumerate(data_files):
                 ro[i].append(float(key))
                 aoi[i].append(value["MeanAoI"])
         print(aoi[i])
-ax.plot(ro[0], aoi[0], 'ro', markersize=7, label="S")
-ax.plot(ro[1], aoi[1], 'b^', markersize=7, label="W")
-ax.plot(ro[2], aoi[2], 'gv', markersize=7, label="C")
 
-      
+tam_linha = 2
+tam_marker = 7
+ax.plot(ro[0], aoi[0], 'or-', linewidth=tam_linha, markersize=tam_marker, label="LGFS-S")
+ax.plot(ro[1], aoi[1], '^b-', linewidth=tam_linha, markersize=tam_marker, label="LGFS-W")
+ax.plot(ro[2], aoi[2], 'vg-', linewidth=tam_linha, markersize=tam_marker, label="LGFS-C")
+
+ax.set_ylabel('Age média', fontsize=14)
+ax.set_xlabel(r'Carga no servidor $(\rho)$', fontsize=14)
 ax.tick_params(axis='x', labelsize=12)
 ax.tick_params(axis='y', labelsize=12)
 ax.legend(fontsize=14, loc='upper right')
-ax.set_title('Comparativo', fontsize=16)
-# ax.set_xlim(3, 15)
-# ax.set_ylim(3, 15)
+ax.set_xlim(0.4, 5)
+ax.set_ylim(1.3, 3.5)
+ax.set_yticks(list(np.arange(1.3, 3.5, 0.3)))
+ax.set_xticks(list(np.arange(0, 5, 0.5)))
 ax.grid(True)
 plt.show()

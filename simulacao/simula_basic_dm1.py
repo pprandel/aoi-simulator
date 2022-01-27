@@ -1,5 +1,5 @@
 import queueing_tool as qt
-from LcfsMultiServer import LcfsMultiServer
+from AoIQueueServer import AoIQueueServer
 from mean_aoi import mean_aoi
 import numpy as np
 import json
@@ -23,7 +23,7 @@ for ro in RO:
     G = qt.QueueNetworkDiGraph(adjacency)
 
     # Define queue classes for each edge type
-    q_cl = {1: qt.QueueServer, 2: qt.QueueServer}
+    q_cl = {1: AoIQueueServer, 2: AoIQueueServer}
 
     # Define packet generation and service functions
     # Queue service rate
@@ -60,7 +60,7 @@ for ro in RO:
     net.initialize(queues=range(N))
 
     # Start simulation with n events
-    net.simulate(n=1000000)
+    net.simulate(n=100000)
 
     # Collect data
     data = net.get_agent_data(queues=N)

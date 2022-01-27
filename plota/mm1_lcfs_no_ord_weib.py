@@ -7,8 +7,8 @@ import numpy as np
 fig, ax = plt.subplots()
 
 # Load data
-data_files = ["resultados/mm1_lcfs__weib_s.json", "resultados/mm1_lcfs__weib_w.json", 
-"resultados/mm1_lcfs__weib_c.json"]
+data_files = ["resultados/mm1_lcfs_no_ord__weib_s.json", "resultados/mm1_lcfs_no_ord__weib_w.json", 
+"resultados/mm1_lcfs_no_ord__weib_c.json"]
 
 data = [[],[],[]]
 ro = [[],[],[]]
@@ -21,9 +21,9 @@ for i, file in enumerate(data_files):
                 ro[i].append(float(key))
                 aoi[i].append(value["MeanAoI"])
         print(aoi[i])
-ax.plot(ro[0], aoi[0], 'ro', markersize=7, label="S")
-ax.plot(ro[1], aoi[1], 'b^', markersize=7, label="W")
-ax.plot(ro[2], aoi[2], 'gv', markersize=7, label="C")
+ax.plot(ro[0], aoi[0], 'r-', label="S")
+ax.plot(ro[1], aoi[1], 'b-.', label="W")
+ax.plot(ro[2], aoi[2], 'g--', label="C")
 
       
 ax.tick_params(axis='x', labelsize=12)

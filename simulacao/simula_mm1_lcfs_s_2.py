@@ -7,7 +7,7 @@ import json
 
 sim_name = "mm1_lcfs_ord__weib_c"
 aoi_dic = {}
-RO = np.arange(0.2, 4, 0.2)
+RO = np.arange(0.2, 5, 0.2)
 RO = np.around(RO, decimals=1)
 for ro in RO:
 
@@ -28,13 +28,14 @@ for ro in RO:
 
     # Define packet generation and service functions
     # Queue service rate
-    mu = 0.886
+    mu = 1 / 0.886
     # Packet generation rates
     lamb = mu * ro
     # Poisson generation queues (exponential interarrival times)
     def f_gen_1(t): return t+ np.random.exponential(1/lamb)
     # Instant service queue
-    def f_ser_1(t): return t # + np.random.exponential(2)
+    def f_ser_1(t): return t  # + np.random.exponential(1)
+
     # Exponential service queue
     def f_ser_2(t): return t + np.random.weibull(2) # np.random.exponential(1/mu) # 
 
@@ -62,7 +63,7 @@ for ro in RO:
     net.initialize(queues=range(N))
 
     # Start simulation with n events
-    net.simulate(n=100000)
+    net.simulate(n=500000)
 
     # Collect data
     data = net.get_agent_data(queues=N)

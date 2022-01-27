@@ -1,3 +1,4 @@
 {
-    "python.pythonPath": "/home/paulo/Documents/Git/AoI/bin/python3"
+    "python.pythonPath": "/home/paulo/Documents/Git/AoI/bin/python3",
+    "openhab.useRestApi": false
 }

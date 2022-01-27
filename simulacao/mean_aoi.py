@@ -66,7 +66,7 @@ def calc_aoi(data):
         Q = Ti*Yi + 0.5*(Yi**2)
         return Q
     
-    ti = data[0][0] # Chegada t0
+    ti = data[0][0] # Geração pacote 0
     t_inicio = ti
     ti_linha = 0
     Ti = 0
@@ -120,7 +120,7 @@ def mean_aoi(sim_id, data_file, num_sources, save_AoI_seq="None", save_Q_seq="No
                 preempted = preempted + 1
                 continue
             # Remove obsolete
-            elif deliv_time < splitted_data[source][-1][1]:
+            elif gen_time < splitted_data[source][-1][0]:
                 splitted_data[source].pop()
                 pop = pop +1
             splitted_data[source].append(times)
