@@ -77,6 +77,10 @@ def calc_aoi(data):
         if value[1] == 0: 
             continue
         N = N + 1 # delivered packet
+        if value[0] < ti:
+            print("Error: obsolete packet!")
+            print("gen_time = %f" %value[0])
+            break
         Yi = value[0] - ti
         ti = value[0]
         ti_linha = value[1]
@@ -101,13 +105,15 @@ def mean_aoi(sim_id, data_file, num_sources, save_AoI_seq="None", save_Q_seq="No
         aoi[i] = {}
         aoi[i]["MeanAoI"] = np.inf
         aoi[i]["RMSE"] = 0
+        aoi[i]["Preempted"] = 0
+        aoi[i]["Obsolete"] = 0
     # Load data
     with open (data_file, 'r') as d:
         data = json.load(d)
     # Split sources
     splitted_data = {}
     preempted = 0
-    pop = 0
+    obsolete = 0
     for id, value in data.items():
         id_splitted = id.split(",")
         source = int(id_splitted[0][1:])
@@ -121,14 +127,16 @@ def mean_aoi(sim_id, data_file, num_sources, save_AoI_seq="None", save_Q_seq="No
                 continue
             # Remove obsolete
             elif gen_time < splitted_data[source][-1][0]:
-                splitted_data[source].pop()
-                pop = pop +1
+                obsolete = obsolete +1
+                continue
             splitted_data[source].append(times)
         else:
             splitted_data[source] = []
             splitted_data[source].append(times)
-    print("Total preempted packets: %d" %preempted)
-    print("Total obsolete packets: %d" %pop)
+    print("Total preempted packets for source %s: %d" %(source, preempted))
+    print("Total obsolete packets for source %s: %d" %(source, obsolete))
+    aoi[i]["Preempted"] = preempted
+    aoi[i]["Obsolete"] = obsolete
     # Calculate AoI per source
     for i in splitted_data.keys():
         #print("Source %d:" %i)
