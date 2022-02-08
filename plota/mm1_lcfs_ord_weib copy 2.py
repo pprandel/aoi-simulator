@@ -4,7 +4,7 @@ from numpy.core.numeric import Inf
 import numpy as np
 
 
-fig, ax = plt.subplots()
+fig, ax = plt.subplots(2,1)
 
 # Load data
 data_files = ["resultados/mm1_lcfs_ord__ln_s.json", "resultados/mm1_lcfs_ord__ln_w.json", 
@@ -30,11 +30,11 @@ tam_marker = 7
 # ax.plot(ro[1], aoi[1], '^b-', linewidth=tam_linha, markersize=tam_marker, label="LGFS-W")
 # ax.plot(ro[2], aoi[2], 'vg-', linewidth=tam_linha, markersize=tam_marker, label="LGFS-C")
 
-width = 0.35  # the width of the bars
+width = 0.05  # the width of the bars
 
-ax.bar(ro[0], preemp[0], width, label="LGFS-S")
+ax.bar([ro-width for ro in ro[0]], preemp[0], width, label="LGFS-S")
 ax.bar(ro[1], preemp[1], width, label="LGFS-W")
-ax.bar(ro[2], preemp[2], width, label="LGFS-C")
+ax.bar([ro+width for ro in ro[2]], preemp[2], width, label="LGFS-C")
 
 
 ax.set_ylabel('Age média', fontsize=14)
