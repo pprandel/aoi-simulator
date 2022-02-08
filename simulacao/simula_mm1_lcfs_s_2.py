@@ -5,7 +5,7 @@ from mean_aoi import mean_aoi
 import numpy as np
 import json
 
-simulations = {"0": "mm1_lcfs_ord__weib_s", "1": "mm1_lcfs_ord__weib_w", "2": "mm1_lcfs_ord__weib_c"}
+simulations = {"0": "mm1_lcfs_ord__ln_s", "1": "mm1_lcfs_ord__ln_w", "2": "mm1_lcfs_ord__ln_c"}
 
 for flag, sim in simulations.items():
 
@@ -32,7 +32,7 @@ for flag, sim in simulations.items():
 
         # Define packet generation and service functions
         # Queue service rate
-        mu = 1 / 0.886
+        mu = 1 / 1.384 # / 0.886
         # Packet generation rates
         lamb = mu * ro
         # Poisson generation queues (exponential interarrival times)
@@ -41,7 +41,7 @@ for flag, sim in simulations.items():
         def f_ser_1(t): return t #+ np.random.exponential(0.5)
 
         # Exponential service queue
-        def f_ser_2(t): return t + np.random.weibull(2) # np.random.exponential(1/mu) # 
+        def f_ser_2(t): return t + np.random.lognormal(0.2,0.5) # np.random.weibull(2) # np.random.exponential(1/mu) # 
 
         # Config queues parameters for each edge type
         q_ar = {
@@ -81,6 +81,6 @@ for flag, sim in simulations.items():
         aoi = mean_aoi(sim_name, arq_nome, N)
         print(aoi)
         aoi_dic[str(ro)] = aoi[0]
-    # arq_nome = "resultados/" + sim_name + ".json"
-    # with open(arq_nome, 'w') as f:
-    #     json.dump(aoi_dic, f, indent=3)
+    arq_nome = "resultados/" + sim_name + ".json"
+    with open(arq_nome, 'w') as f:
+        json.dump(aoi_dic, f, indent=3)

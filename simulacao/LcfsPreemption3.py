@@ -24,7 +24,7 @@ class LcfsPreemption3(AoIQueueServer):
     def __init__(self, preemption=0, **kwargs):
         super(LcfsPreemption3, self).__init__(**kwargs)
         self.preemption = preemption
-        with open("data_aux/MRL_weib_2.json", 'r') as f:
+        with open("data_aux/MRL_ln_02_05.json", 'r') as f:
             self.MRL = json.load(f)
         self.last_departure_gen_time = 0
         self.contador = 0
@@ -160,7 +160,7 @@ class LcfsPreemption3(AoIQueueServer):
                         s1 = agent_in_sv.gen_time
                         s2 = arrival.gen_time
                         MRL = self.expected_sv(self._current_t - self.data[agent_in_sv.agent_id][-1][1])
-                        if ((s1 - s0)*0.886) < ((s2 - s0)*MRL):
+                        if ((s1 - s0)*1.384) < ((s2 - s0)*MRL):
                         # Remove agent in service  
                             agent_replaced = heappop(self._departures)
                             self.num_system -= 1
@@ -188,7 +188,7 @@ class LcfsPreemption3(AoIQueueServer):
                         s1 = agent_in_sv.gen_time
                         s2 = arrival.gen_time
                         MRL = self.expected_sv(self._current_t - self.data[agent_in_sv.agent_id][-1][1])
-                        if ((s1 - s0)*0.886) < ((s2 - s0)*MRL):
+                        if ((s1 - s0)*1.384) < ((s2 - s0)*MRL):
                         # Remove agent in service  
                             agent_replaced = heappop(self._departures)
                             self.num_system -= 1
