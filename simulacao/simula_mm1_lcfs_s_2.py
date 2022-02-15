@@ -41,7 +41,7 @@ for flag, sim in simulations.items():
         def f_ser_1(t): return t #+ np.random.exponential(0.5)
 
         # Exponential service queue
-        def f_ser_2(t): return t + np.random.lognormal(0.2,0.5) # np.random.weibull(2) # np.random.exponential(1/mu) # 
+        def f_ser_2(t): return t + np.random.lognormal(0.2,0.5) # np.random.weibull() # np.random.exponential(1/mu) # 
 
         # Config queues parameters for each edge type
         q_ar = {
