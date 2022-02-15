@@ -8,8 +8,8 @@ import numpy as np
 fig, ax = plt.subplots(2,1)
 
 # Load data
-data_files = ["resultados/mm1_lcfs_no_ord__weib_s.json", "resultados/mm1_lcfs_no_ord__weib_w.json", 
-"resultados/mm1_lcfs_no_ord__weib_c.json"]
+data_files = ["resultados/mm1_lcfs_ord__ln_s.json", "resultados/mm1_lcfs_ord__ln_w.json", 
+"resultados/mm1_lcfs_ord__ln_c.json"]
 
 data = [[],[],[]]
 ro = [[],[],[]]
@@ -48,14 +48,43 @@ ax[0].tick_params(axis='x', labelsize=12)
 ax[1].tick_params(axis='x', labelsize=12)
 ax[0].tick_params(axis='y', labelsize=12)
 ax[1].tick_params(axis='y', labelsize=12)
-ax[0].legend(fontsize=12, loc='upper right')
+ax[0].legend(fontsize=12, loc='center right')
 
 ax[0].set_xlim(0.3, 3.1)
 ax[1].set_xlim(0.3, 3.1)
-ax[0].set_ylim(1.5, 3.8)
-ax[0].set_yticks(list(np.arange(1.5, 3.9, 0.3)))
+ax[0].set_ylim(2.2, 5)
+ax[0].set_yticks(list(np.arange(2.2, 5, 0.5)))
 ax[0].set_xticks(list(np.arange(0.4, 3.1, 0.4)))
 ax[1].set_xticks(list(np.arange(0.4, 3.1, 0.4)))
 ax[0].grid(True)
 ax[1].grid(True)
 plt.show()
+
+
+
+# import matplotlib.pyplot as plt
+# import numpy as np
+
+# labels = ['G1', 'G2', 'G3', 'G4', 'G5']
+# men_means = [20, 34, 30, 35, 27]
+# women_means = [25, 32, 34, 20, 25]
+
+# x = np.arange(len(labels))  # the label locations
+# width = 0.35  # the width of the bars
+
+# fig, ax = plt.subplots()
+# rects1 = ax.bar(x - width/2, men_means, width, label='Men')
+# rects2 = ax.bar(x + width/2, women_means, width, label='Women')
+
+# # Add some text for labels, title and custom x-axis tick labels, etc.
+# ax.set_ylabel('Scores')
+# ax.set_title('Scores by group and gender')
+# ax.set_xticks(x, labels)
+# ax.legend()
+
+# ax.bar_label(rects1, padding=3)
+# ax.bar_label(rects2, padding=3)
+
+# fig.tight_layout()
+
+# plt.show()

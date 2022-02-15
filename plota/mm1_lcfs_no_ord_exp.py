@@ -8,8 +8,8 @@ import numpy as np
 fig, ax = plt.subplots(2,1)
 
 # Load data
-data_files = ["resultados/mm1_lcfs_no_ord__weib_s.json", "resultados/mm1_lcfs_no_ord__weib_w.json", 
-"resultados/mm1_lcfs_no_ord__weib_c.json"]
+data_files = ["resultados/mm1_lcfs_no_ord__exp_s.json", "resultados/mm1_lcfs_no_ord__exp_w.json", 
+"resultados/mm1_lcfs_no_ord__exp_c.json"]
 
 data = [[],[],[]]
 ro = [[],[],[]]
@@ -52,8 +52,8 @@ ax[0].legend(fontsize=12, loc='upper right')
 
 ax[0].set_xlim(0.3, 3.1)
 ax[1].set_xlim(0.3, 3.1)
-ax[0].set_ylim(1.5, 3.8)
-ax[0].set_yticks(list(np.arange(1.5, 3.9, 0.3)))
+ax[0].set_ylim(1.5, 4)
+ax[0].set_yticks(list(np.arange(1.5, 4, 0.5)))
 ax[0].set_xticks(list(np.arange(0.4, 3.1, 0.4)))
 ax[1].set_xticks(list(np.arange(0.4, 3.1, 0.4)))
 ax[0].grid(True)
