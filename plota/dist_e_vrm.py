@@ -44,17 +44,25 @@ for i in x:
 
 
 ax[0][0].plot(x, y_exp, 'r', label='Exponencial', markersize=marker_size)
-ax[0][1].plot(vrm_exp.keys(), vrm_exp.values(), 'r', label='VRM', markersize=marker_size)
+ax[0][1].plot(vrm_exp.keys(), vrm_exp.values(), 'r', label='VMR', markersize=marker_size)
 ax[1][0].plot(x, y_wei, 'r', label='Weibull', markersize=marker_size)
-ax[1][1].plot(vrm_wei.keys(), vrm_wei.values(), 'r', label='VRM', markersize=marker_size)
+ax[1][1].plot(vrm_wei.keys(), vrm_wei.values(), 'r', label='VMR', markersize=marker_size)
 ax[2][0].plot(x, y_log, 'r', label='Lognormal', markersize=marker_size)
 ax[2][0].set_xlabel('Tempo')
-ax[2][1].plot(vrm_log.keys(), vrm_log.values(), 'r', label='VRM', markersize=marker_size)
+ax[2][1].plot(vrm_log.keys(), vrm_log.values(), 'r', label='VMR', markersize=marker_size)
 ax[2][1].set_xlabel('Tempo')
 
 for a in ax:
     a[0].set_ylim(0,1)
+    a[0].set_xlim(0,4)
     a[0].set_ylabel('Densidade')
     a[1].set_ylabel('VMR')
+
+plt.subplots_adjust(left=0.1,
+                    bottom=0.25, 
+                    right=0.95, 
+                    top=0.8, 
+                    wspace=0.25, 
+                    hspace=0.3)
 
 plt.show()

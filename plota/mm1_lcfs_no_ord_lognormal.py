@@ -37,7 +37,8 @@ ax[1].bar([ro-width for ro in ro[0]], preemp[0], width, color='r', label="LGFS-S
 ax[1].bar(ro[1], preemp[1], width, color='b', label="LGFS-W")
 ax[1].bar([ro+width for ro in ro[2]], preemp[2], width, color='g', label="LGFS-C")
 
-
+ax[0].set_title('A')
+ax[1].set_title('B')
 ax[0].set_ylabel('Age média', fontsize=14)
 ax[1].set_ylabel('Pacotes descartados', fontsize=14)
 ax[1].set_xlabel(r'Carga no servidor $(\rho)$', fontsize=14)
