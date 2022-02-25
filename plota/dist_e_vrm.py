@@ -14,9 +14,9 @@ marker_size = 5
 fig = plt.figure(layout='constrained')
 subfigs = fig.subfigures(nrows=3, ncols=1, hspace=0.1)
 
-subfigs[0].suptitle('Exponencial', fontsize=suptitle_size)
-subfigs[1].suptitle('Weibull', fontsize=suptitle_size)
-subfigs[2].suptitle('Lognormal', fontsize=suptitle_size)
+subfigs[0].suptitle('Exponencial [E(X)=1]', fontsize=suptitle_size)
+subfigs[1].suptitle('Weibull [$\lambda=2$; E(X)=0,886]', fontsize=suptitle_size)
+subfigs[2].suptitle('Lognormal [$\mu=0,2$; $\sigma=0,5$; E(X)=1,384]', fontsize=suptitle_size)
 
 ax = [None]*3
 for row, subfig in enumerate(subfigs):
@@ -44,19 +44,19 @@ for i in x:
 
 
 ax[0][0].plot(x, y_exp, 'r', label='Exponencial', markersize=marker_size)
-ax[0][1].plot(vrm_exp.keys(), vrm_exp.values(), 'r', label='VMR', markersize=marker_size)
+ax[0][1].plot(vrm_exp.keys(), vrm_exp.values(), 'r', label='VRM', markersize=marker_size)
 ax[1][0].plot(x, y_wei, 'r', label='Weibull', markersize=marker_size)
-ax[1][1].plot(vrm_wei.keys(), vrm_wei.values(), 'r', label='VMR', markersize=marker_size)
+ax[1][1].plot(vrm_wei.keys(), vrm_wei.values(), 'r', label='VRM', markersize=marker_size)
 ax[2][0].plot(x, y_log, 'r', label='Lognormal', markersize=marker_size)
 ax[2][0].set_xlabel('Tempo')
-ax[2][1].plot(vrm_log.keys(), vrm_log.values(), 'r', label='VMR', markersize=marker_size)
+ax[2][1].plot(vrm_log.keys(), vrm_log.values(), 'r', label='VRM', markersize=marker_size)
 ax[2][1].set_xlabel('Tempo')
 
 for a in ax:
     a[0].set_ylim(0,1)
     a[0].set_xlim(0,4)
     a[0].set_ylabel('Densidade')
-    a[1].set_ylabel('VMR')
+    a[1].set_ylabel('VRM')
 
 plt.subplots_adjust(left=0.1,
                     bottom=0.25, 

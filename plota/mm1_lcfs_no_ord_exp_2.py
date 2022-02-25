@@ -33,7 +33,7 @@ ax.plot(ro[2], aoi[2], 'vg-', linewidth=tam_linha, markersize=tam_marker, label=
 
 
 
-ax.set_ylabel('Age média', fontsize=14)
+ax.set_ylabel('AoI média', fontsize=14)
 ax.yaxis.tick_right()
 
 ax.tick_params(axis='x', labelsize=12)

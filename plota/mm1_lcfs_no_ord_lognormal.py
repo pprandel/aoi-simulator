@@ -5,7 +5,7 @@ from numpy.core.numeric import Inf
 import numpy as np
 
 
-fig, ax = plt.subplots(2,1)
+fig, ax = plt.subplots(1,2)
 
 # Load data
 data_files = ["resultados/mm1_lcfs_no_ord__ln_s.json", "resultados/mm1_lcfs_no_ord__ln_w.json", 
@@ -39,7 +39,7 @@ ax[1].bar([ro+width for ro in ro[2]], preemp[2], width, color='g', label="LGFS-C
 
 ax[0].set_title('A')
 ax[1].set_title('B')
-ax[0].set_ylabel('Age média', fontsize=14)
+ax[0].set_ylabel('AoI média', fontsize=14)
 ax[1].set_ylabel('Pacotes descartados', fontsize=14)
 ax[1].set_xlabel(r'Carga no servidor $(\rho)$', fontsize=14)
 ax[0].yaxis.tick_right()
@@ -50,6 +50,7 @@ ax[1].tick_params(axis='x', labelsize=12)
 ax[0].tick_params(axis='y', labelsize=12)
 ax[1].tick_params(axis='y', labelsize=12)
 ax[0].legend(fontsize=12, loc='upper right')
+ax[1].legend(fontsize=12, loc='upper left')
 
 ax[0].set_xlim(0.3, 3.1)
 ax[1].set_xlim(0.3, 3.1)
