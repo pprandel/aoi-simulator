@@ -57,26 +57,26 @@
 
 O simulador para a Age of Information (AoI) surgiu da necessidade de se possuir uma ferramenta capaz de simular um sistema ciberfísico utilizando os conceitos e as métricas relacionadas a essa área. 
 
-Se você não está familiarizado com o conceito de Age of Information, recomenda-se a exploração da seção 
+O modelo computacional por trás desta ferramenta está descrito no artigo [Computational Modeling of Age of Information for Cyber-physical Systems](https://ieeexplore.ieee.org/document/9647854).
+
+Se você não está familiarizado com o conceito de Age of Information, recomenda-se a exploração da seção [referências acadêmicas](#referências-acadêmicas).
 
 Este projeto é parte de uma pesquisa de mestrado sendo desenvolvida pelo autor no programa de Pós-Graduação em Computação Aplicada da Universidade de Brasília (UnB).
-<p align="right">(<a href="#top">back to top</a>)</p>
+
+<p align="right">(<a href="#top">voltar ao início</a>)</p>
 
 <!-- BUILTED WITH -->
 ### Construído com 
 
-This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
+Este projeto utiliza:
 
-* [Next.js](https://nextjs.org/)
-* [React.js](https://reactjs.org/)
-* [Vue.js](https://vuejs.org/)
-* [Angular](https://angular.io/)
-* [Svelte](https://svelte.dev/)
-* [Laravel](https://laravel.com)
-* [Bootstrap](https://getbootstrap.com)
-* [JQuery](https://jquery.com)
+* [Python](https://www.python.org/)
+* [Queueing Tool](https://github.com/djordon/queueing-tool)
+* [Networkx](https://github.com/networkx/networkx)
+* [Matplot Lib](https://matplotlib.org/)
 
-<p align="right">(<a href="#top">back to top</a>)</p>
+
+<p align="right">(<a href="#top">voltar ao início</a>)</p>
 
 
 
@@ -112,7 +112,7 @@ _Below is an example of how you can instruct your audience on installing and set
    const API_KEY = 'ENTER YOUR API';
    ```
 
-<p align="right">(<a href="#top">back to top</a>)</p>
+<p align="right">(<a href="#top">voltar ao início</a>)</p>
 
 
 
@@ -123,7 +123,7 @@ Use this space to show useful examples of how a project can be used. Additional 
 
 _For more examples, please refer to the [Documentation](https://example.com)_
 
-<p align="right">(<a href="#top">back to top</a>)</p>
+<p align="right">(<a href="#top">voltar ao início</a>)</p>
 
 
 
@@ -131,7 +131,7 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 ## Roadmap
 
 - [x] Add Changelog
-- [x] Add back to top links
+- [x] Add voltar ao início links
 - [ ] Add Additional Templates w/ Examples
 - [ ] Add "components" document to easily copy & paste sections of the readme
 - [ ] Multi-language Support
@@ -140,7 +140,7 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 
 See the [open issues](https://github.com/othneildrew/Best-README-Template/issues) for a full list of proposed features (and known issues).
 
-<p align="right">(<a href="#top">back to top</a>)</p>
+<p align="right">(<a href="#top">voltar ao início</a>)</p>
 
 
 
@@ -158,14 +158,14 @@ Don't forget to give the project a star! Thanks again!
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-<p align="right">(<a href="#top">back to top</a>)</p>
+<p align="right">(<a href="#top">voltar ao início</a>)</p>
 
 <!-- REFERENCES -->
 ## Referências Acadêmicas
 
 Aqui você encontrará uma lista de referências acadêmicas sobre a área Age of Information. Boa leitura!
 
-<p align="right">(<a href="#top">back to top</a>)</p>
+<p align="right">(<a href="#top">voltar ao início</a>)</p>
 
 
 <!-- LICENSE -->
@@ -173,7 +173,7 @@ Aqui você encontrará uma lista de referências acadêmicas sobre a área Age o
 
 Distributed under the MIT License. See `LICENSE.txt` for more information.
 
-<p align="right">(<a href="#top">back to top</a>)</p>
+<p align="right">(<a href="#top">voltar ao início</a>)</p>
 
 
 
@@ -184,7 +184,7 @@ Your Name - [@your_twitter](https://twitter.com/your_username) - email@example.c
 
 Project Link: [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
 
-<p align="right">(<a href="#top">back to top</a>)</p>
+<p align="right">(<a href="#top">voltar ao início</a>)</p>
 
 
 
@@ -202,7 +202,7 @@ Use this space to list resources you find helpful and would like to give credit 
 * [Font Awesome](https://fontawesome.com)
 * [React Icons](https://react-icons.github.io/react-icons/search)
 
-<p align="right">(<a href="#top">back to top</a>)</p>
+<p align="right">(<a href="#top">voltar ao início</a>)</p>
 
 
 
