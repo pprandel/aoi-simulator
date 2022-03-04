@@ -1,8 +1,12 @@
 import queueing_tool as qt
-from AoIQueueServer import AoIQueueServer
-from mean_aoi import mean_aoi
 import numpy as np
-import json
+import json, os, sys
+
+diretorio_pai = os.path.dirname(os.path.dirname((__file__)))
+sys.path.insert(0, diretorio_pai) 
+
+print(sys.path)
+from AoI.AoIQueueServer import AoIQueueServer
 
 sim_name = "mm1_basic"
 aoi_dic = {}
