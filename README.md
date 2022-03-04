@@ -21,76 +21,49 @@
 <br />
 <div align="center">
   <a href="https://github.com/pprandel/AoI">
-    <img src="images/logo.svg" alt="Logo" width="200" height="80">
+    <img src="images/logo.svg" alt="Logo" width="400">
   </a>
 
-  <h3 align="center">Best-README-Template</h3>
-
   <p align="center">
-    An awesome README template to jumpstart your projects!
-    <br />
-    <a href="https://github.com/othneildrew/Best-README-Template"><strong>Explore the docs »</strong></a>
+    Uma ferramenta de simulação para a Age Of Information
     <br />
     <br />
-    <a href="https://github.com/othneildrew/Best-README-Template">View Demo</a>
+    <a href="https://github.com/pprandel/AoI">Vídeo demonstrativo</a>
     ·
-    <a href="https://github.com/othneildrew/Best-README-Template/issues">Report Bug</a>
+    <a href="https://github.com/pprandel/AoI">Reporte um Bug</a>
     ·
-    <a href="https://github.com/othneildrew/Best-README-Template/issues">Request Feature</a>
+    <a href="https://github.com/pprandel/AoI/issues">Solicite uma funcionalidade</a>
   </p>
 </div>
 
 
-
-<!-- TABLE OF CONTENTS -->
-<details>
-  <summary>Table of Contents</summary>
-  <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
-  </ol>
-</details>
-
-
-
+## Sumário
+- [Sumário](#sumário)
+- [Sobre o projeto](#sobre-o-projeto)
+  - [Construído com](#construído-com)
+- [Iniciando](#iniciando)
+  - [Pré-requisitos](#pré-requisitos)
+  - [Instalação](#instalação)
+- [Utilização](#utilização)
+- [Roadmap](#roadmap)
+- [Contribuindo](#contribuindo)
+- [Referências Acadêmicas](#referências-acadêmicas)
+- [Licença](#licença)
+- [Contatos](#contatos)
+- [Agradecimentos](#agradecimentos)
+  
 <!-- ABOUT THE PROJECT -->
-## About The Project
+## Sobre o projeto 
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+O simulador para a Age of Information (AoI) surgiu da necessidade de se possuir uma ferramenta capaz de simular um sistema ciberfísico utilizando os conceitos e as métricas relacionadas a essa área. 
 
-There are many great README templates available on GitHub; however, I didn't find one that really suited my needs so I created this enhanced one. I want to create a README template so amazing that it'll be the last one you ever need -- I think this is it.
+Se você não está familiarizado com o conceito de Age of Information, recomenda-se a exploração da seção 
 
-Here's why:
-* Your time should be focused on creating something amazing. A project that solves a problem and helps others
-* You shouldn't be doing the same tasks over and over like creating a README from scratch
-* You should implement DRY principles to the rest of your life :smile:
-
-Of course, no one template will serve all projects since your needs may be different. So I'll be adding more in the near future. You may also suggest changes by forking this repo and creating a pull request or opening an issue. Thanks to all the people have contributed to expanding this template!
-
-Use the `BLANK_README.md` to get started.
-
+Este projeto é parte de uma pesquisa de mestrado sendo desenvolvida pelo autor no programa de Pós-Graduação em Computação Aplicada da Universidade de Brasília (UnB).
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-
-
-### Built With
+<!-- BUILTED WITH -->
+### Construído com 
 
 This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
 
@@ -108,12 +81,12 @@ This section should list any major frameworks/libraries used to bootstrap your p
 
 
 <!-- GETTING STARTED -->
-## Getting Started
+## Iniciando
 
 This is an example of how you may give instructions on setting up your project locally.
 To get a local copy up and running follow these simple example steps.
 
-### Prerequisites
+### Pré-requisitos
 
 This is an example of how to list things you need to use the software and how to install them.
 * npm
@@ -121,7 +94,7 @@ This is an example of how to list things you need to use the software and how to
   npm install npm@latest -g
   ```
 
-### Installation
+### Instalação
 
 _Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
 
@@ -144,7 +117,7 @@ _Below is an example of how you can instruct your audience on installing and set
 
 
 <!-- USAGE EXAMPLES -->
-## Usage
+## Utilização
 
 Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
 
@@ -172,7 +145,7 @@ See the [open issues](https://github.com/othneildrew/Best-README-Template/issues
 
 
 <!-- CONTRIBUTING -->
-## Contributing
+## Contribuindo
 
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
@@ -187,10 +160,16 @@ Don't forget to give the project a star! Thanks again!
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
+<!-- REFERENCES -->
+## Referências Acadêmicas
+
+Aqui você encontrará uma lista de referências acadêmicas sobre a área Age of Information. Boa leitura!
+
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 
 <!-- LICENSE -->
-## License
+## Licença
 
 Distributed under the MIT License. See `LICENSE.txt` for more information.
 
@@ -199,7 +178,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 
 <!-- CONTACT -->
-## Contact
+## Contatos
 
 Your Name - [@your_twitter](https://twitter.com/your_username) - email@example.com
 
@@ -210,7 +189,7 @@ Project Link: [https://github.com/your_username/repo_name](https://github.com/yo
 
 
 <!-- ACKNOWLEDGMENTS -->
-## Acknowledgments
+## Agradecimentos
 
 Use this space to list resources you find helpful and would like to give credit to. I've included a few of my favorites to kick things off!
 
