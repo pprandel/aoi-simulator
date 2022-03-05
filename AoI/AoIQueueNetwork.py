@@ -45,32 +45,16 @@ class AoiQueueNetwork(qt.QueueNetwork):
             * Third: The departure time of an agent (update) at the monitor.
         """
 
-        monitor_queue = _get_queues(self.g, monitor, None, None)
-
+        queues = _get_queues(self.g, monitor, None, None)
+        monitor_queue = queues[0]
         data = {}
         for agent_id, dat in self.edge2queue[monitor_queue].data.items():
-            datum = np.zeros((len(dat), 3))
-            datum[:, 0] = agent_id.gen_time
-            datum[:, 5] = monitor_queue
+            datum = dat[0][0:3]
             if agent_id in data:
                 data[agent_id] = np.vstack((data[agent_id], datum))
             else:
                 data[agent_id] = datum
-
-        dType = [
-            ('a', float),
-            ('s', float),
-            ('d', float),
-            ('q', float),
-            ('n', float),
-            ('id', float)
-        ]
-        for agent_id, dat in data.items():
-            datum = np.array([tuple(d) for d in dat.tolist()], dtype=dType)
-            datum = np.sort(datum, order='a')
-            data[agent_id] = np.array([tuple(d) for d in datum])
-
-        return data 
+        return data
 
 def _get_queues(g, queues, edge, edge_type):
     """Used to specify edge indices from different types of arguments."""

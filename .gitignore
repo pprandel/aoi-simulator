@@ -2,7 +2,6 @@
 
 .vscode/*
 .vscode/settings.json
-experimentos/
+sim_data/
 resultados/
-test.py
 __pycache__/
