@@ -7,9 +7,8 @@ from AoIQueueServer import AoIQueueServer
 
 ##### EXEMPLO 2: FILA SIMPLES COM DIVERSAS CARGAS #####
 
-### PARÂMETROS DA SIMULAÇÃO ###
 # Nome da simulação
-sim_name = "fila_mm1_basic"
+sim_name = "exemplo_2"
 # Cargas que serão usadas na simulação (1 simulação para cada carga)
 RO = np.arange(0.1, 1, 0.1)
 # Arredondamos as cargas para 1 casa decimal
@@ -71,7 +70,7 @@ for ro in RO:
     net.initialize(queues=0)
 
     # Quantidade de eventos para a simulação (nr de pacotes * 3)
-    net.simulate(n=10000)
+    net.simulate(n=300000)
 
     # Ao final da simulação coletamos os dados, indicando qual o nó monitor
     data = net.get_AoI_data(monitor=1)
