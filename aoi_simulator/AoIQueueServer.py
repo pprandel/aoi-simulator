@@ -1,5 +1,5 @@
 import queueing_tool as qt
-from AoIAgent import AoiAgent
+from aoi_simulator.AoIAgent import AoIAgent
 from heapq import heappush
 import numpy as np
 
@@ -17,7 +17,7 @@ class AoIQueueServer(qt.QueueServer):
 
     def __init__(self, **kwargs):
         super(AoIQueueServer, self).__init__(**kwargs)
-        self.AgentFactory = AoiAgent
+        self.AgentFactory = AoIAgent
 
     def __repr__(self):
         tmp = ("AoiQueueServer:{0}. Servers: {1}, queued: {2}, arrivals: {3}, "

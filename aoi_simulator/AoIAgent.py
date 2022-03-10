@@ -10,11 +10,11 @@ Parameters
         Any :class:`~Agent` parameters.
 """
 
-class AoiAgent(Agent):
+class AoIAgent(Agent):
 
     def __init__(self, agent_id=(0, 0), gen_time=0, **kwargs):
         new_agent_id = (agent_id[0], agent_id[1], gen_time)
-        super(AoiAgent, self).__init__(new_agent_id, **kwargs)
+        super(AoIAgent, self).__init__(new_agent_id, **kwargs)
         self.gen_time = 0
    
     def __repr__(self):

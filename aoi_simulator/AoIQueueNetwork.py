@@ -13,11 +13,11 @@ Parameters
         Any :class:`~QueueNetwork` parameters.
 """
 
-class AoiQueueNetwork(qt.QueueNetwork):
+class AoIQueueNetwork(qt.QueueNetwork):
 
 
     def __init__(self, **kwargs):
-        super(AoiQueueNetwork, self).__init__(**kwargs)
+        super(AoIQueueNetwork, self).__init__(**kwargs)
 
     def __repr__(self):
         the_string = 'AoiQueueNetwork. # nodes: {0}, edges: {1}, agents: {2}'

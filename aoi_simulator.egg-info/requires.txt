@@ -1,2 +1,3 @@
 queueing-tool>=1.2.4
 matplotlib>=3.3.4
+scipy==1.5.4
