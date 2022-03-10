@@ -1,9 +1,7 @@
 import queueing_tool as qt
 import numpy as np
-import json, os
-from mean_aoi import mean_aoi
-from AoIQueueNetwork import AoiQueueNetwork
-from AoIQueueServer import AoIQueueServer
+import json, os, sys
+import aoi_simulator as aoi
 
 ##### EXEMPLO 2: FILA SIMPLES COM DIVERSAS CARGAS #####
 
@@ -30,7 +28,7 @@ for ro in RO:
     G = qt.QueueNetworkDiGraph(adjacency)
 
     # Definimos as classes das filas 
-    q_cl = {1: AoIQueueServer, 2: AoIQueueServer}
+    q_cl = {1: aoi.AoIQueueServer, 2: aoi.AoIQueueServer}
 
     # Taxa de serviço do servidor
     mu = 1
@@ -61,7 +59,7 @@ for ro in RO:
     }
 
     # Instanciamos a rede de filas a partir do grafo
-    net = AoiQueueNetwork(g=G, q_classes=q_cl, q_args=q_ar, max_agents=np.infty)
+    net = aoi.AoIQueueNetwork(g=G, q_classes=q_cl, q_args=q_ar, max_agents=np.infty)
 
     # Definimos para qual fila (ou nó) os dados serão coletados
     net.start_collecting_data(queues=1)
@@ -85,9 +83,9 @@ for ro in RO:
         json.dump({str(k):v for k, v in data.items()}, f, indent=3)
 
     # Calculamos a AoI média e o erro da estimativa
-    aoi = mean_aoi(sim_name + "_ro_" + str(ro), arq_nome, 1)
-    print(aoi)
-    aoi_dic[str(ro)] = aoi[0]
+    calc = aoi.MeanAoICalc(sim_name + "_ro_" + str(ro), arq_nome, 1)
+    print(calc.aoi)
+    aoi_dic[str(ro)] = calc.aoi[0]
 
 # Criamos uma pasta resultados, caso ela não exista
 if not os.path.exists('resultados'):

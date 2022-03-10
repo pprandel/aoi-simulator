@@ -77,8 +77,8 @@ with open(arq_nome, 'w') as f:
     json.dump({str(k):v for k, v in data.items()}, f, indent=3)
 
 # Calculamos a AoI média e o erro da estimativa
-aoi = aoi.MeanAoICalc(sim_name, arq_nome, 1)
-print(aoi.aoi)
+calc = aoi.MeanAoICalc(sim_name, arq_nome, 1)
+print(calc.aoi)
 
 # Criamos uma pasta resultados, caso ela não exista
 if not os.path.exists('resultados'):
@@ -87,4 +87,4 @@ if not os.path.exists('resultados'):
 # Salvamos os resultados da simulação na pasta, em um dicionário
 arq_nome = "resultados/" + sim_name + ".json"
 with open(arq_nome, 'w') as f:
-    json.dump(aoi.aoi, f, indent=3)
+    json.dump(calc.aoi, f, indent=3)
