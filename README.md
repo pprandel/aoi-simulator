@@ -41,11 +41,10 @@
 - [Sumário](#sumário)
 - [Sobre o projeto](#sobre-o-projeto)
   - [Construído com](#construído-com)
-- [Iniciando](#iniciando)
+- [Instalação](#instalação)
   - [Pré-requisitos](#pré-requisitos)
-  - [Instalação](#instalação)
+  - [Instalando a ferramenta](#instalando-a-ferramenta)
 - [Utilização](#utilização)
-- [Roadmap](#roadmap)
 - [Contribuindo](#contribuindo)
 - [Referências Acadêmicas](#referências-acadêmicas)
 - [Licença](#licença)
@@ -80,7 +79,7 @@ Este projeto utiliza:
 
 
 <!-- GETTING STARTED -->
-## Iniciando
+## Instalação
 
 Este tutorial iŕa guiá-lo através dos processos de instalação e utilização da ferramenta.
 
@@ -95,61 +94,41 @@ Para instalar o Python, utilize os tutoriais abaixo.
 * [Windows](https://python.org.br/instalacao-windows/)
 * [Mac OS](https://python.org.br/instalacao-mac/)
 
-### Instalação
+Usuários Windows devem instalar adicionalmente o Visual Studio Build Tools.
+* [Download VS Build Tools](https://visualstudio.microsoft.com/pt-br/thank-you-downloading-visual-studio/?sku=BuildTools)
+### Instalando a ferramenta
 
 Após a instalação do Python:
 
 1. Abra o terminal de comando
 
 2. Confira a versão instalada do Python:
-   ```sh
-   python --version
-   ```
-My warning paragraph.
-> :warning: Caso a versão não corresponda à instalada, verifique a configuração do seu `PATH`!
+    ```sh
+    python --version
+    ```
+    > :warning: Caso a versão não corresponda à instalada, verifique a configuração do seu `PATH`!
 
-   
-   
-3. Install NPM packages
-   ```sh
-   npm install
-   ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
-   ```
+3. Atualize o instalador de pacotes `PIP`:
+    ```sh
+    python -m pip install --upgrade pip
+    ```
+
+4. Instale o aoi-simulator através do `PIP`:
+    ```sh
+    python -m pip install aoi-simulator
+    ```
+
 
 <p align="right">(<a href="#top">voltar ao início</a>)</p>
-
 
 
 <!-- USAGE EXAMPLES -->
 ## Utilização
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+Uma vez finalizada a instalação, escolha o editor de código de sua preferência e crie um arquivo python `.py`.
 
-_For more examples, please refer to the [Documentation](https://example.com)_
 
 <p align="right">(<a href="#top">voltar ao início</a>)</p>
-
-
-
-<!-- ROADMAP -->
-## Roadmap
-
-- [x] Add Changelog
-- [x] Add voltar ao início links
-- [ ] Add Additional Templates w/ Examples
-- [ ] Add "components" document to easily copy & paste sections of the readme
-- [ ] Multi-language Support
-    - [ ] Chinese
-    - [ ] Spanish
-
-See the [open issues](https://github.com/othneildrew/Best-README-Template/issues) for a full list of proposed features (and known issues).
-
-<p align="right">(<a href="#top">voltar ao início</a>)</p>
-
-
 
 <!-- CONTRIBUTING -->
 ## Contribuindo
