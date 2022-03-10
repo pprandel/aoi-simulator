@@ -1,0 +1,9 @@
+LICENSE
+README.md
+pyproject.toml
+setup.cfg
+aoi-simulator/aoi_simulator.egg-info/PKG-INFO
+aoi-simulator/aoi_simulator.egg-info/SOURCES.txt
+aoi-simulator/aoi_simulator.egg-info/dependency_links.txt
+aoi-simulator/aoi_simulator.egg-info/requires.txt
+aoi-simulator/aoi_simulator.egg-info/top_level.txt

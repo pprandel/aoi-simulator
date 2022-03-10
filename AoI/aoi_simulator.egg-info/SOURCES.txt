@@ -1,8 +1,0 @@
-README.md
-pyproject.toml
-setup.cfg
-AoI/aoi_simulator.egg-info/PKG-INFO
-AoI/aoi_simulator.egg-info/SOURCES.txt
-AoI/aoi_simulator.egg-info/dependency_links.txt
-AoI/aoi_simulator.egg-info/requires.txt
-AoI/aoi_simulator.egg-info/top_level.txt
