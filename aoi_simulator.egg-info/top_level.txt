@@ -1,1 +1,1 @@
-aoi-simulator
+aoi_simulator
