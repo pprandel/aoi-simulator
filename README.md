@@ -59,7 +59,7 @@ O simulador para a Age of Information (AoI) surgiu da necessidade de se possuir 
 
 O modelo computacional por trás desta ferramenta está descrito no artigo [Computational Modeling of Age of Information for Cyber-physical Systems](https://ieeexplore.ieee.org/document/9647854).
 
-Se você não está familiarizado com o conceito de Age of Information, recomenda-se a exploração da seção [referências acadêmicas](#referências-acadêmicas).
+Para mais conteúdo sobre o conceito e a aplicação da AoI, recomenda-se a exploração da seção [referências acadêmicas](#referências-acadêmicas).
 
 Este projeto é parte de uma pesquisa de mestrado sendo desenvolvida pelo autor no programa de Pós-Graduação em Computação Aplicada da Universidade de Brasília (UnB).
 
@@ -72,7 +72,6 @@ Este projeto utiliza:
 
 * [Python](https://www.python.org/)
 * [Queueing Tool](https://github.com/djordon/queueing-tool)
-* [Networkx](https://github.com/networkx/networkx)
 * [Matplot Lib](https://matplotlib.org/)
 
 
@@ -83,26 +82,34 @@ Este projeto utiliza:
 <!-- GETTING STARTED -->
 ## Iniciando
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
+Este tutorial iŕa guiá-lo através dos processos de instalação e utilização da ferramenta.
 
 ### Pré-requisitos
 
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
+O aoi-simulator é escrito em Python, logo sua utilização independe do sistema operacional utilizado. Os pré requisitos para a instalação são:
+* Python 3.8 ou superior
+* Conhecimento básico na linguagem Python
+
+Para instalar o Python, utilize os tutoriais abaixo. 
+* [Linux](https://python.org.br/instalacao-linux/)
+* [Windows](https://python.org.br/instalacao-windows/)
+* [Mac OS](https://python.org.br/instalacao-mac/)
 
 ### Instalação
 
-_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
+Após a instalação do Python:
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
+1. Abra o terminal de comando
+
+2. Confira a versão instalada do Python:
    ```sh
-   git clone https://github.com/your_username_/Project-Name.git
+   python --version
    ```
+My warning paragraph.
+> :warning: Caso a versão não corresponda à instalada, verifique a configuração do seu `PATH`!
+
+   
+   
 3. Install NPM packages
    ```sh
    npm install
