@@ -45,6 +45,7 @@
   - [Pré-requisitos](#pré-requisitos)
   - [Instalando a ferramenta](#instalando-a-ferramenta)
 - [Utilização](#utilização)
+  - [Plotando os resultados](#plotando-os-resultados)
 - [Contribuindo](#contribuindo)
 - [Referências Acadêmicas](#referências-acadêmicas)
 - [Licença](#licença)
@@ -61,8 +62,6 @@ O modelo computacional por trás desta ferramenta está descrito no artigo [Comp
 Para mais conteúdo sobre o conceito e a aplicação da AoI, recomenda-se a exploração da seção [referências acadêmicas](#referências-acadêmicas).
 
 Este projeto é parte de uma pesquisa de mestrado sendo desenvolvida pelo autor no programa de Pós-Graduação em Computação Aplicada da Universidade de Brasília (UnB).
-
-<p align="right">(<a href="#top">voltar ao início</a>)</p>
 
 <!-- BUILTED WITH -->
 ### Construído com 
@@ -85,7 +84,7 @@ Este tutorial iŕa guiá-lo através dos processos de instalação e utilizaçã
 
 ### Pré-requisitos
 
-O aoi-simulator é escrito em Python, logo sua utilização independe do sistema operacional utilizado. Os pré requisitos para a instalação são:
+O aoi-simulator é um pacote Python, logo sua utilização independe do sistema operacional utilizado. Os pré requisitos para a instalação são:
 * Python 3.8 ou superior
 * Conhecimento básico na linguagem Python
 
@@ -106,7 +105,7 @@ Após a instalação do Python:
     ```sh
     python --version
     ```
-    > :warning: Caso a versão não corresponda à instalada, verifique a configuração do seu `PATH`!
+    > :warning: Caso o comando não execute ou a versão não corresponda à instalada, verifique a configuração do seu `PATH`!
 
 3. Atualize o instalador de pacotes `PIP`:
     ```sh
@@ -125,7 +124,38 @@ Após a instalação do Python:
 <!-- USAGE EXAMPLES -->
 ## Utilização
 
-Uma vez finalizada a instalação, escolha o editor de código de sua preferência e crie um arquivo python `.py`.
+Uma vez finalizada a instalação, identifique no repositório uma pasta chamada `sim_exemplos`. Essa pasta contém diversos exemplos de utilização desta ferramenta. Todos os exemplos estão com o código comentado, explicando a finalidade de cada passo do script de simulação.
+
+Para rodar os exemplos, execute os seguintes passos:
+
+1. Escolha o editor de código de sua preferência e crie um arquivo python `.py`.
+2. Copie todo o conteúdo de um dos exemplos para dentro do seu arquivo recém criado.
+3. Salve o arquivo em uma pasta de sua preferência.
+4. Execute a simulação através do comando:
+   ```sh
+   python CAMINHO/DO/ARQUIVO/exemplo_x.py
+   ```
+   substituindo `CAMINHO/DO/ARQUIVO` pelo diretório da pasta e `exemplo_x.py` pelo nome do arquivo que você criou.
+
+    > :bulb: Se você já estiver no diretório do arquivo basta executá-lo com o comando `python exemplo_x.py`
+5. Durante a simulação, você verá alguns resultados sendo exibidos na tela. Observe também que duas pastas serão criadas no mesmo diretório do arquivo executado:
+   * `sim_data`: contém os dados gerados pela simulação
+   * `resultados`: contém os resultados da simulação
+  
+    A descrição do conteúdo dessas pastas pode ser encontrada nos arquivos exemplo.
+
+Cada um dos exemplos fornecios na pasta `sim_exemplos` aborda um caso de uso diferente da ferramenta. Em resumo, os casos são os seguintes:
+
+* `exemplo_1.py`: simula uma fila simples do tipo M/M/1 com regime de serviço (First Come - First Served) FCFS e carga no servidor $\rho=0,5$.
+  
+*  `exemplo_2.py`: Realiza diversas simulações de uma fila simples do tipo M/M/1 com regime de serviço (First Come - First Served) FCFS. Para cada simulação é utilizada uma carga $\rho$ diferente.
+
+### Plotando os resultados
+Para facilitar a visualização dos resultados, este repositório fornece também uma pasta chamada `plota_exemplos`, dentro da qual você encontrará alguns scripts para plotar os resultados obtidos nas simulações. 
+
+A execução desses exemplos segue os mesmos passos mostrados anteriormente para a execução das simulações, bastando copiar o conteúdo do arquivo e executá-lo. Os exemplos dessa pasta são os seguintes:
+
+* `plota_exemplo_2.py`: gera um gráfico mostrando os resultados da simulação do `exemplo_2.py`, mostrando a AoI média _vs_ as cargas $\rho$. Esses resultados simulados são comparados com os resultados previstos pelo modelo analítico (ver referências).
 
 
 <p align="right">(<a href="#top">voltar ao início</a>)</p>
