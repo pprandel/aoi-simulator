@@ -23,6 +23,7 @@ mm1_sim = []
 # Erro máximo
 mm1_max_RMSE = 0
 # Carregamos os resultados da simulação
+# A pasta resultados deve estar no mesmo diretório deste script
 data_file = "resultados/exemplo_2.json"
 with open (data_file, 'r') as d:
         data = json.load(d)
