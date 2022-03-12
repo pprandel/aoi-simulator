@@ -13,14 +13,11 @@
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
-
-
 
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/pprandel/AoI">
+  <a href="https://github.com/pprandel/aoi-simulator">
     <img src="images/logo.svg" alt="Logo" width="400">
   </a>
 
@@ -28,11 +25,11 @@
     Uma ferramenta de simulação para a Age Of Information
     <br />
     <br />
-    <a href="https://github.com/pprandel/AoI">Vídeo demonstrativo</a>
+    <a href="https://github.com/pprandel/aoi-simulator">Vídeo demonstrativo</a>
     ·
-    <a href="https://github.com/pprandel/AoI">Reporte um Bug</a>
+    <a href="https://github.com/pprandel/aoi-simulator/issues">Reporte um Bug</a>
     ·
-    <a href="https://github.com/pprandel/AoI/issues">Solicite uma funcionalidade</a>
+    <a href="https://github.com/pprandel/aoi-simulator/issues">Solicite uma funcionalidade</a>
   </p>
 </div>
 
@@ -48,9 +45,14 @@
   - [Plotando os resultados](#plotando-os-resultados)
 - [Contribuindo](#contribuindo)
 - [Referências Acadêmicas](#referências-acadêmicas)
+  - [Conceitos básicos](#conceitos-básicos)
+  - [Modelo computacional do aoi-simulator](#modelo-computacional-do-aoi-simulator)
+  - [Referências para os exemplos](#referências-para-os-exemplos)
+    - [Exemplos 1 e 2:](#exemplos-1-e-2)
+    - [Exemplo 3:](#exemplo-3)
+    - [Exemplo 4:](#exemplo-4)
 - [Licença](#licença)
 - [Contatos](#contatos)
-- [Agradecimentos](#agradecimentos)
   
 <!-- ABOUT THE PROJECT -->
 ## Sobre o projeto 
@@ -151,7 +153,7 @@ Cada um dos exemplos fornecios na pasta `sim_exemplos` aborda um caso de uso dif
 *  `exemplo_2.py`: Realiza diversas simulações de uma fila simples do tipo M/M/1 com regime de serviço (First Come - First Served) FCFS. Para cada simulação é utilizada uma carga $\rho$ diferente.
 
 ### Plotando os resultados
-Para facilitar a visualização dos resultados, este repositório fornece também uma pasta chamada `plota_exemplos`, dentro da qual você encontrará alguns scripts para plotar os resultados obtidos nas simulações. 
+Para facilitar o trabalho de visualização dos resultados, este repositório fornece também uma pasta chamada `plota_exemplos`, dentro da qual você encontrará alguns scripts para plotar os resultados obtidos nas simulações. 
 
 A execução desses exemplos segue os mesmos passos mostrados anteriormente para a execução das simulações, bastando copiar o conteúdo do arquivo e executá-lo. Os exemplos dessa pasta são os seguintes:
 
@@ -163,9 +165,8 @@ A execução desses exemplos segue os mesmos passos mostrados anteriormente para
 <!-- CONTRIBUTING -->
 ## Contribuindo
 
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
-
-If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
+Todas as contribuições a este projeto serão muito bem vindas! 
+Se você tem alguma sugestão para a melhoria deste projeto e deseja implementá-la você mesmo, faça um `fork` e crie um `pull request`.  Você pode também abrir uma `issue` e  "enhancement".
 Don't forget to give the project a star! Thanks again!
 
 1. Fork the Project
@@ -181,13 +182,34 @@ Don't forget to give the project a star! Thanks again!
 
 Aqui você encontrará uma lista de referências acadêmicas sobre a área Age of Information. Boa leitura!
 
+### Conceitos básicos
+* [Age of Information: A New Concept, Metric, and Tool](https://ieeexplore.ieee.org/document/8187436)
+* [Age of Information: An Introduction and Survey](https://ieeexplore.ieee.org/document/9380899)
+  
+### Modelo computacional do aoi-simulator
+* [Computational Modeling of Age of Information for Cyber-physical Systems](https://ieeexplore.ieee.org/document/9647854)
+
+### Referências para os exemplos
+#### Exemplos 1 e 2:
+* [Real-time status: How often should one update?](https://ieeexplore.ieee.org/document/6195689)
+  
+#### Exemplo 3:
+[The Age of Information: Real-Time Status
+Updating by Multiple Sources](https://ieeexplore.ieee.org/document/8469047)
+
+#### Exemplo 4:
+* [On The Age Of Information In Status Update
+Systems With Packet Management](https://ieeexplore.ieee.org/document/7415972?arnumber=7415972)
+
+
+
 <p align="right">(<a href="#top">voltar ao início</a>)</p>
 
 
 <!-- LICENSE -->
 ## Licença
 
-Distributed under the MIT License. See `LICENSE.txt` for more information.
+Este projeto utiliza a licença MIT. Veja `LICENSE` para mais informações.
 
 <p align="right">(<a href="#top">voltar ao início</a>)</p>
 
@@ -196,44 +218,22 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <!-- CONTACT -->
 ## Contatos
 
-Your Name - [@your_twitter](https://twitter.com/your_username) - email@example.com
+Paulo Prandel - pauloprandel@hotmail.com ou paulo.prandel@aluno.unb.br
 
-Project Link: [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
-
-<p align="right">(<a href="#top">voltar ao início</a>)</p>
-
-
-
-<!-- ACKNOWLEDGMENTS -->
-## Agradecimentos
-
-Use this space to list resources you find helpful and would like to give credit to. I've included a few of my favorites to kick things off!
-
-* [Choose an Open Source License](https://choosealicense.com)
-* [GitHub Emoji Cheat Sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet)
-* [Malven's Flexbox Cheatsheet](https://flexbox.malven.co/)
-* [Malven's Grid Cheatsheet](https://grid.malven.co/)
-* [Img Shields](https://shields.io)
-* [GitHub Pages](https://pages.github.com)
-* [Font Awesome](https://fontawesome.com)
-* [React Icons](https://react-icons.github.io/react-icons/search)
+Priscila Barreto - pris@unb.br
 
 <p align="right">(<a href="#top">voltar ao início</a>)</p>
-
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=for-the-badge
-[contributors-url]: https://github.com/othneildrew/Best-README-Template/graphs/contributors
+[contributors-url]: https://github.com/pprandel/aoi-simulator/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/othneildrew/Best-README-Template.svg?style=for-the-badge
-[forks-url]: https://github.com/othneildrew/Best-README-Template/network/members
+[forks-url]: https://github.com/pprandel/aoi-simulator/network/members
 [stars-shield]: https://img.shields.io/github/stars/othneildrew/Best-README-Template.svg?style=for-the-badge
-[stars-url]: https://github.com/othneildrew/Best-README-Template/stargazers
+[stars-url]: https://github.com/pprandel/aoi-simulator/stargazers
 [issues-shield]: https://img.shields.io/github/issues/othneildrew/Best-README-Template.svg?style=for-the-badge
-[issues-url]: https://github.com/othneildrew/Best-README-Template/issues
+[issues-url]: https://github.com/pprandel/aoi-simulator/issues
 [license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
-[license-url]: https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/othneildrew
-[product-screenshot]: images/screenshot.png
+[license-url]: https://github.com/pprandel/aoi-simulator/blob/master/LICENSE
