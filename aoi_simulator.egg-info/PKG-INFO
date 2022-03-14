@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: aoi-simulator
-Version: 0.0.6
+Version: 0.0.7
 Summary: Age of Information simulation package
 Home-page: https://github.com/pprandel/aoi-simulator
 Author: Paulo Prandel
@@ -11,7 +11,7 @@ Platform: UNKNOWN
 Classifier: Programming Language :: Python :: 3
 Classifier: License :: OSI Approved :: MIT License
 Classifier: Operating System :: OS Independent
-Requires-Python: >=3.8
+Requires-Python: >=3.7
 License-File: LICENSE
 
 UNKNOWN
