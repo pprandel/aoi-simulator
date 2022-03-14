@@ -10,7 +10,6 @@
 -->
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
 
@@ -231,7 +230,6 @@ Priscila Barreto - pris@unb.br
 [contributors-url]: https://github.com/pprandel/aoi-simulator/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/pprandel/aoi-simulator
 [forks-url]: https://github.com/pprandel/aoi-simulator/network/members
-[stars-shield]: https://img.shields.io/github/stars/pprandel/aoi-simulator
 [issues-shield]: https://img.shields.io/github/issues/pprandel/aoi-simulator
 [issues-url]: https://github.com/pprandel/aoi-simulator/issues
 [license-shield]: https://img.shields.io/github/license/pprandel/aoi-simulator
