@@ -60,6 +60,9 @@ class LgfsMultiServerPreemption(AoIQueueServer):
             return 0
 
     def set_last_departures_gen_time(self, source, time):
+        if source in self._last_departures_gen_time:
+            if time < self._last_departures_gen_time[source]:
+                return
         self._last_departures_gen_time[source] = time
 
     def set_in_service_gen_time(self, source, time):

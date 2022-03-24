@@ -54,9 +54,15 @@ class LgfsMultiServerNoPreemption(AoIQueueServer):
             return 0
 
     def set_last_departures_gen_time(self, source, time):
+        if source in self._last_departures_gen_time:
+            if time < self._last_departures_gen_time[source]:
+                return
         self._last_departures_gen_time[source] = time
 
     def set_in_service_gen_time(self, source, time):
+        if source in self._in_service_gen_time:
+            if time < self._in_service_gen_time[source]:
+                return
         self._in_service_gen_time[source] = time
 
     # # #
@@ -69,54 +75,55 @@ class LgfsMultiServerNoPreemption(AoIQueueServer):
 
             # LGFS
             if self.policy == 0:
-                oldest_gen_time = 0
-                # Get oldest agent from all sources
+                newest_gen_time = 0
+                # Get newest agent from all sources
                 for agent in self.queue:
                     if repr(agent) == 'InftyAgent':
                         continue
-                    if agent.gen_time > oldest_gen_time:
-                        oldest_gen_time = agent.gen_time
+                    if agent.gen_time > newest_gen_time:
+                        newest_gen_time = agent.gen_time
                         agent_served = agent
 
             # MAX-LGFS
             elif self.policy == 1: 
                 # Max age source
                 oldest_source = "oldest"
-                # Oldest gen time from max age source
-                oldest_gen_time = 0
+                # Newest gen time from max age source
+                newest_gen_time = 0
                 for agent in self.queue:
                     if repr(agent) == 'InftyAgent':
                         continue
                     agent_source = agent.agent_id[0]
-                    # If agents have same source, we choose the oldest generated time
+                    # If agents have same source, we choose the newest generated time
                     if agent_source == oldest_source:
-                        if agent.gen_time > oldest_gen_time:
+                        if agent.gen_time > newest_gen_time:
                             agent_served = agent
-                            oldest_gen_time = agent.gen_time
+                            newest_gen_time = agent.gen_time
                     elif self.get_last_departures_gen_time(agent_source) < self.get_last_departures_gen_time(oldest_source):
                         oldest_source = agent_source
-                        oldest_gen_time = agent.gen_time
+                        newest_gen_time = agent.gen_time
                         agent_served = agent
 
             # MASIF-LGFS
             else:
                 # Max age source
                 oldest_source = "oldest"
-                # Oldest gen time from max age source
-                oldest_gen_time = 0
+                # Newest gen time from max age source
+                newest_gen_time = 0
                 for agent in self.queue:
                     if repr(agent) == 'InftyAgent':
                         continue
                     agent_source = agent.agent_id[0]
-                    # If agents have same source, we choose the oldest generated time
+                    # If agents have same source, we choose the newest generated time
                     if agent_source == oldest_source:
-                        if agent.gen_time > oldest_gen_time:
+                        if agent.gen_time > newest_gen_time:
                             agent_served = agent
-                            oldest_gen_time = agent.gen_time
+                            newest_gen_time = agent.gen_time
                     elif self.get_in_service_gen_time(agent_source) < self.get_in_service_gen_time(oldest_source):
                         oldest_source = agent_source
-                        oldest_gen_time = agent.gen_time
+                        newest_gen_time = agent.gen_time
                         agent_served = agent
+
             self.queue.remove(agent_served)
             return agent_served
 
@@ -192,5 +199,3 @@ class LgfsMultiServerNoPreemption(AoIQueueServer):
                 self.queue.append(arrival)
 
             self._update_time()
-        
-       
