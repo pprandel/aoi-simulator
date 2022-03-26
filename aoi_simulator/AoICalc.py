@@ -31,8 +31,6 @@ class AoICalc():
 
         # Split sources
         self.splitted_data = {}
-        preempted = 0
-        obsolete = 0
         for id, value in data.items():
             id_splitted = id.split(",")
             source = int(id_splitted[0][1:])
@@ -42,18 +40,16 @@ class AoICalc():
             if source in self.splitted_data:
                 # Remove preempted
                 if deliv_time == 0:
-                    preempted = preempted + 1
+                    self.aoi[source]["Preempted"] += 1
                     continue
                 # Remove obsolete
                 elif gen_time < self.splitted_data[source][-1][0]:
-                    obsolete = obsolete +1
+                    self.aoi[source]["Obsolete"] += 1
                     continue
                 self.splitted_data[source].append(times)
             else:
                 self.splitted_data[source] = []
                 self.splitted_data[source].append(times)
-            self.aoi[i]["Preempted"] = preempted
-            self.aoi[i]["Obsolete"] = obsolete
 
     def save_seqences(self, i):
         if self.save_AoI_seq != "None":

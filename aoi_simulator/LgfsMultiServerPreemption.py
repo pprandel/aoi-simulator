@@ -1,6 +1,6 @@
 from numpy import infty
 from heapq import heappush, heappop
-from AoIQueueServer import AoIQueueServer
+from aoi_simulator.AoIQueueServer import AoIQueueServer
 
 """
 Extends QueueServer Class from queueing_tool package
@@ -29,7 +29,7 @@ class LgfsMultiServerPreemption(AoIQueueServer):
         super(LgfsMultiServerPreemption, self).__init__(**kwargs)
         self.policy = policy
         # Dic with source index as keys and last departure generation time as values
-        self._last_departures_gen_time = {"oldest": 0}
+        self._last_departures_gen_time = {"freshest": 0}
         # Dic with source index as keys and last in service agent generation time as values
         self._in_service_gen_time = {}
 
@@ -48,7 +48,7 @@ class LgfsMultiServerPreemption(AoIQueueServer):
             return 0
 
     def get_in_service_gen_time(self, source):
-        if source == 'oldest':
+        if source == 'freshest':
             return 0
         if source in self._in_service_gen_time:
             try:
@@ -157,8 +157,8 @@ class LgfsMultiServerPreemption(AoIQueueServer):
 
                 # MAX-LGFS
                 elif self.policy == 1: 
-                    # Max age source
-                    oldest_source = "oldest"
+                    # Freshest source will be replaced (prioritize oldest sources)
+                    freshest_source = "freshest"
                     # Oldest gen time from max age source
                     oldest_gen_time = infty
                     for agent in self._departures:
@@ -166,26 +166,26 @@ class LgfsMultiServerPreemption(AoIQueueServer):
                             continue
                         agent_source = agent.agent_id[0]
                         # If agents have same source, we choose the oldest generated time
-                        if agent_source == oldest_source:
+                        if agent_source == freshest_source:
                             if agent.gen_time < oldest_gen_time:
                                 agent_replaced = agent
                                 oldest_gen_time = agent.gen_time
-                        elif self.get_last_departures_gen_time(agent_source) > self.get_last_departures_gen_time(oldest_source):
-                            oldest_source = agent_source
+                        elif self.get_last_departures_gen_time(agent_source) > self.get_last_departures_gen_time(freshest_source):
+                            freshest_source = agent_source
                             oldest_gen_time = agent.gen_time
                             agent_replaced = agent
                         
                     # Check if the last arrival is older
-                    if arrival_source == oldest_source:
+                    if arrival_source == freshest_source:
                         if arrival.gen_time < oldest_gen_time:
                                 agent_replaced = None
-                    elif self.get_last_departures_gen_time(arrival_source) > self.get_last_departures_gen_time(oldest_source):
+                    elif self.get_last_departures_gen_time(arrival_source) > self.get_last_departures_gen_time(freshest_source):
                         agent_replaced = None
 
                 # MASIF-LGFS
                 else:
                     # Max age source
-                    oldest_source = "oldest"
+                    freshest_source = "freshest"
                     # Oldest gen time from max age source
                     oldest_gen_time = infty
                     for agent in self._departures:
@@ -193,20 +193,20 @@ class LgfsMultiServerPreemption(AoIQueueServer):
                             continue
                         agent_source = agent.agent_id[0]
                         # If agents have same source, we choose the oldest generated time
-                        if agent_source == oldest_source:
+                        if agent_source == freshest_source:
                             if agent.gen_time < oldest_gen_time:
                                 agent_replaced = agent
                                 oldest_gen_time = agent.gen_time
-                        elif self.get_in_service_gen_time(agent_source) > self.get_in_service_gen_time(oldest_source):
-                            oldest_source = agent_source
+                        elif self.get_in_service_gen_time(agent_source) > self.get_in_service_gen_time(freshest_source):
+                            freshest_source = agent_source
                             oldest_gen_time = agent.gen_time
                             agent_replaced = agent
                         
                     # Check if the last arrival is older
-                    if arrival_source == oldest_source:
+                    if arrival_source == freshest_source:
                         if arrival.gen_time < oldest_gen_time:
                                 agent_replaced = None
-                    elif self.get_in_service_gen_time(arrival_source) > self.get_in_service_gen_time(oldest_source):
+                    elif self.get_in_service_gen_time(arrival_source) > self.get_in_service_gen_time(freshest_source):
                         agent_replaced = None
 
                 if agent_replaced is not None:
