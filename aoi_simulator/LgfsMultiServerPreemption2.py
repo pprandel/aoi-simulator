@@ -40,7 +40,7 @@ class LgfsMultiServerPreemption(AoIQueueServer):
                self.num_departures, round(self._time, 3))
         return tmp.format(*arg)
 
-    def put_in_queue(self, agent):
+    def enqueue(self, agent):
         source = agent.agent_id[0]
         if source in self.multi_queue.keys():
             gen_time = agent.gen_time
@@ -48,6 +48,12 @@ class LgfsMultiServerPreemption(AoIQueueServer):
                 self.multi_queue[source] = agent
         else:
             self.multi_queue[source] = agent
+
+    def dequeue(self,source):
+        if source in self.multi_queue.keys():
+            return self.multi_queue[source]
+        else:
+            return None
 
     # Getters and setters
     def get_last_departures_gen_time(self, source):
