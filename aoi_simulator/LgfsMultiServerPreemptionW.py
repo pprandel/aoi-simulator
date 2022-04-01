@@ -4,36 +4,26 @@ from aoi_simulator.AoIQueueServer import AoIQueueServer
 
 """
 Extends QueueServer Class from queueing_tool package
-Last Generated First Served Queue with no preemption allowed
+Last Generated First Served Queue - Multi Preemption in Waiting
 LGFS: Last generated packet is served first among all packets in queue
-MAX-LGFS: Last generated packet from the source with the maximum age is served first among all packets in queue
-MASIF-LGFS: Last generated packet from the source with the maximum Age of Served Information (AoSI) is served first among all packets in queue
-Reference: @misc{sun2018ageoptimal,
-            title={Age-Optimal Updates of Multiple Information Flows}, 
-            author={Yin Sun and Elif Uysal-Biyikoglu and Sastry Kompella},
-            year={2018},
-            eprint={1801.02394},
-            archivePrefix={arXiv},
-            primaryClass={cs.IT}
-        }
+Multi Preemption in Waiting: Each source has a waiting queue, where preemption is allowed
 Parameters
     ----------
-    policy : int [0: LGFS (Last generated First Served), 1: MAX-LGFS (Maximum Age First), 2: MASIF-LGFS (Maximum Age of Served Information First)]
     **kwargs
         Any :class:`~QueueServer` parameters.
 """
 
-class LgfsMultiServerNoPreemption2(AoIQueueServer):
+class LgfsMultiServerPreemptionW(AoIQueueServer):
 
     def __init__(self, **kwargs):
-        super(LgfsMultiServerNoPreemption2, self).__init__(**kwargs)
+        super(LgfsMultiServerPreemptionW, self).__init__(**kwargs)
         # Dic with source index as keys and last departure generation time as values
         self._last_departures_gen_time = {"freshest": infty}
         # We define a queue as a dic with a key to each source
         self.multi_queue = {}
 
     def __repr__(self):
-        tmp = ("LgfsMultiServerNoPreemption:{0}. Servers: {1}, queued: {2}, arrivals: {3}, "
+        tmp = ("LgfsMultiServerPreemptionW:{0}. Servers: {1}, queued: {2}, arrivals: {3}, "
                "departures: {4}, next time: {5}")
         arg = (self.edge[2], self.num_servers, len(self.queue), self.num_arrivals,
                self.num_departures, round(self._time, 3))
@@ -46,6 +36,7 @@ class LgfsMultiServerNoPreemption2(AoIQueueServer):
             gen_time = agent.gen_time
             if gen_time > self.multi_queue[source].gen_time:
                 self.multi_queue[source] = agent
+            self.num_system -= 1
         else:
             self.multi_queue[source] = agent
 
@@ -80,6 +71,7 @@ class LgfsMultiServerNoPreemption2(AoIQueueServer):
         # Return next agent to be served
         def fetch_queue():
             agent_served = None
+            source_served = None
             # Max aged source in queue
             oldest_source = "freshest"
             for source, agent in self.multi_queue.items():
@@ -89,11 +81,14 @@ class LgfsMultiServerNoPreemption2(AoIQueueServer):
                 if self.get_last_departures_gen_time(source) < self.get_last_departures_gen_time(oldest_source):
                     oldest_source = source
                     agent_served = agent
-            del self.multi_queue[source]
+                    source_served = source
+            if agent_served:
+                del self.multi_queue[source_served]
             return agent_served
 
         # # #
 
+        # Departure
         if self._departures[0]._time < self._arrivals[0]._time:
             new_depart = heappop(self._departures)
             self._current_t = new_depart._time
@@ -110,13 +105,12 @@ class LgfsMultiServerNoPreemption2(AoIQueueServer):
             # Fetch next agent according to the policy
             if bool(self.multi_queue):
                 agent = fetch_queue()
-                if self.collect_data and agent.agent_id in self.data:
-                    self.data[agent.agent_id][-1][1] = self._current_t
-                # Update in service time of agent
-                self.set_in_service_gen_time(agent.agent_id[0], agent.gen_time)
-                agent._time = self.service_f(self._current_t)
-                agent.queue_action(self, 1)
-                heappush(self._departures, agent)
+                if agent is not None:
+                    if self.collect_data and agent.agent_id in self.data:
+                        self.data[agent.agent_id][-1][1] = self._current_t
+                    agent._time = self.service_f(self._current_t)
+                    agent.queue_action(self, 1)
+                    heappush(self._departures, agent)
 
             new_depart.queue_action(self, 2)
             self._update_time()
@@ -141,7 +135,15 @@ class LgfsMultiServerNoPreemption2(AoIQueueServer):
                     self.data[arrival.agent_id]\
                         .append([arrival._time, 0, 0, len(self.queue) + b, self.num_system])
             arrival.queue_action(self, 0)
-            # We always enqueue new arrivals
-            self.enqueue(arrival)
+
+            # We have idle server(s)
+            if len(self._departures) <= self.num_servers:
+                if self.collect_data:
+                    self.data[arrival.agent_id][-1][1] = arrival._time
+                arrival._time = self.service_f(arrival._time)
+                arrival.queue_action(self, 1)
+                heappush(self._departures, arrival)
+            else:
+                self.enqueue(arrival)
 
             self._update_time()

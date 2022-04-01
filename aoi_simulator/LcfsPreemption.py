@@ -1,6 +1,7 @@
 from numpy import infty
 import numpy
 from heapq import heappush, heappop
+from aoi_simulator.AoIQueueServer import AoIQueueServer
 import queueing_tool as qt
 
 """
@@ -16,7 +17,7 @@ Parameters
         Any :class:`~QueueServer` parameters.
 """
 
-class LcfsPreemption(qt.QueueServer):
+class LcfsPreemption(AoIQueueServer):
 
     def __init__(self, preemption=0, **kwargs):
         super(LcfsPreemption, self).__init__(**kwargs)

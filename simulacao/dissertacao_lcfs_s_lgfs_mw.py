@@ -2,12 +2,12 @@ import queueing_tool as qt
 import numpy as np
 import json, os
 import aoi_simulator as aoi
-from LgfsMultiServerNoPreemption2 import LgfsMultiServerNoPreemption2
+from simulacao.LgfsMultiServerPreemptionW import LgfsMultiServerNoPreemption2
 
 # Sim name 
-sim_name = "multi_lgfs_preemption_exp"
+sim_name = "multi_lgfs_preemption_exp_2"
 
-ro = 0.9
+ro = 5
 
 result = {}
 
@@ -30,7 +30,7 @@ for N in range(30,151,1):
     G = qt.QueueNetworkDiGraph(adjacency)
 
     # Define queue classes for each edge type
-    q_cl = {1: aoi.AoIQueueServer, 2: aoi.AoIQueueServer, 3: LgfsMultiServerNoPreemption2}
+    q_cl = {1: aoi.LcfsPreemption, 2: aoi.AoIQueueServer, 3: LgfsMultiServerNoPreemption2}
 
     # Taxa de serviço dos servidores
     mu = 5
@@ -79,7 +79,7 @@ for N in range(30,151,1):
     net.initialize(queues=range(N))
 
     # Start simulation with n events
-    net.simulate(n=100000)
+    net.simulate(n=200000)
 
     # Collect data
     data = net.get_AoI_data(monitor=N+1)
@@ -104,6 +104,7 @@ for N in range(30,151,1):
     mean_peak_vector = []
     preemp_vector = []
 
+    print(calc_mean.aoi)
     for value in calc_mean.aoi.values():
         mean_aoi_vector.append(value["MeanAoI"])
     for value in calc_peak.aoi.values():
