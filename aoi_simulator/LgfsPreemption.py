@@ -8,23 +8,25 @@ import json
 
 """
 Extends QueueServer Class from queueing_tool package
-Last Come First Served Queue with finite capacity and preemption
+Last Generated First Served Queue with preemption
 
 Parameters
     ----------
-    preemption : int (0: preemption in service, 1: preemption in waiting)
+    preemption : int (0: preemption in service, 1: preemption in waiting, 2: preemption conditional)
         Preemption in service: No waiting queue. New arrival replaces agent in service.
         Preemption in waiting: One waiting slot. New arrival replaces agent in waiting queue.
+        Preemption conditional: New arrival can preemp in service or in waiting, dinamically
+    mrl_file: only for Preemption Conditional
     **kwargs
         Any :class:`~QueueServer` parameters.
 """
 
-class LcfsPreemption3(AoIQueueServer):
+class LgfsPreemption(AoIQueueServer):
 
-    def __init__(self, preemption=0, **kwargs):
-        super(LcfsPreemption3, self).__init__(**kwargs)
+    def __init__(self, preemption=0, mrl_file=None, **kwargs):
+        super(LgfsPreemption, self).__init__(**kwargs)
         self.preemption = preemption
-        with open("data_aux/MRL_ln_02_05.json", 'r') as f:
+        with open(mrl_file, 'r') as f:
             self.MRL = json.load(f)
         self.last_departure_gen_time = 0
         self.contador = 0

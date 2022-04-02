@@ -2,10 +2,9 @@ import queueing_tool as qt
 import numpy as np
 import json, os
 import aoi_simulator as aoi
-from simulacao.LgfsMultiServerPreemptionW import LgfsMultiServerNoPreemption2
 
 # Sim name 
-sim_name = "multi_lgfs_preemption_exp_2"
+sim_name = "dissertacao_lcfs_c_lgfs_mw"
 
 ro = 5
 
@@ -30,7 +29,7 @@ for N in range(30,151,1):
     G = qt.QueueNetworkDiGraph(adjacency)
 
     # Define queue classes for each edge type
-    q_cl = {1: aoi.LcfsPreemption, 2: aoi.AoIQueueServer, 3: LgfsMultiServerNoPreemption2}
+    q_cl = {1: aoi.LgfsPreemption, 2: aoi.AoIQueueServer, 3: aoi.LgfsMultiServerPreemptionW}
 
     # Taxa de serviço dos servidores
     mu = 5
@@ -43,21 +42,23 @@ for N in range(30,151,1):
     # Função serviço das fontes
     mu_f = 5 * 0.9**(N/4)
     def f_ser_1(t): 
-        return t + np.random.exponential(1/mu_f)
+        return t + (1/mu_f)/0.886 * np.random.weibull(2)
 
     # Função atraso na rede: 500 ms (média)
     def f_ser_2(t): 
         return t + np.random.exponential(0.5)
 
     def f_ser_3(t): 
-        return t + np.random.exponential(1/mu)  # np.random.weibull(2) #expon.rvs(loc=1/3, scale=2/3) #np.random.exponential(mu)  
+        return t + np.random.exponential(1/mu)
 
     # Config queues parameters for each edge type
     q_ar = {
         1: {
             'arrival_f': f_gen_1,
             'service_f': f_ser_1,
-            'num_servers': 1
+            'num_servers': 1,
+            'preemption': 2,
+            'mrl_file': "/home/paulo/Documents/Git/AoI/AoI/data_aux/MRL_weib_2.json"
         },
         2: {
             'service_f': f_ser_2,
