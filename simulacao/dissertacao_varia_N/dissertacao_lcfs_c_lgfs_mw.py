@@ -18,7 +18,6 @@ for N in range(30,151,1):
     # Each edge represents a queue and must have a type
     adjacency = {}
 
-    #N = 30
     C = 3
     for i in range(N):
         adjacency[i] = {N: {'edge_type': 1}}
@@ -74,13 +73,13 @@ for N in range(30,151,1):
     net = aoi.AoIQueueNetwork(g=G, q_classes=q_cl, q_args=q_ar, max_agents=np.infty)
 
     # Set queues that collects data
-    net.start_collecting_data(queues=N+1)
+    net.start_collecting_data(queues=range(N+2))
 
     # Initialize queues that generate packets
     net.initialize(queues=range(N))
 
     # Start simulation with n events
-    net.simulate(n=200000)
+    net.simulate(n=100000)
 
     # Collect data
     data = net.get_AoI_data(monitor=N+1)
@@ -98,8 +97,7 @@ for N in range(30,151,1):
     calc_peak = aoi.MeanPeakAoICalc(sim_name, arq_nome, N)
 
     print("RO = %f" %(lamb*N/(C*mu)))
-    print("Lambda = %f" %(lamb))
-    print("mu_f = %f" %(mu_f))
+    print("RO fonte = %f" %(lamb/mu_f))
 
     mean_aoi_vector = []
     mean_peak_vector = []

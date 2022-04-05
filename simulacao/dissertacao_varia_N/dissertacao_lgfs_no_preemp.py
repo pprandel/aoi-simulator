@@ -42,7 +42,7 @@ for N in range(30,151,1):
     # Função serviço das fontes
     mu_f = 5 * 0.9**(N/4)
     def f_ser_1(t): 
-        return t + np.random.exponential(1/mu_f)
+        return t + (1/mu_f)/0.886 * np.random.weibull(2)
 
     # Função atraso na rede: 500 ms (média)
     def f_ser_2(t): 
