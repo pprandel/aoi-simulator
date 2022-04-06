@@ -2,7 +2,6 @@
 
 .vscode/*
 .vscode/settings.json
-data_aux/
 sim_data/
 resultados/
 __pycache__/

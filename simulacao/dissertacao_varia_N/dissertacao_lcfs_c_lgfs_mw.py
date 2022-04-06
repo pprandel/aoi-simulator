@@ -79,7 +79,7 @@ for N in range(30,151,1):
     net.initialize(queues=range(N))
 
     # Start simulation with n events
-    net.simulate(n=100000)
+    net.simulate(n=150000)
 
     # Collect data
     data = net.get_AoI_data(monitor=N+1)
