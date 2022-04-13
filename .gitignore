@@ -5,6 +5,7 @@
 aoi_simulator.egg-info/
 sim_data/
 simulacao/
+plota/
 data_aux/
 dist/
 resultados/
