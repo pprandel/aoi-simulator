@@ -1,9 +1,9 @@
-from .AoICalc import MeanAoICalc, MeanPeakAoICalc
-from .AoIQueueNetwork import AoIQueueNetwork
-from .AoIQueueServer import AoIQueueServer
-from .AoIAgent import AoIAgent
-from .LcfsPreemption import LcfsPreemption
-from .LgfsPreemption import LgfsPreemption
-from .LgfsMultiServerNoPreemption import LgfsMultiServerNoPreemption
-from .LgfsMultiServerPreemption import LgfsMultiServerPreemption
-from .LgfsMultiServerPreemptionW import LgfsMultiServerPreemptionW
+from .core.AoICalc import MeanAoICalc, MeanPeakAoICalc
+from .core.AoIQueueNetwork import AoIQueueNetwork
+from .core.AoIAgent import AoIAgent
+from .queues.AoIQueueServer import AoIQueueServer
+from .queues.LcfsPreemption import LcfsPreemption
+from .queues.LgfsPreemption import LgfsPreemption
+from .queues.LgfsMultiServerNoPreemption import LgfsMultiServerNoPreemption
+from .queues.LgfsMultiServerPreemption import LgfsMultiServerPreemption
+from .queues.LgfsMultiServerPreemptionW import LgfsMultiServerPreemptionW

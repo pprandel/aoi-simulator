@@ -2,6 +2,10 @@
 
 .vscode/*
 .vscode/settings.json
+aoi_simulator.egg-info/
 sim_data/
+simulacao/
+data_aux/
+dist/
 resultados/
 __pycache__/

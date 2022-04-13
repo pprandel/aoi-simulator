@@ -36,7 +36,7 @@ ax.axhline(y=10, color='tomato', linestyle='--', label="Limite AoI de pico médi
 ax.set_xticks(list(np.arange(30, 151, 10)))
 
 ax.set_ylabel('AoI (segundos)', fontsize=14)
-ax.set_xlabel('Número de fontes', fontsize=14)
+ax.set_xlabel('Número de agentes alocados', fontsize=14)
 
 ax.grid(True)
 ax.legend(fontsize=12, loc='upper left')

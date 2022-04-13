@@ -1,5 +1,5 @@
 import queueing_tool as qt
-from aoi_simulator.AoIAgent import AoIAgent
+from aoi_simulator.core.AoIAgent import AoIAgent
 from heapq import heappush
 import numpy as np
 

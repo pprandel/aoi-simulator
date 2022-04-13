@@ -2,7 +2,7 @@ from numpy import infty
 import numpy
 from heapq import heappush, heappop
 import queueing_tool as qt
-from aoi_simulator.AoIQueueServer import AoIQueueServer
+from aoi_simulator.queues.AoIQueueServer import AoIQueueServer
 from reliability.Distributions import Weibull_Distribution as WB
 import json 
 

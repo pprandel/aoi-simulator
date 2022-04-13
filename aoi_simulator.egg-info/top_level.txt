@@ -1,1 +1,10 @@
 aoi_simulator
+data_aux
+dist
+images
+plota
+plota_exemplos
+resultados
+sim_data
+sim_exemplos
+simulacao

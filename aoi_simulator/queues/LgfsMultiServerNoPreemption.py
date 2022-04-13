@@ -1,6 +1,6 @@
 from numpy import infty
 from heapq import heappush, heappop
-from aoi_simulator.AoIQueueServer import AoIQueueServer
+from aoi_simulator.queues.AoIQueueServer import AoIQueueServer
 
 """
 Extends QueueServer Class from queueing_tool package
