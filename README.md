@@ -26,7 +26,7 @@
     <br />
     <a href="https://github.com/pprandel/aoi-simulator">Vídeo demonstrativo</a>
     ·
-    <a href="https://github.com/pprandel/aoi-simulator/issues">Reporte um Bug</a>
+    <a href="https://github.com/pprandel/aoi-simulator/issues/new">Reporte um Bug</a>
     ·
     <a href="https://github.com/pprandel/aoi-simulator/issues">Solicite uma funcionalidade</a>
   </p>
@@ -49,7 +49,6 @@
   - [Referências para os exemplos](#referências-para-os-exemplos)
     - [Exemplos 1 e 2:](#exemplos-1-e-2)
     - [Exemplo 3:](#exemplo-3)
-    - [Exemplo 4:](#exemplo-4)
 - [Licença](#licença)
 - [Contatos](#contatos)
   
@@ -151,12 +150,16 @@ Cada um dos exemplos fornecios na pasta `sim_exemplos` aborda um caso de uso dif
   
 *  `exemplo_2.py`: Realiza diversas simulações de uma fila simples do tipo M/M/1 com regime de serviço (First Come - First Served) FCFS. Para cada simulação é utilizada uma carga $\rho$ diferente.
 
+*  `exemplo_3.py`: Realiza diversas simulações de uma fila simples do tipo M/M/1 com regime de serviço (First Come - First Served) FCFS para 2 fontes.
+
 ### Plotando os resultados
 Para facilitar o trabalho de visualização dos resultados, este repositório fornece também uma pasta chamada `plota_exemplos`, dentro da qual você encontrará alguns scripts para plotar os resultados obtidos nas simulações. 
 
 A execução desses exemplos segue os mesmos passos mostrados anteriormente para a execução das simulações, bastando copiar o conteúdo do arquivo e executá-lo. Os exemplos dessa pasta são os seguintes:
 
 * `plota_exemplo_2.py`: gera um gráfico mostrando os resultados da simulação do `exemplo_2.py`, mostrando a AoI média _vs_ as cargas $\rho$. Esses resultados simulados são comparados com os resultados previstos pelo modelo analítico (ver referências).
+  
+* `plota_exemplo_3.py`: gera um gráfico mostrando os resultados da simulação do `exemplo_3.py`, mostrando a evolução da AoI média para as 2 fontes em diferentes cargas $\rho$. Esses resultados simulados são comparados com os resultados previstos pelo modelo analítico (ver referências).
 
 
 <p align="right">(<a href="#top">voltar ao início</a>)</p>
@@ -196,10 +199,10 @@ Aqui você encontrará uma lista de referências acadêmicas sobre a área Age o
 #### Exemplo 3:
 [The Age of Information: Real-Time Status
 Updating by Multiple Sources](https://ieeexplore.ieee.org/document/8469047)
-
+<!-- 
 #### Exemplo 4:
 * [On The Age Of Information In Status Update
-Systems With Packet Management](https://ieeexplore.ieee.org/document/7415972?arnumber=7415972)
+Systems With Packet Management](https://ieeexplore.ieee.org/document/7415972?arnumber=7415972) -->
 
 
 
