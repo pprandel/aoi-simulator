@@ -165,14 +165,15 @@ A execução desses exemplos segue os mesmos passos mostrados anteriormente para
 ## Contribuindo
 
 Todas as contribuições a este projeto serão muito bem vindas! 
-Se você tem alguma sugestão para a melhoria deste projeto e deseja implementá-la você mesmo, faça um `fork` e crie um `pull request`.  Você pode também abrir uma `issue` e  "enhancement".
-Don't forget to give the project a star! Thanks again!
+Se você tem alguma sugestão para a melhoria deste projeto e deseja implementá-la você mesmo, faça um `fork` e crie um `pull request`.  Você pode também abrir uma `issue` ou solicitar um  `enhancement`. Exemplo:
 
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+1. Faça um `fork` do projeto
+2. Crie sua `Branch` (`git checkout -b feature/MinhaFeature`)
+3. Faça o `Commit` das suas mudanças (`git commit -m 'Adiciona nova funcionalidade'`)
+4. Faça o `Push` da sua `Branch` (`git push origin feature/MinhaFeature`)
+5. Abra um `Pull Request`
+
+Não esqueça de nos dar uma :star:, clicando no botão no canto superior direito da tela! Obrigado!
 
 <p align="right">(<a href="#top">voltar ao início</a>)</p>
 
@@ -226,11 +227,11 @@ Priscila Barreto - pris@unb.br
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/pprandel/aoi-simulator
+[contributors-shield]: https://img.shields.io/github/contributors/pprandel/aoi-simulator?style=for-the-badge
 [contributors-url]: https://github.com/pprandel/aoi-simulator/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/pprandel/aoi-simulator
+[forks-shield]: https://img.shields.io/github/forks/pprandel/aoi-simulator?style=for-the-badge
 [forks-url]: https://github.com/pprandel/aoi-simulator/network/members
-[issues-shield]: https://img.shields.io/github/issues/pprandel/aoi-simulator
+[issues-shield]: https://img.shields.io/github/issues/pprandel/aoi-simulator?style=for-the-badge
 [issues-url]: https://github.com/pprandel/aoi-simulator/issues
-[license-shield]: https://img.shields.io/github/license/pprandel/aoi-simulator
+[license-shield]: https://img.shields.io/github/license/pprandel/aoi-simulator?style=for-the-badge
 [license-url]: https://github.com/pprandel/aoi-simulator/blob/master/LICENSE
