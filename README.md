@@ -72,6 +72,8 @@ Este projeto utiliza:
 * [Queueing Tool](https://github.com/djordon/queueing-tool)
 * [Matplot Lib](https://matplotlib.org/)
 
+>Link para o projeto no [PyPi](https://pypi.org/project/aoi-simulator/)
+
 
 <p align="right">(<a href="#top">voltar ao início</a>)</p>
 
