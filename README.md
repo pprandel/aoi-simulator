@@ -93,10 +93,7 @@ O aoi-simulator é um pacote Python, logo sua utilização independe do sistema 
 Para instalar o Python, utilize os tutoriais abaixo. 
 * [Linux](https://python.org.br/instalacao-linux/)
 * [Windows](https://python.org.br/instalacao-windows/)
-* [Mac OS](https://python.org.br/instalacao-mac/)
 
-Usuários Windows devem instalar adicionalmente o Visual Studio Build Tools.
-* [Download VS Build Tools](https://visualstudio.microsoft.com/pt-br/thank-you-downloading-visual-studio/?sku=BuildTools)
 ### Instalando a ferramenta
 
 Após a instalação do Python:
