@@ -19,6 +19,7 @@ adjacency[1] = {2: {'edge_type': 2}} # Nó 1 (será nosso monitor)
 G = qt.QueueNetworkDiGraph(adjacency)
 
 # Definimos as classes das filas 
+# Outras classes com outras técnicas de gerenciamento de pacotes podem ser encontradas na pasta 'aoi_simulator->queues'
 q_cl = {1: aoi.AoIQueueServer, 2: aoi.AoIQueueServer}
 
 # Carga no servidor

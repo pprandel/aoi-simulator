@@ -87,12 +87,14 @@ Este tutorial iŕa guiá-lo através dos processos de instalação e utilizaçã
 ### Pré-requisitos
 
 O aoi-simulator é um pacote Python, logo sua utilização independe do sistema operacional utilizado. Os pré requisitos para a instalação são:
-* Python 3.8 ou superior
+* Python 3.7
 * Conhecimento básico na linguagem Python
+  
+>:warning: Para SO Windows instale estritamente o Python 3.7! Para SO Linux você pode instalar uma versão superior.
 
-Para instalar o Python, utilize os tutoriais abaixo. 
+Para instalar o Python, utilize os links abaixo. 
 * [Linux](https://python.org.br/instalacao-linux/)
-* [Windows](https://python.org.br/instalacao-windows/)
+* [Windows](https://www.python.org/downloads/release/python-370/)
 
 ### Instalando a ferramenta
 
