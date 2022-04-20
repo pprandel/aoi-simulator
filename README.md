@@ -110,12 +110,12 @@ Após a instalação do Python:
 
 3. Atualize o instalador de pacotes `PIP`:
     ```sh
-    python -m pip install --upgrade pip
+    pip install --upgrade pip
     ```
 
 4. Instale o aoi-simulator através do `PIP`:
     ```sh
-    python -m pip install aoi-simulator
+    pip install aoi-simulator
     ```
 
 
