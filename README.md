@@ -24,7 +24,7 @@
     Uma ferramenta de simulação para a Age Of Information
     <br />
     <br />
-    <a href="https://github.com/pprandel/aoi-simulator">Vídeo demonstrativo</a>
+    <a href="https://youtu.be/xASlrlQO25o">Vídeo demonstrativo</a>
     ·
     <a href="https://github.com/pprandel/aoi-simulator/issues/new">Reporte um Bug</a>
     ·
