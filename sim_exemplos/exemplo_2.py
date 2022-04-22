@@ -5,6 +5,14 @@ import aoi_simulator as aoi
 
 ##### EXEMPLO 2: FILA SIMPLES COM DIVERSAS CARGAS #####
 
+# REFERÊNCIA: @INPROCEEDINGS{Yates_often,
+#             author={Kaul, Sanjit and Yates, Roy and Gruteser, Marco},
+#             booktitle={2012 Proceedings IEEE INFOCOM},
+#             title={Real-time status: How often should one update?},
+#             year={2012},
+#             pages={2731-2735},
+#             doi={10.1109/INFCOM.2012.6195689}}
+
 # Nome da simulação
 sim_name = "exemplo_2"
 # Cargas que serão usadas na simulação (1 simulação para cada carga)

@@ -4,10 +4,12 @@ from aoi_simulator.queues.AoIQueueServer import AoIQueueServer
 
 """
 Extends QueueServer Class from queueing_tool package
+Multi source and multi server model
 Last Generated First Served Queue with no preemption allowed
-LGFS: Last generated packet is served first among all packets in queue
-MAX-LGFS: Last generated packet from the source with the maximum age is served first among all packets in queue
-MASIF-LGFS: Last generated packet from the source with the maximum Age of Served Information (AoSI) is served first among all packets in queue
+Policies:
+    - LGFS: Last generated packet is served first among all packets in queue
+    - MAX-LGFS: Last generated packet from the source with the maximum age is served first among all packets in queue
+    - MASIF-LGFS: Last generated packet from the source with the maximum Age of Served Information (AoSI) is served first among all packets in queue
 Reference: @misc{sun2018ageoptimal,
             title={Age-Optimal Updates of Multiple Information Flows}, 
             author={Yin Sun and Elif Uysal-Biyikoglu and Sastry Kompella},
@@ -41,6 +43,7 @@ class LgfsMultiServerNoPreemption(AoIQueueServer):
         return tmp.format(*arg)
 
     # Getters and setters
+
     def get_last_departures_gen_time(self, source):
         if source in self._last_departures_gen_time:
             return self._last_departures_gen_time[source]
@@ -129,9 +132,6 @@ class LgfsMultiServerNoPreemption(AoIQueueServer):
 
         # # #
 
-        def remove_obsolete():
-            pass
-
         if self._departures[0]._time < self._arrivals[0]._time:
             new_depart = heappop(self._departures)
             self._current_t = new_depart._time
@@ -144,8 +144,6 @@ class LgfsMultiServerNoPreemption(AoIQueueServer):
 
             if self.collect_data and new_depart.agent_id in self.data:
                 self.data[new_depart.agent_id][-1][2] = self._current_t
-
-            remove_obsolete()
 
             # Fetch next agent according to the policy
             if len(self.queue) > 0:

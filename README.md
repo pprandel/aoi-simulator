@@ -90,11 +90,12 @@ O aoi-simulator é um pacote Python, logo sua utilização independe do sistema 
 * Python 3.7
 * Conhecimento básico na linguagem Python
   
->:warning: Para SO Windows instale estritamente o Python 3.7! Para SO Linux você pode instalar uma versão superior.
+>:warning: Para SO Windows instale estritamente o Python 3.7! Para SO Linux ou Mac você pode instalar uma versão superior.
 
 Para instalar o Python, utilize os links abaixo. 
 * [Linux](https://python.org.br/instalacao-linux/)
 * [Windows](https://www.python.org/downloads/release/python-370/)
+* [MacOs](https://python.org.br/instalacao-mac/)
 
 ### Instalando a ferramenta
 

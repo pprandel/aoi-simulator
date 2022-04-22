@@ -5,14 +5,22 @@ from aoi_simulator.queues.AoIQueueServer import AoIQueueServer
 import queueing_tool as qt
 
 """
-Extends QueueServer Class from queueing_tool package
-Last Come First Served Queue with finite capacity and preemption
-
+Extends QueueServer class from queueing_tool package.
+Last Come First Served (LCFS) Queue with finite capacity and preemption.
+Refrence: @ARTICLE{Costa_packet_management_2016,
+            author={Costa, Maice and Codreanu, Marian and Ephremides, Anthony},
+            journal={IEEE Transactions on Information Theory},
+            title={On the Age of Information in Status Update Systems With Packet Management},
+            year={2016},
+            volume={62},
+            number={4},
+            pages={1897-1910},
+            doi={10.1109/TIT.2016.2533395}}
 Parameters
     ----------
     preemption : int (0: preemption in service, 1: preemption in waiting)
-        Preemption in service: No waiting queue. New arrival replaces agent in service.
-        Preemption in waiting: One waiting slot. New arrival replaces agent in waiting queue.
+        Preemption in service: No waiting queue. New arrival replaces agent in service. (M/M/1/1*)
+        Preemption in waiting: One waiting slot. New arrival replaces agent in waiting queue. (M/M/1/2*)
     **kwargs
         Any :class:`~QueueServer` parameters.
 """

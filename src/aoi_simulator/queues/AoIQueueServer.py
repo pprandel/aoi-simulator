@@ -4,9 +4,15 @@ from heapq import heappush
 import numpy as np
 
 """
-Extends QueueServer Class from queueing_tool package
-- Uses AoIAgent class, wich has agent gen_time
-
+Extends QueueServer class from queueing-tool package.
+Basic First Come First Served (FCFS) Queue for AoI simulation. 
+Reference: @INPROCEEDINGS{Yates_often,
+            author={Kaul, Sanjit and Yates, Roy and Gruteser, Marco},
+            booktitle={2012 Proceedings IEEE INFOCOM},
+            title={Real-time status: How often should one update?},
+            year={2012},
+            pages={2731-2735},
+            doi={10.1109/INFCOM.2012.6195689}}
 Parameters
     ----------
     **kwargs

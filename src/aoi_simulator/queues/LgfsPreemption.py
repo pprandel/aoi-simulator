@@ -7,8 +7,8 @@ from reliability.Distributions import Weibull_Distribution as WB
 import json 
 
 """
-Extends QueueServer Class from queueing_tool package
-Last Generated First Served Queue with preemption
+Extends QueueServer class from queueing_tool package.
+Last Generated First Served (LGFS) Queue with preemption.
 
 Parameters
     ----------
@@ -16,7 +16,7 @@ Parameters
         Preemption in service: No waiting queue. New arrival replaces agent in service.
         Preemption in waiting: One waiting slot. New arrival replaces agent in waiting queue.
         Preemption conditional: New arrival can preemp in service or in waiting, dinamically
-    mrl_file: only for Preemption Conditional
+    mrl_file: path to json file with mean residual life function, only for Preemption Conditional (examples in data_aux folder)
     **kwargs
         Any :class:`~QueueServer` parameters.
 """
@@ -38,6 +38,8 @@ class LgfsPreemption(AoIQueueServer):
                self.num_departures, round(self._time, 3))
         return tmp.format(*arg)
 
+    # Returns mean residual life for a packet with elapsed service time 't'
+    # Approximate to the nearest time 't'
     def expected_sv(self, t):
             return self.MRL.get(t, self.MRL[min(self.MRL.keys(), key=lambda k: abs(float(k)-t))])
 

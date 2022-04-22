@@ -4,9 +4,11 @@ from aoi_simulator.queues.AoIQueueServer import AoIQueueServer
 
 """
 Extends QueueServer Class from queueing_tool package
+Multi source and multi server model
 Last Generated First Served Queue - Multi Preemption in Waiting
 LGFS: Last generated packet is served first among all packets in queue
 Multi Preemption in Waiting: Each source has a waiting queue, where preemption is allowed
+Reference: not published yet...
 Parameters
     ----------
     **kwargs

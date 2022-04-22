@@ -5,6 +5,17 @@ import aoi_simulator as aoi
 
 ##### EXEMPLO 2: FILA SIMPLES COM DUAS FONTES #####
 
+# REFERÊNCIA: 
+#     @ARTICLE{Yates_multiple_2019,
+#         author={Yates, Roy D. and Kaul, Sanjit K.},
+#         journal={IEEE Transactions on Information Theory},
+#         title={The Age of Information: Real-Time Status Updating by Multiple Sources},
+#         year={2019},
+#         volume={65},
+#         number={3},
+#         pages={1807-1827},
+#         doi={10.1109/TIT.2018.2871079}}
+
 # Nome da simulação
 sim_name = "exemplo_3"
 # Cargas totais no servidor (ro1 + ro2) que serão usadas na simulação

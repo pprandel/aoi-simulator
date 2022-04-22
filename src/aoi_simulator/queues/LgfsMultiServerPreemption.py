@@ -4,10 +4,12 @@ from aoi_simulator.queues.AoIQueueServer import AoIQueueServer
 
 """
 Extends QueueServer Class from queueing_tool package
+Multi source and multi server model
 Last Generated First Served Queue with preemption under different policies
-LGFS: Last generated packet is served first (among all sources)
-MAX-LGFS: Last generated packet from the source with the maximum age is served first
-MASIF-LGFS: Last generated packet from the source with the maximum Age of Served Information (AoSI) is served first
+Policies:
+    - LGFS: Last generated packet is served first (among all sources)
+    - MAX-LGFS: Last generated packet from the source with the maximum age is served first
+    - MASIF-LGFS: Last generated packet from the source with the maximum Age of Served Information (AoSI) is served first
 Reference: @misc{sun2018ageoptimal,
             title={Age-Optimal Updates of Multiple Information Flows}, 
             author={Yin Sun and Elif Uysal-Biyikoglu and Sastry Kompella},
@@ -90,16 +92,6 @@ class LgfsMultiServerPreemption(AoIQueueServer):
             self.set_last_departures_gen_time(new_depart_source, new_depart.gen_time)
             if self.collect_data and new_depart.agent_id in self.data:
                 self.data[new_depart.agent_id][-1][2] = self._current_t
-
-
-            # if len(self.queue) > 0:
-            #     agent = self.queue.popleft()
-            #     if self.collect_data and agent.agent_id in self.data:
-            #         self.data[agent.agent_id][-1][1] = self._current_t
-
-            #     agent._time = self.service_f(self._current_t)
-            #     agent.queue_action(self, 1)
-            #     heappush(self._departures, agent)
 
             new_depart.queue_action(self, 2)
             self._update_time()
