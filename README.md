@@ -148,9 +148,9 @@ Para rodar os exemplos, execute os seguintes passos:
 
 Cada um dos exemplos fornecios na pasta `sim_exemplos` aborda um caso de uso diferente da ferramenta. Em resumo, os casos são os seguintes:
 
-* `exemplo_1.py`: simula uma fila simples do tipo M/M/1 com regime de serviço (First Come - First Served) FCFS e carga no servidor &rho=0,5.
+* `exemplo_1.py`: simula uma fila simples do tipo M/M/1 com regime de serviço (First Come - First Served) FCFS e carga no servidor &rho;=0,5.
   
-*  `exemplo_2.py`: Realiza diversas simulações de uma fila simples do tipo M/M/1 com regime de serviço (First Come - First Served) FCFS. Para cada simulação é utilizada uma carga &rho diferente.
+*  `exemplo_2.py`: Realiza diversas simulações de uma fila simples do tipo M/M/1 com regime de serviço (First Come - First Served) FCFS. Para cada simulação é utilizada uma carga &rho; diferente.
 
 *  `exemplo_3.py`: Realiza diversas simulações de uma fila simples do tipo M/M/1 com regime de serviço (First Come - First Served) FCFS para 2 fontes.
 
@@ -159,9 +159,9 @@ Para facilitar o trabalho de visualização dos resultados, este repositório fo
 
 A execução desses exemplos segue os mesmos passos mostrados anteriormente para a execução das simulações, bastando copiar o conteúdo do arquivo e executá-lo. Os exemplos dessa pasta são os seguintes:
 
-* `plota_exemplo_2.py`: gera um gráfico mostrando os resultados da simulação do `exemplo_2.py`, mostrando a AoI média _vs_ as cargas &rho. Esses resultados simulados são comparados com os resultados previstos pelo modelo analítico (ver referências).
+* `plota_exemplo_2.py`: gera um gráfico mostrando os resultados da simulação do `exemplo_2.py`, mostrando a AoI média _vs_ as cargas &rho;. Esses resultados simulados são comparados com os resultados previstos pelo modelo analítico (ver referências).
   
-* `plota_exemplo_3.py`: gera um gráfico mostrando os resultados da simulação do `exemplo_3.py`, mostrando a evolução da AoI média para as 2 fontes em diferentes cargas &rho. Esses resultados simulados são comparados com os resultados previstos pelo modelo analítico (ver referências).
+* `plota_exemplo_3.py`: gera um gráfico mostrando os resultados da simulação do `exemplo_3.py`, mostrando a evolução da AoI média para as 2 fontes em diferentes cargas &rho;. Esses resultados simulados são comparados com os resultados previstos pelo modelo analítico (ver referências).
 
 <p align="right">(<a href="#top">voltar ao início</a>)</p>
 
