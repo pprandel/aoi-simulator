@@ -16,16 +16,22 @@ Parameters
         Preemption in service: No waiting queue. New arrival replaces agent in service.
         Preemption in waiting: One waiting slot. New arrival replaces agent in waiting queue.
         Preemption conditional: New arrival can preemp in service or in waiting, dinamically
-    mrl_file: path to json file with mean residual life function, only for Preemption Conditional (examples in data_aux folder)
+    mrl_file: path to json file with mean residual life function, only for Preemption Conditional (examples in data_aux folder) 
+    service_mean: mean value of service function
     **kwargs
         Any :class:`~QueueServer` parameters.
 """
 
 class LgfsPreemption(AoIQueueServer):
 
-    def __init__(self, preemption=0, mrl_file=None, **kwargs):
+    def __init__(self, preemption=0, mrl_file=None, service_mean=0, **kwargs):
         super(LgfsPreemption, self).__init__(**kwargs)
         self.preemption = preemption
+        self.service_mean = service_mean
+        if preemption == 2:
+            if mrl_file == None or service_mean==0:
+                print("Both mrl_file and service_mean arguments are required for LGFS-C!")
+                quit()
         with open(mrl_file, 'r') as f:
             self.MRL = json.load(f)
         self.last_departure_gen_time = 0
@@ -57,7 +63,7 @@ class LgfsPreemption(AoIQueueServer):
             if self.collect_data and new_depart.agent_id in self.data:
                 self.data[new_depart.agent_id][-1][2] = self._current_t
 
-            # Preemption in waiting 
+            # Preemption in waiting or conditional
             if len(self.queue) > 0:
                 agent = self.queue.popleft()
                 if self.collect_data and agent.agent_id in self.data:
@@ -164,7 +170,7 @@ class LgfsPreemption(AoIQueueServer):
                         s1 = agent_in_sv.gen_time
                         s2 = arrival.gen_time
                         MRL = self.expected_sv(self._current_t - self.data[agent_in_sv.agent_id][-1][1])
-                        if ((s1 - s0)*1.384) < ((s2 - s0)*MRL):
+                        if ((s1 - s0)*self.service_mean) < ((s2 - s0)*MRL):
                         # Remove agent in service  
                             agent_replaced = heappop(self._departures)
                             self.num_system -= 1
@@ -192,7 +198,7 @@ class LgfsPreemption(AoIQueueServer):
                         s1 = agent_in_sv.gen_time
                         s2 = arrival.gen_time
                         MRL = self.expected_sv(self._current_t - self.data[agent_in_sv.agent_id][-1][1])
-                        if ((s1 - s0)*1.384) < ((s2 - s0)*MRL):
+                        if ((s1 - s0)*self.service_mean) < ((s2 - s0)*MRL):
                         # Remove agent in service  
                             agent_replaced = heappop(self._departures)
                             self.num_system -= 1
