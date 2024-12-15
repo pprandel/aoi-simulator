@@ -21,50 +21,50 @@
   </a>
 
   <p align="center">
-    Uma ferramenta de simulação para a Age Of Information
+    A tool for Age Of Information simulation
     <br />
     <br />
-    <a href="https://youtu.be/xASlrlQO25o">Vídeo demonstrativo</a>
+    <a href="https://youtu.be/xASlrlQO25o">Demonstration video</a>
     ·
-    <a href="https://github.com/pprandel/aoi-simulator/issues/new">Reporte um Bug</a>
+    <a href="https://github.com/pprandel/aoi-simulator/issues/new">Reporte a Bug</a>
     ·
-    <a href="https://github.com/pprandel/aoi-simulator/issues">Solicite uma funcionalidade</a>
+    <a href="https://github.com/pprandel/aoi-simulator/issues">Request a feature</a>
   </p>
 </div>
 
 
-## Sumário
-- [Sumário](#sumário)
-- [Sobre o projeto](#sobre-o-projeto)
-  - [Construído com](#construído-com)
-- [Instalação](#instalação)
-  - [Pré-requisitos](#pré-requisitos)
-  - [Instalando a ferramenta](#instalando-a-ferramenta)
-- [Utilização](#utilização)
-  - [Plotando os resultados](#plotando-os-resultados)
-- [Contribuindo](#contribuindo)
-- [Referências Acadêmicas](#referências-acadêmicas)
-  - [Conceitos básicos](#conceitos-básicos)
-  - [Modelo computacional do aoi-simulator](#modelo-computacional-do-aoi-simulator)
-  - [Referências para os exemplos](#referências-para-os-exemplos)
-    - [Exemplos 1 e 2:](#exemplos-1-e-2)
-    - [Exemplo 3:](#exemplo-3)
-- [Licença](#licença)
-- [Contatos](#contatos)
+## Summary
+- [Summary](#sumário)
+- [About the project](#sobre-o-projeto)
+  - [Builted with](#construído-com)
+- [Instalation](#instalação)
+  - [Requirements](#pré-requisitos)
+  - [Configuring the tool](#instalando-a-ferramenta)
+- [Using the tool](#utilização)
+  - [Ploting results](#plotando-os-resultados)
+- [Contributing](#contribuindo)
+- [References](#referências-acadêmicas)
+  - [Basic concepts](#conceitos-básicos)
+  - [AoI simulator computational model](#modelo-computacional-do-aoi-simulator)
+  - [Example references](#referências-para-os-exemplos)
+    - [Examples 1 e 2:](#exemplos-1-e-2)
+    - [Example 3:](#exemplo-3)
+- [License](#licença)
+- [Contact](#contatos)
   
 <!-- ABOUT THE PROJECT -->
-## Sobre o projeto 
+## About the project 
 
-O simulador para a Age of Information (AoI) surgiu da necessidade de se possuir uma ferramenta capaz de simular um sistema ciberfísico utilizando os conceitos e as métricas relacionadas a essa área. 
+The Age of Information (AoI) simulator arose from the need to have a tool capable of simulating a cyber-physical system using the concepts and metrics related to this area. 
 
-O modelo computacional por trás desta ferramenta está descrito no artigo [Computational Modeling of Age of Information for Cyber-physical Systems](https://ieeexplore.ieee.org/document/9647854).
+The computational model behind this tool is described in the article [Computational Modeling of Age of Information for Cyber-physical Systems](https://ieeexplore.ieee.org/document/9647854).
 
-Para mais conteúdo sobre o conceito e a aplicação da AoI, recomenda-se a exploração da seção [referências acadêmicas](#referências-acadêmicas).
+For more content on the concept and application of AoI, it is recommended that you explore the section [academic references](#academic-references).
 
-Este projeto é parte de uma pesquisa de mestrado sendo desenvolvida pelo autor no programa de Pós-Graduação em Computação Aplicada da Universidade de Brasília (UnB).
+This project is part of a master's degree research developed by the author in the Postgraduate Program in Applied Computing at the University of Brasília (UnB).
 
 <!-- BUILTED WITH -->
-### Construído com 
+### Builted with 
 
 Este projeto utiliza:
 
