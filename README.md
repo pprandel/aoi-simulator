@@ -66,61 +66,61 @@ This project is part of a master's degree research developed by the author in th
 <!-- BUILTED WITH -->
 ### Builted with 
 
-Este projeto utiliza:
+This project uses:
 
 * [Python](https://www.python.org/)
 * [Queueing Tool](https://github.com/djordon/queueing-tool)
 * [Matplot Lib](https://matplotlib.org/)
 
->Link para o projeto no [PyPi](https://pypi.org/project/aoi-simulator/)
+>Link to this project on [PyPi](https://pypi.org/project/aoi-simulator/)
 
 
-<p align="right">(<a href="#top">voltar ao início</a>)</p>
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 
 
 <!-- GETTING STARTED -->
-## Instalação
+## Instalation
 
-Este tutorial iŕa guiá-lo através dos processos de instalação e utilização da ferramenta.
+This tutorial will guide you through the process of installing and using the tool.
 
-### Pré-requisitos
+### Requirements
 
-O aoi-simulator é um pacote Python, logo sua utilização independe do sistema operacional utilizado. Os pré requisitos para a instalação são:
+Aoi-simulator is a Python package, so its use does not depend on the operating system used. The prerequisites for installation are:
 * Python 3.7
-* Conhecimento básico na linguagem Python
+* Basic knowledge of Python
   
->:warning: Para SO Windows instale estritamente o Python 3.7! Para SO Linux ou Mac você pode instalar uma versão superior.
+>:warning: For Windows OS strictly install Python 3.7! For Linux or Mac OS you can install a higher version.
 
-Para instalar o Python, utilize os links abaixo. 
+To install Python, use the links below.
 * [Linux](https://python.org.br/instalacao-linux/)
 * [Windows](https://www.python.org/downloads/release/python-370/)
 * [MacOs](https://python.org.br/instalacao-mac/)
 
-### Instalando a ferramenta
+### Configuring the tool
 
-Após a instalação do Python:
+After installing Python:
 
-1. Abra o terminal de comando
+1. Open command terminal
 
-2. Confira a versão instalada do Python:
+2. Check your Python version:
     ```sh
     python --version
     ```
-    > :warning: Caso o comando não execute ou a versão não corresponda à instalada, verifique a configuração do seu `PATH`!
+    > :warning: If this command does not execute or the version does not match the one installed, check your `PATH` configuration!
 
-3. Atualize o instalador de pacotes `PIP`:
+3. Update PIP (package installer):
     ```sh
     pip install --upgrade pip
     ```
 
-4. Instale o aoi-simulator através do `PIP`:
+4. Install aoi-simulator through `PIP`:
     ```sh
     pip install aoi-simulator
     ```
 
 
-<p align="right">(<a href="#top">voltar ao início</a>)</p>
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 
 <!-- USAGE EXAMPLES -->
