@@ -57,7 +57,7 @@
 
 The Age of Information (AoI) simulator is a tool capable of simulate and evaluate a cyber-physical system, using the concepts and metrics related to AoI . 
 
-The computational model behind this tool is described in the article [Computational Modeling of Age of Information for Cyber-physical Systems](https://ieeexplore.ieee.org/document/9647854).
+The computational model behind this tool is described in our article [Computational Modeling of Age of Information for Cyber-physical Systems](https://ieeexplore.ieee.org/document/9647854).
 
 For more content on the concept and application of AoI, it is recommended that you explore the section [academic references](#academic-references).
 
