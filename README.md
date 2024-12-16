@@ -171,38 +171,39 @@ The execution of these examples follows the same steps shown previously for exec
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 <!-- CONTRIBUTING -->
-## Contribuindo
+## Contributing
 
-Todas as contribuições a este projeto serão muito bem vindas! 
-Se você tem alguma sugestão para a melhoria deste projeto e deseja implementá-la você mesmo, faça um `fork` e crie um `pull request`.  Você pode também abrir uma `issue` ou solicitar um  `enhancement`. Exemplo:
+All contributions to this project will be greatly appreciated! 
 
-1. Faça um `fork` do projeto
-2. Crie sua `Branch` (`git checkout -b feature/MinhaFeature`)
-3. Faça o `Commit` das suas mudanças (`git commit -m 'Adiciona nova funcionalidade'`)
-4. Faça o `Push` da sua `Branch` (`git push origin feature/MinhaFeature`)
-5. Abra um `Pull Request`
+If you have any suggestions for improving this project and want to implement them yourself, please fork and create a pull request.  You can also open an `issue` or request an `enhancement`. How to:
 
-Não esqueça de nos dar uma :star:, clicando no botão no canto superior direito da tela! Obrigado!
+1. Fork the project
+2. Create your `Branch` (`git checkout -b feature/MyFeature`)
+3. `Commit` your changes (`git commit -m 'Add new functionality'`)
+4. `Push` your `Branch` (`git push origin feature/MinhaFeature`)
+5. Open a `Pull Request`
 
-<p align="right">(<a href="#top">voltar ao início</a>)</p>
+Don't forget to give us a :star: by clicking the button in the top right corner of the screen! Thanks!
+
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 <!-- REFERENCES -->
-## Referências Acadêmicas
+## References
 
-Aqui você encontrará uma lista de referências acadêmicas sobre a área Age of Information. Boa leitura!
+Here you will find a list of academic references on the Age of Information area.
 
-### Conceitos básicos
+### Basic concepts
 * [Age of Information: A New Concept, Metric, and Tool](https://ieeexplore.ieee.org/document/8187436)
 * [Age of Information: An Introduction and Survey](https://ieeexplore.ieee.org/document/9380899)
   
-### Modelo computacional do aoi-simulator
+### Computational model for aoi-simulator
 * [Computational Modeling of Age of Information for Cyber-physical Systems](https://ieeexplore.ieee.org/document/9647854)
 
-### Referências para os exemplos
-#### Exemplos 1 e 2:
+### RReferences to examples
+#### Examples 1 and 2:
 * [Real-time status: How often should one update?](https://ieeexplore.ieee.org/document/6195689)
   
-#### Exemplo 3:
+#### Example 3:
 [The Age of Information: Real-Time Status
 Updating by Multiple Sources](https://ieeexplore.ieee.org/document/8469047)
 <!-- 
@@ -212,26 +213,26 @@ Systems With Packet Management](https://ieeexplore.ieee.org/document/7415972?arn
 
 
 
-<p align="right">(<a href="#top">voltar ao início</a>)</p>
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 
 <!-- LICENSE -->
-## Licença
+## License
 
-Este projeto utiliza a licença MIT. Veja `LICENSE` para mais informações.
+This project is licensed under MIT. See `LICENSE` to more informations.
 
-<p align="right">(<a href="#top">voltar ao início</a>)</p>
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 
 
 <!-- CONTACT -->
-## Contatos
+## Contacts
 
-Paulo Prandel - pauloprandel@hotmail.com ou paulo.prandel@aluno.unb.br
+Paulo Prandel - pauloprandel@hotmail.com
 
 Priscila Barreto - pris@unb.br
 
-<p align="right">(<a href="#top">voltar ao início</a>)</p>
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
